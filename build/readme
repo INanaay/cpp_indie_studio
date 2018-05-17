@@ -1,0 +1,3 @@
+Execute "cmake .." from this folder to generate the project
+
+Just delete this folder if you want to rebuild the project.
