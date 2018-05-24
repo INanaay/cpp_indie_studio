@@ -1,0 +1,3 @@
+/home/NANAA/Tek2/irrlitchtest/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/NANAA/Tek2/irrlitchtest/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/NANAA/Tek2/irrlitchtest/cmake-build-debug/CMakeFiles/irrlitchtest.dir
