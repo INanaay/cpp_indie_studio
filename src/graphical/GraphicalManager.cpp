@@ -6,15 +6,15 @@
 */
 
 #include <vector>
-#include "../../../include/graphical/entities/Renderer.hpp"
+#include "../../include/graphical/GraphicalManager.hpp"
 
 //CTOR
-Renderer::Renderer(const std::vector<GraphicalEntity> &entites)
+GraphicalManager::GraphicalManager(const std::vector<GraphicalEntity> &entites)
 {
 }
 
 //CHARACTER FUNCTIONS
-GraphicalEntity &Renderer::characterInspect(int64_t id)
+GraphicalEntity &GraphicalManager::characterInspect(int64_t id)
 {
 	if (m_entities.find(id) == m_entities.end())
 		throw std::runtime_error("cannot find requested entity.");
@@ -24,7 +24,7 @@ GraphicalEntity &Renderer::characterInspect(int64_t id)
 		throw std::runtime_error("requested entity isn't a character.");
 	return (*entity);
 }
-void Renderer::onCharacterIdle(int64_t id)
+void GraphicalManager::onCharacterIdle(int64_t id)
 {
 	auto character = characterInspect(id);
 
@@ -33,7 +33,7 @@ void Renderer::onCharacterIdle(int64_t id)
 	if (character.status == GraphicalEntityStatus::IDLE)
 		return;
 }
-void Renderer::onCharacterMove(int64_t id)
+void GraphicalManager::onCharacterMove(int64_t id)
 {
 	auto character = characterInspect(id);
 
@@ -44,7 +44,7 @@ void Renderer::onCharacterMove(int64_t id)
 
 	character.status = GraphicalEntityStatus::MOVING;
 }
-void Renderer::onCharacterDied(int64_t id)
+void GraphicalManager::onCharacterDied(int64_t id)
 {
 	auto character = characterInspect(id);
 
