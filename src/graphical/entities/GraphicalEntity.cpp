@@ -6,10 +6,9 @@
 */
 
 #include <cstdint>
-#include "../../../include/graphical/entities/GraphicalEntity.hpp"
+#include "GraphicalEntity.hpp"
 
-GraphicalEntity::GraphicalEntity
-(int64_t id, EntityType type, EntityPosition &position, irr::scene::IAnimatedMeshSceneNode *node)
+GraphicalEntity::GraphicalEntity (int64_t id, EntityType type, EntityPosition &position, irr::scene::IAnimatedMeshSceneNode *node)
 : BaseEntity(id, type, position), node(node), status(GraphicalEntityStatus::IDLE)
 {
 

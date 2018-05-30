@@ -5,37 +5,7 @@ cmake_minimum_required (VERSION 3.0)
 project (indieStudio)
 set (Tutorial_VERSION_MAJOR 1)
 set (Tutorial_VERSION_MINOR 0)
-
-################# VARIABLES #################
-
-set(BASE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
-set(LIBS_PATH ${CMAKE_CURRENT_SOURCE_DIR}/libs)
-set(SRC_PATH ${BASE_PATH}/src)
-set(INC_PATH ${BASE_PATH}/include)
-set(IRRLICH_DIR ${LIBS_PATH}/irrlicht-1.8.4)
-set(IRRLICH_BIN_DIR ${IRRLICH_DIR}/bin)
-set(EXECUTABLE_OUTPUT_PATH "../dist")
-
-file(GLOB_RECURSE HDR_FILES ${BASE_PATH}/include/*.hpp)
-file(GLOB_RECURSE SRC_FILES ${BASE_PATH}/src/*.cpp)
-
-############# PLATFORM HANDLING #############
-
-if (MSVC)
-    message(STATUS Compiling for Windows MSVC)
-    set(LIBRARIES ${IRRLICH_DIR}/lib/Win32-visualstudio/Irrlicht.lib)
-    set(LIBRARIES_RUNTIME ${IRRLICH_DIR}/bin/Win32-VisualStudio/Irrlicht.dll)
-    install(FILES ${LIBRARIES_RUNTIME} DESTINATION ${BASE_PATH}/dist)
-    set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES
-            "${BASE_PATH}/dist/Irrlicht.dll"
-            "${BASE_PATH}/dist/indieStudio.ilk"
-            "${BASE_PATH}/dist/indieStudio")
-endif(MSVC)
-
-if (UNIX)
-    message(STATUS Compiling for UNIX)
-    # Ajouter le path vers la librairie UNIX
-endif(UNIX)
+enable_language(CXX)
 
 ################### MACROS ####################
 
@@ -49,14 +19,53 @@ MACRO(HEADER_DIRECTORIES return_list)
     LIST(REMOVE_DUPLICATES dir_list)
 ENDMACRO()
 
+################# VARIABLES #################
 
-################# COMPILATION #################
+set(BASE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(LIBS_PATH ${CMAKE_CURRENT_SOURCE_DIR}/libs)
+set(SRC_PATH ${BASE_PATH}/src)
+set(INC_PATH ${BASE_PATH}/include)
+set(IRRLICH_DIR ${LIBS_PATH}/irrlicht-1.8.4)
+set(IRRLICH_BIN_DIR ${IRRLICH_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH "../dist")
+
+message(STATUS ${BASE_PATH})
+
+file(GLOB_RECURSE HDR_FILES ${BASE_PATH}/include/*.hpp)
+file(GLOB_RECURSE SRC_FILES ${BASE_PATH}/src/*.cpp)
 
 HEADER_DIRECTORIES(${BASE_PATH}/include)
 
-include_directories(${IRRLICH_DIR}/include/
-                    ${dir_list})
+############# PLATFORM HANDLING #############
+
+if (MSVC)
+    message(STATUS Compiling for Windows MSVC)
+    set(LIBRARIES ${IRRLICH_DIR}/lib/Win32-visualstudio/Irrlicht.lib)
+    set(LIBRARIES_RUNTIME ${IRRLICH_DIR}/bin/Win32-VisualStudio/Irrlicht.dll)
+    install(FILES ${LIBRARIES_RUNTIME} DESTINATION ${BASE_PATH}/dist)
+    include_directories(${IRRLICH_DIR}/include/
+   	                ${dir_list})
+endif(MSVC)
+
+if (UNIX)
+    message(STATUS "Compiling for UNIX")
+
+    set(LIBRARIES ${LIBRARIES} ${IRRLICH_DIR}/lib/Linux/libIrrlicht.a)
+
+    set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES
+            "${BASE_PATH}/dist/Irrlicht.dll"
+            "${BASE_PATH}/dist/indieStudio.ilk"
+            "${BASE_PATH}/dist/indieStudio")
+    include_directories(${IRRLICH_DIR}/include/
+    		                ${dir_list})
+endif(UNIX)
+
+################# COMPILATION #################
 
 add_executable(indieStudio ${HDR_FILES} ${SRC_FILES})
 target_link_libraries(indieStudio ${LIBRARIES})
 
+
+################ CRITERION ####################
+
+set (CRITERION "False" CACHE STRING "Enable/Disable criterion [True | False]")

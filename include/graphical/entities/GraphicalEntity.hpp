@@ -8,8 +8,10 @@
 #ifndef CPP_INDIE_STUDIO_GRAPHICALENTITY_HPP
 #define CPP_INDIE_STUDIO_GRAPHICALENTITY_HPP
 
-#include <IAnimatedMeshSceneNode.h>
-#include "../../core/entities/BaseEntity.hpp"
+//#include <IAnimatedMeshSceneNode.h>
+#include "BaseEntity.hpp"
+#include "irrlicht.h"
+
 
 enum GraphicalEntityStatus
 {
@@ -18,12 +20,10 @@ enum GraphicalEntityStatus
 	MOVING,
 };
 
-
 struct GraphicalEntity : public BaseEntity
 {
 	//CTOR
-	GraphicalEntity
-	(int64_t id, EntityType type, EntityPosition &position, irr::scene::IAnimatedMeshSceneNode *node);
+	GraphicalEntity (int64_t, EntityType, EntityPosition &, irr::scene::IAnimatedMeshSceneNode *);
 
 	GraphicalEntityStatus status;
 	irr::scene::IAnimatedMeshSceneNode *node;
