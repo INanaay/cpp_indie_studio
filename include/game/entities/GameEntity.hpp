@@ -12,7 +12,9 @@
 
 class GameEntity : public BaseEntity
 {
+public:
 	explicit GameEntity(uint64_t id, EntityType type, EntityPosition &position) : BaseEntity(id, type, position) {};
+private:
 };
 
 #endif //CPP_INDIE_STUDIO_GAMEENTITY_HPP
