@@ -47,7 +47,7 @@ if (MSVC)
    	                ${dir_list})
 endif(MSVC)
 
-if (UNIX)
+if (UNIX AND NOT APPLE)
     message(STATUS "Compiling for UNIX")
 
     set(LIBRARIES ${LIBRARIES} ${IRRLICH_DIR}/lib/Linux/libIrrlicht.a)
@@ -58,7 +58,19 @@ if (UNIX)
             "${BASE_PATH}/dist/indieStudio")
     include_directories(${IRRLICH_DIR}/include/
     		                ${dir_list})
-endif(UNIX)
+endif(UNIX AND NOT APPLE)
+
+if (APPLE AND UNIX)
+    message(STATUS "Compiling for UNIX")
+    set(LIBRARIES ${LIBRARIES} ${IRRLICH_DIR}/lib/MacOSX/libIrrlicht.a)
+
+    set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES
+            "${BASE_PATH}/dist/Irrlicht.dll"
+            "${BASE_PATH}/dist/indieStudio.ilk"
+            "${BASE_PATH}/dist/indieStudio")
+    include_directories(${IRRLICH_DIR}/include/
+    		                ${dir_list})
+endif()
 
 ################# COMPILATION #################
 

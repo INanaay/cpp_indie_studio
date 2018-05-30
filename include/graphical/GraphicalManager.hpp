@@ -27,7 +27,7 @@ public:
 
 private:
 	//FIELDS
-	std::unordered_map<int64_t, std::unique_ptr<GraphicalEntity>> m_entities;
+	std::unordered_map<int64_t, std::unique_ptr<GraphicalEntity> > m_entities;
 
 	//FUNCTIONS
 	GraphicalEntity &characterInspect(int64_t id);
