@@ -13,12 +13,12 @@
 #include <memory>
 #include "GraphicalEntity.hpp"
 
-class Renderer
+class GraphicalManager
 {
 public:
 	//CTOR DTOR
-	Renderer(const std::vector<GraphicalEntity> &entities); // will be use to initialize the MeshSceneNodes
-	~Renderer() = default;
+	GraphicalManager(const std::vector<GraphicalEntity> &entities); // will be use to initialize the MeshSceneNodes
+	~GraphicalManager() = default;
 
 	//FUNCTIONS
 	void onCharacterIdle(int64_t id);

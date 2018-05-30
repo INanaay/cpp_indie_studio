@@ -6,11 +6,13 @@
 */
 
 #include <vector>
-#include "../../include/graphical/GraphicalManager.hpp"
+#include <GraphicalEntity.hpp>
+#include <GraphicalManager.hpp>
 
 //CTOR
 GraphicalManager::GraphicalManager(const std::vector<GraphicalEntity> &entites)
 {
+
 }
 
 //CHARACTER FUNCTIONS
