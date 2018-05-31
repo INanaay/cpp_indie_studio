@@ -10,9 +10,12 @@
 #include <GraphicalManager.hpp>
 
 //CTOR
-GraphicalManager::GraphicalManager(const std::vector<GraphicalEntity> &entites)
+GraphicalManager::GraphicalManager
+(std::shared_ptr<Core> core, const std::vector<GraphicalEntity> &entities)
 {
-
+	m_core = core;
+	for (auto &entity: entities)
+		m_entities[entity.id] = std::make_unique<GraphicalEntity>(entity);
 }
 
 //CHARACTER FUNCTIONS
@@ -57,3 +60,4 @@ void GraphicalManager::onCharacterDied(int64_t id)
 
 	character.status = GraphicalEntityStatus::DYING;
 }
+

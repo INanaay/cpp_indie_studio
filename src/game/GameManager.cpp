@@ -6,3 +6,11 @@
 */
 
 #include "../../include/game/GameManager.hpp"
+
+GameManager::GameManager
+(std::shared_ptr<Core> core, const std::vector<GameEntity> &entities)
+{
+	m_core = core;
+	for (auto &entity: entities)
+		m_entities[entity.id] = std::make_unique<GameEntity>(entity);
+}

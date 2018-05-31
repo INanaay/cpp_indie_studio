@@ -11,13 +11,14 @@
 #include <unordered_map>
 #include <IAnimatedMeshSceneNode.h>
 #include <memory>
+#include <Core.hpp>
 #include "GraphicalEntity.hpp"
 
 class GraphicalManager
 {
 public:
 	//CTOR DTOR
-	GraphicalManager(const std::vector<GraphicalEntity> &entities); // will be use to initialize the MeshSceneNodes
+	GraphicalManager(std::shared_ptr<Core> core, const std::vector<GraphicalEntity> &entities); // will be use to initialize the MeshSceneNodes
 	~GraphicalManager() = default;
 
 	//FUNCTIONS
@@ -27,6 +28,7 @@ public:
 
 private:
 	//FIELDS
+	std::shared_ptr<Core> m_core;
 	std::unordered_map<int64_t, std::unique_ptr<GraphicalEntity> > m_entities;
 
 	//FUNCTIONS
