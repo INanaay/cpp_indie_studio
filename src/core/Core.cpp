@@ -11,10 +11,8 @@
 
 //CTOR
 Core::Core()
-: m_gameRunning(false), m_graphicalRunning(false)
+: m_gameRunning(false), m_graphicalRunning(false), m_engine(1080, 720)
 {
-	//generate menu
-	//when game is launched -> generate map
 }
 
 

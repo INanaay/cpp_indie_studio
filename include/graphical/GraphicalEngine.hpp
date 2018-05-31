@@ -14,27 +14,29 @@ using Driver = irr::video::IVideoDriver *;
 using Scene = irr::scene::ISceneManager *;
 using Gui = irr::gui::IGUIEnvironment *;
 
-namespace Rendering {
-
-    class GraphicalEngine {
+class GraphicalEngine
+{
     public:
-        GraphicalEngine(uint32_t x, uint32_t y);
-        ~GraphicalEngine() noexcept = default;
+            GraphicalEngine(uint32_t x, uint32_t y);
+            ~GraphicalEngine() noexcept = default;
 
-        bool isRunning() const noexcept { return _device->run(); };
+            bool isRunning() const noexcept
+            { return _device->run(); };
 
-        const Device getDevice() const noexcept { return _device; };
-        const Driver getDriver() const noexcept { return _driver; };
-        const Scene getScene() const noexcept { return _scene; };
-        const Gui getGui() const noexcept { return _gui; };
+            const Device getDevice() const noexcept
+            { return _device; };
+            const Driver getDriver() const noexcept
+            { return _driver; };
+            const Scene getScene() const noexcept
+            { return _scene; };
+            const Gui getGui() const noexcept
+            { return _gui; };
 
     private:
-        Device _device;
-        Driver _driver;
-        Scene _scene;
-        Gui _gui;
-    };
-}
-
+            Device _device;
+            Driver _driver;
+            Scene _scene;
+            Gui _gui;
+};
 
 #endif //INDIESTUDIO_GRAPHICALINITIALIZER_H

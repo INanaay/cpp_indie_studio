@@ -5,8 +5,7 @@
 #include <stdexcept>
 #include <GraphicalEngine.hpp>
 
-
-Rendering::GraphicalEngine::GraphicalEngine(uint32_t x, uint32_t y)
+GraphicalEngine::GraphicalEngine(uint32_t x, uint32_t y)
 {
     _device = irr::createDevice(irr::video::EDT_SOFTWARE,
             irr::core::dimension2d<irr::u32>(x, y), 16, false, false, false, 0);

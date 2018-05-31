@@ -14,6 +14,7 @@
 #include <GraphicalManager.hpp>
 #include <entities/UserAction.hpp>
 #include <mutex>
+#include <GraphicalEngine.hpp>
 
 class Core
 {
@@ -33,6 +34,7 @@ private:
 	//FIELDS
 	bool m_gameRunning;
 	bool m_graphicalRunning;
+	GraphicalEngine m_engine;
 	std::mutex m_actionsLock;
 	std::thread m_gameThread;
 	std::thread m_graphicalThread;
