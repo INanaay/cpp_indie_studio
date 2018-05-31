@@ -12,8 +12,6 @@ extern bool is_running;
 struct SAppContext
 {
 	irr::IrrlichtDevice *device;
-	irr::s32 counter;
-	irr::gui::IGUIListBox *listbox;
 };
 
 enum Buttonss

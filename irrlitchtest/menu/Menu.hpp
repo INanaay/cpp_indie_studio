@@ -17,16 +17,15 @@
 
 class Menu {
 private:
-	std::string m_fontpath;
 	irr::IrrlichtDevice *device;
 	irr::video::IVideoDriver *m_driver;
 	irr::gui::IGUIEnvironment *m_env;
 	irr::gui::IGUISkin *m_skin;
 	irr::gui::IGUIFont *m_font;
 	void initGUI();
-public:
-	Menu(const std::string &fontpath);
 	void display();
+public:
+	Menu();
 };
 
 
