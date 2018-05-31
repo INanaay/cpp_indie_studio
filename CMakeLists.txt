@@ -74,7 +74,7 @@ endif()
 
 ################# COMPILATION #################
 
-add_executable(indieStudio ${HDR_FILES} ${SRC_FILES})
+add_executable(indieStudio ${HDR_FILES} ${SRC_FILES} src/core/Core.cpp include/core/Core.hpp include/core/entities/UserAction.hpp)
 target_link_libraries(indieStudio ${LIBRARIES})
 
 
