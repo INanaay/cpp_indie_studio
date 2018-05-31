@@ -4,7 +4,7 @@ project(irrlitchtest)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        main.cpp)
+        main.cpp menu/Menu.cpp menu/Menu.hpp menu/MenuEventHandler.cpp menu/MenuEventHandler.hpp menu/main.cpp)
 
 set(IRRLICHT_INCLUDE_DIR /usr/include/Irrlitch)
 

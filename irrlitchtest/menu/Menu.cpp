@@ -8,8 +8,9 @@
 
 bool is_running;
 
-Menu::Menu(const std::string &fontpath) : m_fontpath(fontpath)
+Menu::Menu()
 {
+	std::cout << "yo" << std::endl;
 	is_running = true;
 	display();
 }
@@ -34,7 +35,7 @@ void Menu::initGUI()
 void Menu::display()
 {
 	irr::IrrlichtDevice *device = irr::createDevice(irr::video::EDT_SOFTWARE, irr::core::dimension2d<irr::u32>(SCREEN_WIDTH, SCREEN_HEIGHT), 16,
-							false, false, false, NULL) ; // switch to receiver
+							false, false, false, NULL) ;
 	if (device == 0)
 		throw std::exception();
 	device->setWindowCaption(L"Bomberman");
@@ -42,20 +43,16 @@ void Menu::display()
 	m_driver = device->getVideoDriver();
 	m_env = device->getGUIEnvironment();
 	m_skin = m_env->getSkin();
-	m_font = m_env->getFont(m_fontpath.c_str());
+	m_font = m_env->getFont("bebas.ttf");
 	if (m_font)
 		m_skin->setFont(m_font);
 	else
 		m_skin->setFont(m_env->getBuiltInFont(), irr::gui::EGDF_TOOLTIP);
 	initGUI();
-	auto listbox = m_env->addListBox(irr::core::rect<irr::s32>(50, 140, 250, 210));
 	SAppContext context;
 	context.device = device;
-	context.counter = 0;
-	context.listbox = listbox;
 	MenuEventHandler eventHandler(context);
 	device->setEventReceiver(&eventHandler);
-
 	while (device->run() && m_driver && is_running) {
 		if (device->isWindowActive()) {
 			m_driver->beginScene(true, true, irr::video::SColor(0, 200, 200, 200));
