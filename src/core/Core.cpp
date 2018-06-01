@@ -11,8 +11,9 @@
 
 //CTOR
 Core::Core()
-: m_gameRunning(false), m_graphicalRunning(false), m_engine(1080, 720)
+: m_gameRunning(false), m_graphicalRunning(false)
 {
+	m_engine = std::make_unique<GraphicalEngine>(1080, 720);
 }
 
 

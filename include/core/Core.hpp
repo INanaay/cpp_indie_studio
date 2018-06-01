@@ -8,13 +8,13 @@
 #ifndef INDIESTUDIO_CORE_HPP
 #define INDIESTUDIO_CORE_HPP
 
+#include <mutex>
 #include <queue>
 #include <thread>
 #include <GameManager.hpp>
+#include <GraphicalEngine.hpp>
 #include <GraphicalManager.hpp>
 #include <entities/UserAction.hpp>
-#include <mutex>
-#include <GraphicalEngine.hpp>
 
 class Core
 {
@@ -34,11 +34,11 @@ private:
 	//FIELDS
 	bool m_gameRunning;
 	bool m_graphicalRunning;
-	GraphicalEngine m_engine;
 	std::mutex m_actionsLock;
 	std::thread m_gameThread;
 	std::thread m_graphicalThread;
 	std::queue<UserAction> m_userActions;
+	std::unique_ptr<GraphicalEngine> m_engine;
 	std::unique_ptr<GameManager> m_gameManager;
 	std::unique_ptr<GraphicalManager> m_graphicalManager;
 

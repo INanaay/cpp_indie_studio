@@ -25,6 +25,9 @@ set(BASE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set(LIBS_PATH ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 set(SRC_PATH ${BASE_PATH}/src)
 set(INC_PATH ${BASE_PATH}/include)
+set(X11_DIR ${LIBS_PATH}/X11)
+set(XXF86VM_DIR ${LIBS_PATH}/Xxf86vm)
+set(GL_DIR ${LIBS_PATH}/GL)
 set(IRRLICH_DIR ${LIBS_PATH}/irrlicht-1.8.4)
 set(IRRLICH_BIN_DIR ${IRRLICH_DIR}/bin)
 set(EXECUTABLE_OUTPUT_PATH "../dist")
@@ -51,6 +54,9 @@ if (UNIX AND NOT APPLE)
     message(STATUS "Compiling for UNIX")
 
     set(LIBRARIES ${LIBRARIES} ${IRRLICH_DIR}/lib/Linux/libIrrlicht.a)
+    set(LIBRARIES ${LIBRARIES} ${X11_DIR}/libX11.so.6.3.0)
+    set(LIBRARIES ${LIBRARIES} ${XXF86VM_DIR}/libXxf86vm.so.1)
+    set(LIBRARIES ${LIBRARIES} ${GL_DIR}/libGL.so)
 
     set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES
             "${BASE_PATH}/dist/Irrlicht.dll"
