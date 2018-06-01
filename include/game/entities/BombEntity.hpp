@@ -14,7 +14,7 @@
 class BombEntity : public GameEntity {
 	bool has_been_droped = false;
 	std::thread timerThread;
-	static void BombEntity::startTimer(const BombEntity &self);
+	static void startTimer(const BombEntity &self);
 public:
 	explicit BombEntity(uint64_t id, EntityPosition &position) : GameEntity(id, BOMB, position) {};
 	bool drop(EntityPosition &new_pos);
