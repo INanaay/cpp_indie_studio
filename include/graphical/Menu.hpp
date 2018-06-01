@@ -10,6 +10,7 @@
 #include <IGUIEnvironment.h>
 #include <iostream>
 #include <IrrlichtDevice.h>
+#include "GraphicalEngine.hpp"
 
 #define SCREEN_WIDTH 1080
 #define SCREEN_HEIGHT 720
@@ -17,7 +18,8 @@
 
 class Menu {
 private:
-	irr::IrrlichtDevice *device;
+	GraphicalEngine &m_engine;
+	irr::IrrlichtDevice *m_device;
 	irr::video::IVideoDriver *m_driver;
 	irr::gui::IGUIEnvironment *m_env;
 	irr::gui::IGUISkin *m_skin;
@@ -25,7 +27,7 @@ private:
 	void initGUI();
 	void display();
 public:
-	Menu();
+	Menu(GraphicalEngine &engine);
 };
 
 

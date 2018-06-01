@@ -15,3 +15,4 @@ GraphicalEngine::GraphicalEngine(uint32_t x, uint32_t y)
     _scene = _device->getSceneManager();
     _gui = _device->getGUIEnvironment();
 }
+

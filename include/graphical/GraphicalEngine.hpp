@@ -31,11 +31,13 @@ class GraphicalEngine
             const Gui getGui() const noexcept
             { return _gui; };
 
+
     private:
             Device _device;
             Driver _driver;
             Scene _scene;
             Gui _gui;
+
 };
 
 #endif //INDIESTUDIO_GRAPHICALINITIALIZER_H
