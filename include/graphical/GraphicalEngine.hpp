@@ -7,7 +7,6 @@
 
 #include <irrlicht.h>
 #include <cstdint>
-#include "GraphicalManager.hpp"
 
 using Device = irr::IrrlichtDevice *;
 using Driver = irr::video::IVideoDriver *;
