@@ -12,9 +12,9 @@
 #include "BombEntity.hpp"
 
 class PlayerEntity : public GameEntity {
-	const BombEntity &bomb;
+	BombEntity &bomb;
 public:
-	explicit PlayerEntity(uint64_t id, EntityPosition &position, const BombEntity &bomb) : GameEntity(id, CHARACTER, position), bomb(bomb) {};
+	explicit PlayerEntity(uint64_t id, EntityPosition &position, BombEntity &bomb) : GameEntity(id, CHARACTER, position), bomb(bomb) {};
 	bool dropBomb() { return (bomb.drop(position)); };
 };
 
