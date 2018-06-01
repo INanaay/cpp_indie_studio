@@ -60,5 +60,17 @@ void Menu::display()
 			m_driver->endScene();
 		}
 	}
-	device->drop();
+
+	const auto &children = m_env->getRootGUIElement()->getChildren();
+	while (!children.empty())
+		(*children.getLast())->remove(); // Move to Dtor when deleteing loop
+	//m_device->drop();
+	while (device->run() && m_driver) {
+		if (device->isWindowActive()) {
+			m_driver->beginScene(true, true, irr::video::SColor(0, 200, 200, 200));
+			m_env->drawAll();
+			m_driver->endScene();
+		}
+	}
+
 }
