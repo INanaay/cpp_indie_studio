@@ -22,6 +22,7 @@ enum EntityType
 	WALL,
 	GROUND,
 	CHARACTER,
+	BOMB
 };
 
 struct BaseEntity
