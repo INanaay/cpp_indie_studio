@@ -26,7 +26,7 @@ bool BombEntity::drop(EntityPosition &new_pos)
 //TODO link to graphical events
 void BombEntity::startTimer()
 {
-	std::this_thread::sleep_for(2s);
+	std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(2000));
 	explode();
 }
 
