@@ -29,6 +29,8 @@ public:
 
 private:
 	SAppContext &m_context;
+public:
+	void setM_context(SAppContext &m_context);
 };
 
 
