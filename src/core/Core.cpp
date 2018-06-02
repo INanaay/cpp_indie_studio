@@ -5,8 +5,9 @@
 **      Made on 2018/05 by lebovin
 */
 
-#include <Core.hpp>
-#include <Map.hpp>
+#include "Core.hpp"
+#include "Menu.hpp"
+#include "Map.hpp"
 
 /*!
  * \brief Core Constructor, init the engine.
@@ -40,7 +41,18 @@ void Core::play()
  * \warning This may throw exception
  */
 
-void Core::menu()
-{
-
+void Core::menu() {
+    Menu menu(*m_engine);
+    auto driver = m_engine->getDriver();
+    auto env = m_engine->getGui();
+    while (m_engine->getDevice()->run()) {
+        if (m_engine->getDevice()->isWindowActive()) {
+            if (!is_running) {
+                menu.clearGUI();
+            }
+            driver->beginScene(true, true, irr::video::SColor(0, 200, 200, 200));
+            env->drawAll();
+            driver->endScene();
+        }
+    }
 }
