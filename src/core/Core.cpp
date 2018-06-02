@@ -47,7 +47,7 @@ void Core::menu() {
     auto env = m_engine->getGui();
     while (m_engine->getDevice()->run()) {
         if (m_engine->getDevice()->isWindowActive()) {
-            if (!is_running) {
+            if (!m_engine->getContext().isMenuRunning) {
                 menu.clearGUI();
             }
             driver->beginScene(true, true, irr::video::SColor(0, 200, 200, 200));

@@ -32,7 +32,7 @@ public:
 
 	const Gui getGui() const noexcept { return _gui; };
 
-	MenuEventHandler &getMenuEventHandler() {return eventHandler;};
+	const SAppContext &getContext() const noexcept { return _context; }
 
 	MenuEventHandler eventHandler;
 

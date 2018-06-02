@@ -7,14 +7,11 @@
 #include "MenuEventHandler.hpp"
 #include "GraphicalEngine.hpp"
 
-bool is_running;
-
 Menu::Menu(GraphicalEngine &engine) : m_engine(engine)
 {
 	m_device = engine.getDevice();
 	m_driver = engine.getDriver();
 	m_env = engine.getGui();
-	is_running = true;
 	display();
 }
 
