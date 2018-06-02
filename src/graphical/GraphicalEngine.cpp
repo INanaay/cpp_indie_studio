@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <GraphicalEngine.hpp>
 
-GraphicalEngine::GraphicalEngine(uint32_t x, uint32_t y)
+GraphicalEngine::GraphicalEngine(uint32_t x, uint32_t y) : eventHandler(_context)
 {
     _device = irr::createDevice(irr::video::EDT_SOFTWARE,
             irr::core::dimension2d<irr::u32>(x, y), 16, false, false, false, 0);
@@ -15,4 +15,7 @@ GraphicalEngine::GraphicalEngine(uint32_t x, uint32_t y)
     _scene = _device->getSceneManager();
     _gui = _device->getGUIEnvironment();
 }
+
+GraphicalEngine::GraphicalEngine(const MenuEventHandler &eventHandler) : eventHandler(eventHandler) {}
+
 

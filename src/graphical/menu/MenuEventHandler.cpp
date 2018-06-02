@@ -45,3 +45,7 @@ bool MenuEventHandler::OnEvent(const irr::SEvent &event)
 
 	return false;
 }
+
+void MenuEventHandler::setM_context(SAppContext &context) {
+	MenuEventHandler::m_context = context;
+}

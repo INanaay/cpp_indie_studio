@@ -7,37 +7,42 @@
 
 #include <irrlicht.h>
 #include <cstdint>
+#include "MenuEventHandler.hpp"
 
 using Device = irr::IrrlichtDevice *;
 using Driver = irr::video::IVideoDriver *;
 using Scene = irr::scene::ISceneManager *;
 using Gui = irr::gui::IGUIEnvironment *;
 
-class GraphicalEngine
-{
-    public:
-            GraphicalEngine(uint32_t x, uint32_t y);
-            ~GraphicalEngine() noexcept = default;
+class GraphicalEngine {
+public:
+	GraphicalEngine(uint32_t x, uint32_t y);
 
-            bool isRunning() const noexcept
-            { return _device->run(); };
+	GraphicalEngine(const MenuEventHandler &eventHandler);
 
-            const Device getDevice() const noexcept
-            { return _device; };
-            const Driver getDriver() const noexcept
-            { return _driver; };
-            const Scene getScene() const noexcept
-            { return _scene; };
-            const Gui getGui() const noexcept
-            { return _gui; };
+	~GraphicalEngine() noexcept = default;
+
+	bool isRunning() const noexcept { return _device->run(); };
+
+	const Device getDevice() const noexcept { return _device; };
+
+	const Driver getDriver() const noexcept { return _driver; };
+
+	const Scene getScene() const noexcept { return _scene; };
+
+	const Gui getGui() const noexcept { return _gui; };
+
+	MenuEventHandler &getMenuEventHandler() {return eventHandler;};
+
+	MenuEventHandler eventHandler;
 
 
-    private:
-            Device _device;
-            Driver _driver;
-            Scene _scene;
-            Gui _gui;
-
+private:
+	Device _device;
+	Driver _driver;
+	Scene _scene;
+	Gui _gui;
+	SAppContext _context;
 };
 
 #endif //INDIESTUDIO_GRAPHICALINITIALIZER_H

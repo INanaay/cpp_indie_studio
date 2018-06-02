@@ -11,6 +11,7 @@
 #include <iostream>
 #include <IrrlichtDevice.h>
 #include "GraphicalEngine.hpp"
+#include "MenuEventHandler.hpp"
 
 #define SCREEN_WIDTH 1080
 #define SCREEN_HEIGHT 720
@@ -24,10 +25,12 @@ private:
 	irr::gui::IGUIEnvironment *m_env;
 	irr::gui::IGUISkin *m_skin;
 	irr::gui::IGUIFont *m_font;
+	MenuEventHandler *m_eventHandler;
 	void initGUI();
 	void display();
 public:
 	Menu(GraphicalEngine &engine);
+	void clearGUI();
 };
 
 

@@ -35,11 +35,16 @@ void Menu::initGUI()
 			 L"QUIT", L"Exits Program");
 }
 
+void Menu::clearGUI()
+{
+	const auto &children = m_env->getRootGUIElement()->getChildren();
+	while (!children.empty())
+		(*children.getLast())->remove(); // Move to Dtor when deleteing loop
+}
+
 void Menu::display() {
 	m_device->setWindowCaption(L"Bomberman");
 	m_device->setResizable(false);
-	//m_driver = m_device->getVideoDriver();
-	//m_env = m_device->getGUIEnvironment();
 	m_skin = m_env->getSkin();
 	m_font = m_env->getFont("bebas.ttf");
 	if (m_font)
@@ -49,30 +54,7 @@ void Menu::display() {
 	initGUI();
 	SAppContext context;
 	context.device = m_device;
-	MenuEventHandler eventHandler(context);
-	//m_device->setEventReceiver(&eventHandler);
+	m_engine.eventHandler.setM_context(context);
+	m_device->setEventReceiver(&m_engine.eventHandler);
 
-
-	/*
-	while (m_device->run() && m_driver && is_running) {
-		if (m_device->isWindowActive()) {
-			m_driver->beginScene(true, true, irr::video::SColor(0, 200, 200, 200));
-			m_env->drawAll();
-			m_driver->endScene();
-		}
-	}
-
-	const auto &children = m_env->getRootGUIElement()->getChildren();
-	while (!children.empty())
-		(*children.getLast())->remove(); // Move to Dtor when deleteing loop
-	//m_m_device->drop();
-	while (m_device->run() && m_driver) {
-		if (m_device->isWindowActive()) {
-			m_driver->beginScene(true, true, irr::video::SColor(0, 200, 200, 200));
-			m_env->drawAll();
-			m_driver->endScene();
-		}
-
-	}
-	 */
 }
