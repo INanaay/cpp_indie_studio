@@ -57,7 +57,6 @@ if (UNIX AND NOT APPLE)
     set(LIBRARIES ${LIBRARIES} ${X11_DIR}/libX11.so.6.3.0)
     set(LIBRARIES ${LIBRARIES} ${XXF86VM_DIR}/libXxf86vm.so.1)
     set(LIBRARIES ${LIBRARIES} ${GL_DIR}/libGL.so)
-
     set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES
             "${BASE_PATH}/dist/Irrlicht.dll"
             "${BASE_PATH}/dist/indieStudio.ilk"
@@ -80,7 +79,7 @@ endif()
 
 ################# COMPILATION #################
 
-add_executable(indieStudio ${HDR_FILES} ${SRC_FILES} src/core/Core.cpp include/core/Core.hpp include/core/entities/UserAction.hpp)
+add_executable(indieStudio ${HDR_FILES} ${SRC_FILES} src/core/Core.cpp include/core/Core.hpp)
 target_link_libraries(indieStudio ${LIBRARIES})
 
 

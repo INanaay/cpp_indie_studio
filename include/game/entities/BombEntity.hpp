@@ -9,13 +9,13 @@
 #define CPP_INDIE_STUDIO_BOMBENTITY_HPP
 
 #include <thread>
-#include "GameEntity.hpp"
+#include "BaseEntity.hpp"
 
-class BombEntity : public GameEntity {
+class BombEntity : public BaseEntity {
 	bool has_been_dropped = false;
 	void startTimer();
 public:
-	explicit BombEntity(uint64_t id, EntityPosition &position) : GameEntity(id, BOMB, position) {};
+	explicit BombEntity(uint64_t id, EntityPosition &position) : BaseEntity(position) {};
 	bool drop(EntityPosition &new_pos);
 	void explode();
 };

@@ -69,10 +69,6 @@ void Map::physicalMapToGraphicalEntity() noexcept
 			positionToPush.x = x;
 			positionToPush.z = 0;
 
-			if (_map[y][x] == 0)
-				_gameMap.emplace_back(GameEntity(0, EntityType::GROUND, positionToPush));
-			else
-				_gameMap.emplace_back(GameEntity(1, EntityType::WALL, positionToPush));
 		}
 	}
 	std::cout << "game vector length: " << _gameMap.size() <<  std::endl;

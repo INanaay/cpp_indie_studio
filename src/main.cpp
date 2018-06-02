@@ -3,21 +3,24 @@
 //
 
 #include <iostream>
+#include <Core.hpp>
 #include "GraphicalEngine.hpp"
+#include "Menu.hpp"
 
+// Pipeline
+// 1. Generate map
+// 2. Load what is needed
+// 3. Execute logic
 
 int main()
 {
     try {
-        GraphicalEngine engine(1080, 720);
-	auto de = engine.getDevice();
-	auto dr = engine.getDriver();
-	while (de->run())
-	{
-		dr->beginScene(true, true, irr::video::SColor(0, 200, 200, 200));
-		dr->endScene();
-	}
+        Core core;
+
+        core.play();
+
+
     } catch (...) {
-        return 84;
+
     }
 }

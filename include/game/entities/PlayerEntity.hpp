@@ -8,13 +8,12 @@
 #ifndef CPP_INDIE_STUDIO_PLAYERENTITY_HPP
 #define CPP_INDIE_STUDIO_PLAYERENTITY_HPP
 
-#include "GameEntity.hpp"
 #include "BombEntity.hpp"
 
-class PlayerEntity : public GameEntity {
+class PlayerEntity : public BaseEntity {
 	BombEntity &bomb;
 public:
-	explicit PlayerEntity(uint64_t id, EntityPosition &position, BombEntity &bomb) : GameEntity(id, CHARACTER, position), bomb(bomb) {};
+	explicit PlayerEntity(EntityPosition &position, BombEntity &bomb) : BaseEntity(position), bomb(bomb) {};
 	bool dropBomb() { return (bomb.drop(position)); };
 };
 

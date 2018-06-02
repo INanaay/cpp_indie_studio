@@ -8,51 +8,39 @@
 #include <Core.hpp>
 #include <Map.hpp>
 
+/*!
+ * \brief Core Constructor, init the engine.
+ *
+ */
 
-//CTOR
 Core::Core()
-: m_gameRunning(false), m_graphicalRunning(false)
 {
 	m_engine = std::make_unique<GraphicalEngine>(1080, 720);
 }
 
+/*!
+ * \brief This will execute the game and display everything needed
+ * \warning This function may throw exception
+ */
 
-//PROPERTIES
-bool Core::isGameRunning() const
+void Core::play()
 {
-	return (m_gameRunning);
+	while (m_engine->getDevice()->run()) {
+		m_engine->getDriver()->beginScene();
+
+
+
+		m_engine->getScene()->drawAll();
+		m_engine->getDriver()->endScene();
+	}
 }
 
-bool Core::isGraphicalRunning() const
+/*!
+ * \brief This funtion display the menu and will set all needed informations for the game
+ * \warning This may throw exception
+ */
+
+void Core::menu()
 {
-	return (m_graphicalRunning);
-}
 
-
-//ACTIONS
-void Core::addUserAction(UserAction action)
-{
-	std::unique_lock<std::mutex> lock(m_actionsLock);
-	m_userActions.push(action);
-}
-UserAction Core::getUserAction()
-{
-	std::unique_lock<std::mutex> lock(m_actionsLock);
-	if (m_userActions.empty())
-		return UserAction::NONE;
-	auto action = m_userActions.back();
-	m_userActions.pop();
-	return (action);
-}
-
-//INTERNAL FUNCTIONS
-void Core::executeUserAction(UserAction action)
-{
-	// if action == QUIT
-	// then
-
-	// if action == PAUSE
-	// then
-
-	//....
 }

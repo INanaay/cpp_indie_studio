@@ -11,39 +11,23 @@
 #include <mutex>
 #include <queue>
 #include <thread>
-#include <GameManager.hpp>
-#include <GraphicalEngine.hpp>
-#include <GraphicalManager.hpp>
-#include <entities/UserAction.hpp>
+#include "GraphicalEngine.hpp"
 
 class Core
 {
 public:
 	//CTOR
 	Core();
-
-	//USER ACTIONS
-	void addUserAction(UserAction action);
-	UserAction getUserAction();
-
-	//PROPERTIES
-	bool isGameRunning() const;
-	bool isGraphicalRunning() const;
+	~Core() = default;
+	void play();
+	void menu();
 
 private:
 	//FIELDS
-	bool m_gameRunning;
-	bool m_graphicalRunning;
-	std::mutex m_actionsLock;
-	std::thread m_gameThread;
-	std::thread m_graphicalThread;
-	std::queue<UserAction> m_userActions;
+
 	std::unique_ptr<GraphicalEngine> m_engine;
-	std::unique_ptr<GameManager> m_gameManager;
-	std::unique_ptr<GraphicalManager> m_graphicalManager;
 
 	//FUNCTIONS
-	void executeUserAction(UserAction action);
 };
 
 
