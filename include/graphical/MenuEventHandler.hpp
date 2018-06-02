@@ -2,18 +2,23 @@
 // Created by NANAA on 31/05/18.
 //
 
+
 #include <irrlicht.h>
 
 #ifndef IRRLITCHTEST_MENUEVENTHANDLER_HPP
 #define IRRLITCHTEST_MENUEVENTHANDLER_HPP
 
-extern bool is_running;
 
 struct SAppContext
 {
 	irr::IrrlichtDevice *device;
+<<<<<<< HEAD
 	bool isRunning;
 	int nbPlayers;
+=======
+	bool isMenuRunning = true;
+	int nbPlayers = 0;
+>>>>>>> master
 };
 
 enum Buttonss

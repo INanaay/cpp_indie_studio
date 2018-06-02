@@ -29,8 +29,13 @@ bool MenuEventHandler::OnEvent(const irr::SEvent &event)
 						return true;
 					case GUI_ID_ONE_PLAYER:
 					std::cout << "one player\n";
+<<<<<<< HEAD
 						m_context.nbPlayers = 1;
 						m_context.isRunning = false;
+=======
+						m_context.isMenuRunning = false;
+						m_context.nbPlayers = 1;
+>>>>>>> master
 						return true;
 					case  GUI_ID_TWO_PLAYERS:
 						std::cout << "Two player\n";

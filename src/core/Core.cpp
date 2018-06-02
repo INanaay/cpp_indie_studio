@@ -50,7 +50,11 @@ void Core::menu() {
     m_engine->setHandler(&handler);
     while (m_engine->isRunning()) {
         if (m_engine->getDevice()->isWindowActive()) {
+<<<<<<< HEAD
             if (!context.isRunning) {
+=======
+            if (!m_engine->getContext().isMenuRunning) {
+>>>>>>> master
                 menu.clearGUI();
                 break;
             }
