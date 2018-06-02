@@ -59,7 +59,7 @@ extern void * malloc ();
 #endif
 
 /* Reduce this value if your malloc() can't allocate blocks up to 64K.
- * On DOS, compiling in large model is usually a better solution.
+ * On DOS, compiling in large models is usually a better solution.
  */
 
 #ifndef MAX_COM_LENGTH

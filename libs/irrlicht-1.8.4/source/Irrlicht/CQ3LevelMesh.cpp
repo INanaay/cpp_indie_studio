@@ -1479,9 +1479,9 @@ IMesh* CQ3LevelMesh::getBrushEntityMesh(quake3::IEntity &ent) const
 	s32 num;
 
 	const quake3::SVarGroup* group = ent.getGroup(1);
-	const core::stringc& modnum = group->get("model");
+	const core::stringc& modnum = group->get("models");
 
-	if (!group->isDefined("model"))
+	if (!group->isDefined("models"))
 		return 0;
 
 	const char *temp = modnum.c_str() + 1; // We skip the first character.

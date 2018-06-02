@@ -14,6 +14,7 @@ class PlayerEntity : public BaseEntity {
 	BombEntity &bomb;
 public:
 	explicit PlayerEntity(EntityPosition &position, BombEntity &bomb) : BaseEntity(position), bomb(bomb) {};
+	explicit PlayerEntity(EntityPosition &position);
 	bool dropBomb() { return (bomb.drop(position)); };
 };
 

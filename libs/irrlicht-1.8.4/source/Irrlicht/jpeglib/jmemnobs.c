@@ -47,7 +47,7 @@ jpeg_free_small (j_common_ptr cinfo, void * object, size_t sizeofobject)
 /*
  * "Large" objects are treated the same as "small" ones.
  * NB: although we include FAR keywords in the routine declarations,
- * this file won't actually work in 80x86 small/medium model; at least,
+ * this file won't actually work in 80x86 small/medium models; at least,
  * you probably won't be able to process useful-size images in only 64KB.
  */
 

@@ -10,8 +10,8 @@
  * stored in extended or expanded memory as well as in regular DOS files.
  *
  * If you use this file, you must be sure that NEED_FAR_POINTERS is defined
- * if you compile in a small-data memory model; it should NOT be defined if
- * you use a large-data memory model.  This file is not recommended if you
+ * if you compile in a small-data memory models; it should NOT be defined if
+ * you use a large-data memory models.  This file is not recommended if you
  * are using a flat-memory-space 386 environment such as DJGCC or Watcom C.
  * Also, this code will NOT work if struct fields are aligned on greater than
  * 2-byte boundaries.
@@ -91,7 +91,7 @@ extern char * getenv JPP((const char * name));
  *
  * The functions are declared "far" as are all their pointer arguments;
  * this ensures the assembly source code will work regardless of the
- * compiler memory model.  We assume "short" is 16 bits, "long" is 32.
+ * compiler memory models.  We assume "short" is 16 bits, "long" is 32.
  */
 
 typedef void far * XMSDRIVER;	/* actually a pointer to code */

@@ -12,7 +12,7 @@
 #undef NEED_BSD_STRINGS
 #undef NEED_SYS_TYPES_H
 #ifdef __MSDOS__
-#define NEED_FAR_POINTERS	/* for small or medium memory model */
+#define NEED_FAR_POINTERS	/* for small or medium memory models */
 #endif
 #undef NEED_SHORT_EXTERNAL_NAMES
 #undef INCOMPLETE_TYPES_BROKEN	/* this assumes you have -w-stu in CFLAGS */

@@ -55,7 +55,7 @@ enum eItemSpecialEffect
 	SPECIAL_SFX_ROTATE_1	= 4,
 };
 
-// a List for defining a model
+// a List for defining a models
 struct SItemElement
 {
 	const c8 *key;

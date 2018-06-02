@@ -92,7 +92,7 @@ int main()
 	sphere node, which is a built-in geometry primitive. We place the node
 	at (0,0,30) and assign a texture to it to let it look a little bit more
 	interesting. Because we have no dynamic lights in this scene we disable
-	lighting for each model (otherwise the models would be black).
+	lighting for each models (otherwise the models would be black).
 	*/
 	scene::ISceneNode * node = smgr->addSphereSceneNode();
 	if (node)
@@ -128,7 +128,7 @@ int main()
 
 	/*
 	The last scene node we add to show possibilities of scene node animators is
-	a b3d model, which uses a 'fly straight' animator to run between to points.
+	a b3d models, which uses a 'fly straight' animator to run between to points.
 	*/
 	scene::IAnimatedMeshSceneNode* anms =
 		smgr->addAnimatedMeshSceneNode(smgr->getMesh("../../media/ninja.b3d"));
@@ -145,9 +145,9 @@ int main()
 		}
 
 		/*
-		To make the model look right we disable lighting, set the
+		To make the models look right we disable lighting, set the
 		frames between which the animation should loop, rotate the
-		model around 180 degrees, and adjust the animation speed and
+		models around 180 degrees, and adjust the animation speed and
 		the texture. To set the right animation (frames and speed), we
 		would also be able to just call
 		"anms->setMD2Animation(scene::EMAT_RUN)" for the 'run'

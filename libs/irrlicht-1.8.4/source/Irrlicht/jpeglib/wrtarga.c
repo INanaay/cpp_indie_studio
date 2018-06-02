@@ -31,9 +31,9 @@
 /*
  * The output buffer needs to be writable by fwrite().  On PCs, we must
  * allocate the buffer in near data space, because we are assuming small-data
- * memory model, wherein fwrite() can't reach far memory.  If you need to
+ * memory models, wherein fwrite() can't reach far memory.  If you need to
  * process very wide images on a PC, you might have to compile in large-memory
- * model, or else replace fwrite() with a putc() loop --- which will be much
+ * models, or else replace fwrite() with a putc() loop --- which will be much
  * slower.
  */
 

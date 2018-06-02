@@ -39,9 +39,9 @@ int main()
 	
 	/*
 	Now, we load an animated mesh to be displayed. As in most examples,
-	we'll take the fairy md2 model. The difference here: We set the
-	shininess of the model to a value other than 0 which is the default
-	value. This enables specular highlights on the model if dynamic
+	we'll take the fairy md2 models. The difference here: We set the
+	shininess of the models to a value other than 0 which is the default
+	value. This enables specular highlights on the models if dynamic
 	lighting is on. The value influences the size of the highlights.
 	*/
 
@@ -61,9 +61,9 @@ int main()
 	}
 	
 	/*
-	To make specular highlights appear on the model, we need a dynamic
-	light in the scene. We add one directly in vicinity of the model. In
-	addition, to make the model not that dark, we set the ambient light to
+	To make specular highlights appear on the models, we need a dynamic
+	light in the scene. We add one directly in vicinity of the models. In
+	addition, to make the models not that dark, we set the ambient light to
 	gray.
 	*/
 

@@ -375,8 +375,8 @@ void CAnimatedMeshHalfLife::initModel()
 		{
 			const SHalflifeModel *model = (SHalflifeModel *)((u8*) Header + body->modelindex) + modelnr;
 #if 0
-			const vec3_hl *studioverts = (vec3_hl *)((u8*)Header + model->vertindex);
-			const vec3_hl *studionorms = (vec3_hl *)((u8*)Header + model->normindex);
+			const vec3_hl *studioverts = (vec3_hl *)((u8*)Header + models->vertindex);
+			const vec3_hl *studionorms = (vec3_hl *)((u8*)Header + models->normindex);
 #endif
 			for (i = 0; i < model->nummesh; ++i)
 			{
@@ -517,7 +517,7 @@ void CAnimatedMeshHalfLife::initModel()
 				buffer->drop();
 			} // mesh
 			MeshIPol->recalculateBoundingBox();
-		} // model
+		} // models
 	} // body part
 }
 
@@ -553,9 +553,9 @@ void CAnimatedMeshHalfLife::buildVertices()
 				VectorTransform ( studioverts[i],  BoneTransform[vertbone[i]], TransformedVerts[i]  );
 			}
 	/*
-			const u8 *normbone = ((u8*)Header + model->norminfoindex);
-			const vec3_hl *studionorms = (vec3_hl *)((u8*)Header + model->normindex);
-			for ( i = 0; i < model->numnorms; i++)
+			const u8 *normbone = ((u8*)Header + models->norminfoindex);
+			const vec3_hl *studionorms = (vec3_hl *)((u8*)Header + models->normindex);
+			for ( i = 0; i < models->numnorms; i++)
 			{
 				VectorTransform ( studionorms[i],  BoneTransform[normbone[i]], TransformedNormals[i]  );
 			}
@@ -586,7 +586,7 @@ void CAnimatedMeshHalfLife::buildVertices()
 					}
 				} // tricmd
 			} // nummesh
-		} // model
+		} // models
 	} // bodypart
 }
 

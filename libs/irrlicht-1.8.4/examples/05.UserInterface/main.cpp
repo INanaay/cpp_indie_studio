@@ -150,7 +150,7 @@ public:
 
 			case EGET_FILE_SELECTED:
 				{
-					// show the model filename, selected in the file dialog
+					// show the models filename, selected in the file dialog
 					IGUIFileOpenDialog* dialog =
 						(IGUIFileOpenDialog*)event.GUIEvent.Caller;
 					Context.listbox->addItem(dialog->getFileName());

@@ -93,7 +93,7 @@ int main()
 	ISceneManager *smgr = device->getSceneManager();
 	IVideoDriver *driver = device->getVideoDriver();
 
-	//Load model
+	//Load models
 	IAnimatedMesh *model = smgr->getMesh("../../media/sydney.md2");
 	if (!model)
 		return 1;
@@ -119,7 +119,7 @@ int main()
 	}
 
 /*
-Now we create our four cameras. One is looking at the model
+Now we create our four cameras. One is looking at the models
 from the front, one from the top and one from the side. In
 addition there's a FPS-camera which can be controlled by the
 user.

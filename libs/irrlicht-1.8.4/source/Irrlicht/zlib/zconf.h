@@ -279,14 +279,14 @@
 #endif
 
 /* The following definitions for FAR are needed only for MSDOS mixed
- * model programming (small or medium model with some far allocations).
+ * models programming (small or medium models with some far allocations).
  * This was tested only with MSC; for other MSDOS compilers you may have
- * to define NO_MEMCPY in zutil.h.  If you don't need the mixed model,
+ * to define NO_MEMCPY in zutil.h.  If you don't need the mixed models,
  * just define FAR to be empty.
  */
 #ifdef SYS16BIT
 #  if defined(M_I86SM) || defined(M_I86MM)
-     /* MSC small or medium model */
+     /* MSC small or medium models */
 #    define SMALL_MEDIUM
 #    ifdef _MSC_VER
 #      define FAR _far
@@ -295,7 +295,7 @@
 #    endif
 #  endif
 #  if (defined(__SMALL__) || defined(__MEDIUM__))
-     /* Turbo C small or medium model */
+     /* Turbo C small or medium models */
 #    define SMALL_MEDIUM
 #    ifdef __BORLANDC__
 #      define FAR _far

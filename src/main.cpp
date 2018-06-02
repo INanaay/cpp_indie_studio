@@ -21,6 +21,10 @@ int main()
 
         core.menu();
 
+        std::cout << "Started the game" << std::endl;
+
+        core.play();
+
 
     } catch (...) {
 

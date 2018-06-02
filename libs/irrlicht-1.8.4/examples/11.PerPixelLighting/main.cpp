@@ -224,7 +224,7 @@ int main()
 	file which is a room I modeled with anim8or. It is the same room as
 	from the specialFX example. Maybe you remember from that tutorial, I am
 	no good modeler at all and so I totally messed up the texture mapping
-	in this model, but we can simply repair it with the
+	in this models, but we can simply repair it with the
 	IMeshManipulator::makePlanarTextureMapping() method.
 	*/
 

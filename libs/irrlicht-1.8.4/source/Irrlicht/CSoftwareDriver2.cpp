@@ -174,9 +174,9 @@ attribute vec4 gl_Color;			// 4D vector representing the vertex color
 attribute vec4 gl_MultiTexCoord0;	// 4D vector representing the texture coordinate of texture unit X
 attribute vec4 gl_MultiTexCoord1;	// 4D vector representing the texture coordinate of texture unit X
 
-uniform mat4 gl_ModelViewMatrix;			//4x4 Matrix representing the model-view matrix.
-uniform mat4 gl_ModelViewProjectionMatrix;	//4x4 Matrix representing the model-view-projection matrix.
-uniform mat3 gl_NormalMatrix;				//3x3 Matrix representing the inverse transpose model-view matrix. This matrix is used for normal transformation.
+uniform mat4 gl_ModelViewMatrix;			//4x4 Matrix representing the models-view matrix.
+uniform mat4 gl_ModelViewProjectionMatrix;	//4x4 Matrix representing the models-view-projection matrix.
+uniform mat3 gl_NormalMatrix;				//3x3 Matrix representing the inverse transpose models-view matrix. This matrix is used for normal transformation.
 
 
 varying vec4 gl_FrontColor;				// 4D vector representing the primitives front color
@@ -1226,7 +1226,7 @@ void CBurningVideoDriver::VertexCache_fill(const u32 sourceIndex, const u32 dest
 #endif
 
 #if defined ( SOFTWARE_DRIVER_2_USE_VERTEX_COLOR )
-	// apply lighting model
+	// apply lighting models
 	#if defined (SOFTWARE_DRIVER_2_LIGHTING)
 		if ( Material.org.Lighting )
 		{

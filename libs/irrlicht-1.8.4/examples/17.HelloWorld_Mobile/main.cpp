@@ -473,7 +473,7 @@ int example_helloworld()
 	/*
 	To look at the mesh, we place a camera into 3d space at the position
 	(0, 30, -40). The camera looks from there to (0,5,0), which is
-	approximately the place where our md2 model is.
+	approximately the place where our md2 models is.
 	*/
 	smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,0));
 

@@ -57,7 +57,7 @@ int main()
 	For our environment, we load a .3ds file. It is a small room I modelled
 	with Anim8or and exported into the 3ds format because the Irrlicht
 	Engine does not support the .an8 format. I am a very bad 3d graphic
-	artist, and so the texture mapping is not very nice in this model.
+	artist, and so the texture mapping is not very nice in this models.
 	Luckily I am a better programmer than artist, and so the Irrlicht
 	Engine is able to create a cool texture mapping for me: Just use the
 	mesh manipulator and create a planar texture mapping for the mesh. If
@@ -231,7 +231,7 @@ int main()
 
 	/*
 	As our last special effect, we want a dynamic shadow be casted from an
-	animated character. For this we load a DirectX .x model and place it
+	animated character. For this we load a DirectX .x models and place it
 	into our world. For creating the shadow, we simply need to call
 	addShadowVolumeSceneNode(). The color of shadows is only adjustable
 	globally for all shadows, by calling ISceneManager::setShadowColor().
@@ -241,7 +241,7 @@ int main()
 	it bigger using setScale(). And because the character is lighted by a
 	dynamic light, we need to normalize the normals to make the lighting on
 	it correct. This is always necessary if the scale of a dynamic lighted
-	model is not (1,1,1). Otherwise it would get too dark or too bright
+	models is not (1,1,1). Otherwise it would get too dark or too bright
 	because the normals will be scaled too.
 	*/
 
@@ -258,7 +258,7 @@ int main()
 	anode->addShadowVolumeSceneNode();
 	smgr->setShadowColor(video::SColor(150,0,0,0));
 
-	// make the model a little bit bigger and normalize its normals
+	// make the models a little bit bigger and normalize its normals
 	// because of the scaling, for correct lighting
 	anode->setScale(core::vector3df(2,2,2));
 	anode->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);

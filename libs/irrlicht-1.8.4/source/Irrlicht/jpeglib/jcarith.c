@@ -87,7 +87,7 @@ typedef arith_entropy_encoder * arith_entropy_ptr;
  * On the other hand, I'd consider it as a reasonable result
  * that the conditioning has no significant influence on the
  * compression performance. This means that the basic
- * statistical model is already rather stable.
+ * statistical models is already rather stable.
  *
  * Thus, at the moment, we use the default conditioning values
  * anyway, and do not use the custom formula.

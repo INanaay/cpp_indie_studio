@@ -60,9 +60,9 @@ typedef char U_CHAR;
  * On most systems, reading individual bytes with getc() is drastically less
  * efficient than buffering a row at a time with fread().  On PCs, we must
  * allocate the buffer in near data space, because we are assuming small-data
- * memory model, wherein fread() can't reach far memory.  If you need to
+ * memory models, wherein fread() can't reach far memory.  If you need to
  * process very wide images on a PC, you might have to compile in large-memory
- * model, or else replace fread() with a getc() loop --- which will be much
+ * models, or else replace fread() with a getc() loop --- which will be much
  * slower.
  */
 

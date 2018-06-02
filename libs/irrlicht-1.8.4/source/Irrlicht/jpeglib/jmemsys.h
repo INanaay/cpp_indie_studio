@@ -41,7 +41,7 @@
  * and free; in particular, jpeg_get_small must return NULL on failure.
  * On most systems, these ARE malloc and free.  jpeg_free_small is passed the
  * size of the object being freed, just in case it's needed.
- * On an 80x86 machine using small-data memory model, these manage near heap.
+ * On an 80x86 machine using small-data memory models, these manage near heap.
  */
 
 EXTERN(void *) jpeg_get_small JPP((j_common_ptr cinfo, size_t sizeofobject));
@@ -66,7 +66,7 @@ EXTERN(void) jpeg_free_large JPP((j_common_ptr cinfo, void FAR * object,
  * The macro MAX_ALLOC_CHUNK designates the maximum number of bytes that may
  * be requested in a single call to jpeg_get_large (and jpeg_get_small for that
  * matter, but that case should never come into play).  This macro is needed
- * to model the 64Kb-segment-size limit of far addressing on 80x86 machines.
+ * to models the 64Kb-segment-size limit of far addressing on 80x86 machines.
  * On those machines, we expect that jconfig.h will provide a proper value.
  * On machines with 32-bit flat address spaces, any large constant may be used.
  *

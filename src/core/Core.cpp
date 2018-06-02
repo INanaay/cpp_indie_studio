@@ -5,6 +5,7 @@
 **      Made on 2018/05 by lebovin
 */
 
+#include "PlayerEntity.hpp"
 #include "Core.hpp"
 #include "Menu.hpp"
 #include "Map.hpp"
@@ -26,7 +27,7 @@ Core::Core()
 
 void Core::play()
 {
-	while (m_engine->getDevice()->run()) {
+    while (m_engine->isRunning()) {
 		m_engine->getDriver()->beginScene();
 
 
@@ -43,16 +44,20 @@ void Core::play()
 
 void Core::menu() {
     Menu menu(*m_engine);
-    auto driver = m_engine->getDriver();
-    auto env = m_engine->getGui();
-    while (m_engine->getDevice()->run()) {
+    SAppContext context{m_engine->getDevice(), true, 0};
+    MenuEventHandler handler(context);
+
+    m_engine->setHandler(&handler);
+    while (m_engine->isRunning()) {
         if (m_engine->getDevice()->isWindowActive()) {
-            if (!is_running) {
+            if (!context.isRunning) {
                 menu.clearGUI();
+                break;
             }
-            driver->beginScene(true, true, irr::video::SColor(0, 200, 200, 200));
-            env->drawAll();
-            driver->endScene();
+            m_engine->getDriver()->beginScene(true, true, irr::video::SColor(0, 200, 200, 200));
+            m_engine->getGui()->drawAll();
+            m_engine->getDriver()->endScene();
         }
     }
+    m_engine->dropHandler();
 }

@@ -27,7 +27,8 @@ private:
 
 	std::unique_ptr<GraphicalEngine> m_engine;
 
-	//FUNCTIONS
+	//
+
 };
 
 

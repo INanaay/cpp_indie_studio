@@ -775,7 +775,7 @@ public:
 
 				case gui::EGET_FILE_SELECTED:
 				{
-					// load the model file, selected in the file open dialog
+					// load the models file, selected in the file open dialog
 					gui::IGUIFileOpenDialog* dialog =
 						(gui::IGUIFileOpenDialog*)event.GUIEvent.Caller;
 					loadTexture(io::path(dialog->getFileName()).c_str());

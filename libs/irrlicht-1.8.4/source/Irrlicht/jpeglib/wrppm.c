@@ -57,9 +57,9 @@
  * When JSAMPLE is the same size as char, we can just fwrite() the
  * decompressed data to the PPM or PGM file.  On PCs, in order to make this
  * work the output buffer must be allocated in near data space, because we are
- * assuming small-data memory model wherein fwrite() can't reach far memory.
+ * assuming small-data memory models wherein fwrite() can't reach far memory.
  * If you need to process very wide images on a PC, you might have to compile
- * in large-memory model, or else replace fwrite() with a putc() loop ---
+ * in large-memory models, or else replace fwrite() with a putc() loop ---
  * which will be much slower.
  */
 

@@ -558,7 +558,7 @@ bool CMS3DMeshFileLoader::load(io::IReadFile* file)
 			for (i=0; i<numComments; ++i)
 			{
 				// according to scorpiomidget this field does
-				// not exist for model comments. So avoid to
+				// not exist for models comments. So avoid to
 				// read it
 				if (j!=3)
 					pPtr += sizeof(s32); // index
@@ -633,15 +633,15 @@ bool CMS3DMeshFileLoader::load(io::IReadFile* file)
 
 		if (pPtr < buffer+fileSize)
 		{
-			subVersion = *(s32*)pPtr; // model subVersion, 1 or 2
+			subVersion = *(s32*)pPtr; // models subVersion, 1 or 2
 #ifdef __BIG_ENDIAN__
 			subVersion = os::Byteswap::byteswap(subVersion);
 #endif
 			pPtr += sizeof(s32);
 #ifdef _IRR_DEBUG_MS3D_LOADER_
-			os::Printer::log("Skip model extra information");
+			os::Printer::log("Skip models extra information");
 #endif
-			// now the model extra information would follow
+			// now the models extra information would follow
 			// we also skip this for now
 		}
 	}

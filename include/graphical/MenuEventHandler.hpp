@@ -12,6 +12,8 @@ extern bool is_running;
 struct SAppContext
 {
 	irr::IrrlichtDevice *device;
+	bool isRunning;
+	int nbPlayers;
 };
 
 enum Buttonss
@@ -24,8 +26,8 @@ enum Buttonss
 class MenuEventHandler : public irr::IEventReceiver
 {
 public:
-	MenuEventHandler(SAppContext &context);
-	virtual bool OnEvent(const irr::SEvent &event);
+	explicit MenuEventHandler(SAppContext &context);
+	bool OnEvent(const irr::SEvent &event) override;
 
 private:
 	SAppContext &m_context;

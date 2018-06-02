@@ -124,7 +124,7 @@ void setSkinTransparency(s32 alpha, irr::gui::IGUISkin * skin)
 }
 
 /*
-  Update the display of the model scaling
+  Update the display of the models scaling
 */
 void updateScaleInfo(scene::ISceneNode* model)
 {
@@ -161,9 +161,9 @@ void showAboutText()
 
 
 /*
-Function loadModel() loads a model and displays it using an
+Function loadModel() loads a models and displays it using an
 addAnimatedMeshSceneNode and the scene manager. Nothing difficult. It also
-displays a short message box, if the model could not be loaded.
+displays a short message box, if the models could not be loaded.
 */
 void loadModel(const c8* fn)
 {
@@ -175,7 +175,7 @@ void loadModel(const c8* fn)
 	core::getFileNameExtension(extension, filename);
 	extension.make_lower();
 
-	// if a texture is loaded apply it to the current model..
+	// if a texture is loaded apply it to the current models..
 	if (extension == ".jpg" || extension == ".pcx" ||
 		extension == ".png" || extension == ".ppm" ||
 		extension == ".pgm" || extension == ".pbm" ||
@@ -202,7 +202,7 @@ void loadModel(const c8* fn)
 		return;
 	}
 
-	// load a model into the engine
+	// load a models into the engine
 
 	if (Model)
 		Model->remove();
@@ -223,11 +223,11 @@ void loadModel(const c8* fn)
 
 	if (!m)
 	{
-		// model could not be loaded
+		// models could not be loaded
 
 		if (StartUpModelFile != filename)
 			Device->getGUIEnvironment()->addMessageBox(
-			Caption.c_str(), L"The model could not be loaded. " \
+			Caption.c_str(), L"The models could not be loaded. " \
 			L"Maybe it is not a supported file format.");
 		return;
 	}
@@ -260,7 +260,7 @@ void loadModel(const c8* fn)
 /*
 Function createToolBox() creates a toolbox window. In this simple mesh
 viewer, this toolbox only contains a tab control with three edit boxes for
-changing the scale of the displayed model.
+changing the scale of the displayed models.
 */
 void createToolBox()
 {
@@ -334,7 +334,7 @@ void updateToolBox()
 	if (!dlg )
 		return;
 
-	// update the info we have about the animation of the model
+	// update the info we have about the animation of the models
 	IGUIStaticText *  aniInfo = (IGUIStaticText *)(dlg->getElementFromId(GUI_ID_ANIMATION_INFO, true));
 	if (aniInfo)
 	{
@@ -429,7 +429,7 @@ public:
 
 			case EGET_FILE_SELECTED:
 				{
-					// load the model file, selected in the file open dialog
+					// load the models file, selected in the file open dialog
 					IGUIFileOpenDialog* dialog =
 						(IGUIFileOpenDialog*)event.GUIEvent.Caller;
 					loadModel(core::stringc(dialog->getFileName()).c_str());
@@ -496,7 +496,7 @@ public:
 					updateScaleInfo(Model);
 					break;
 				case GUI_ID_BUTTON_OPEN_MODEL:
-					env->addFileOpenDialog(L"Please select a model file to open");
+					env->addFileOpenDialog(L"Please select a models file to open");
 					break;
 				case GUI_ID_BUTTON_SHOW_ABOUT:
 					showAboutText();
@@ -580,7 +580,7 @@ public:
 		switch(id)
 		{
 		case GUI_ID_OPEN_MODEL: // FilOnButtonSetScalinge -> Open Model
-			env->addFileOpenDialog(L"Please select a model file to open");
+			env->addFileOpenDialog(L"Please select a models file to open");
 			break;
 		case GUI_ID_SET_MODEL_ARCHIVE: // File -> Set Model Archive
 			env->addFileOpenDialog(L"Please select your game archive/directory");
@@ -845,8 +845,8 @@ int main(int argc, char* argv[])
 
 	submenu = menu->getSubMenu(1);
 	submenu->addItem(L"sky box visible", GUI_ID_SKY_BOX_VISIBLE, true, false, true);
-	submenu->addItem(L"toggle model debug information", GUI_ID_TOGGLE_DEBUG_INFO, true, true);
-	submenu->addItem(L"model material", -1, true, true );
+	submenu->addItem(L"toggle models debug information", GUI_ID_TOGGLE_DEBUG_INFO, true, true);
+	submenu->addItem(L"models material", -1, true, true );
 
 	submenu = submenu->getSubMenu(1);
 	submenu->addItem(L"Off", GUI_ID_DEBUG_OFF);
@@ -880,7 +880,7 @@ int main(int argc, char* argv[])
 	gui::IGUIToolBar* bar = env->addToolBar();
 
 	video::ITexture* image = driver->getTexture("open.png");
-	bar->addButton(GUI_ID_BUTTON_OPEN_MODEL, 0, L"Open a model",image, 0, false, true);
+	bar->addButton(GUI_ID_BUTTON_OPEN_MODEL, 0, L"Open a models",image, 0, false, true);
 
 	image = driver->getTexture("tools.png");
 	bar->addButton(GUI_ID_BUTTON_SHOW_TOOLBOX, 0, L"Open Toolset",image, 0, false, true);
@@ -938,13 +938,13 @@ int main(int argc, char* argv[])
 
 	/*
 	That's nearly the whole application. We simply show the about message
-	box at start up, and load the first model. To make everything look
+	box at start up, and load the first models. To make everything look
 	better, a skybox is created and a user controlled camera, to make the
 	application a little bit more interactive. Finally, everything is drawn
 	in a standard drawing loop.
 	*/
 
-	// show about message box and load default model
+	// show about message box and load default models
 	if (argc==1)
 		showAboutText();
 	loadModel(StartUpModelFile.c_str());

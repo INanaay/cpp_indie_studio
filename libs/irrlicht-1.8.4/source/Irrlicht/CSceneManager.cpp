@@ -1250,7 +1250,7 @@ u32 CSceneManager::registerNodeForRendering(ISceneNode* node, E_SCENE_NODE_RENDE
 
 	case ESNRP_LIGHT:
 		// TODO: Point Light culling..
-		// Lighting model in irrlicht has to be redone..
+		// Lighting models in irrlicht has to be redone..
 		//if (!isCulled(node))
 		{
 			LightList.push_back(node);

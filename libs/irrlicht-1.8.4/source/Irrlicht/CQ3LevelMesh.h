@@ -159,7 +159,7 @@ namespace scene
 			kBrushes		= 8,	// Stores the brushes info (for collision)
 			kBrushSides		= 9,	// Stores the brush surfaces info
 			kVertices		= 10,	// Stores the level vertices
-			kMeshVerts		= 11,	// Stores the model vertices offsets
+			kMeshVerts		= 11,	// Stores the models vertices offsets
 			kFogs			= 12,	// Stores the shader files (blending, anims..)
 			kFaces			= 13,	// Stores the faces for the level
 			kLightmaps		= 14,	// Stores the lightmaps for the level
@@ -284,10 +284,10 @@ namespace scene
 		{
 			f32 min[3];           // The min position for the bounding box
 			f32 max[3];           // The max position for the bounding box.
-			s32 faceIndex;          // The first face index in the model
-			s32 numOfFaces;         // The number of faces in the model
-			s32 brushIndex;         // The first brush index in the model
-			s32 numOfBrushes;       // The number brushes for the model
+			s32 faceIndex;          // The first face index in the models
+			s32 numOfFaces;         // The number of faces in the models
+			s32 brushIndex;         // The first brush index in the models
+			s32 numOfBrushes;       // The number brushes for the models
 		};
 
 		struct tBSPFog

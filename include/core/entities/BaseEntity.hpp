@@ -11,8 +11,6 @@
 #include <cstdint>
 #include <irrlicht.h>
 
-using Node = irr::scene::IAnimatedMeshSceneNode *;
-
 struct EntityPosition
 {
 	uint32_t x;
@@ -23,11 +21,10 @@ struct EntityPosition
 struct BaseEntity
 {
 	//CTOR
-	BaseEntity(EntityPosition &position) : position(position), node(nullptr) {};
+	explicit BaseEntity(EntityPosition &position) : position(position) {};
 
 	//FIELDS
 	EntityPosition position;
-	Node node;
 };
 
 #endif //CPP_INDIE_STUDIO_ENTITY_HPP

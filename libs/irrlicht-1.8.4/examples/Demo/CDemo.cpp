@@ -405,7 +405,7 @@ void CDemo::loadSceneData()
 		}
 	}
 
-	// load sydney model and create 2 instances
+	// load sydney models and create 2 instances
 
 	scene::IAnimatedMesh* mesh = 0;
 	mesh = sm->getMesh("../../media/sydney.md2");

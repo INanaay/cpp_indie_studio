@@ -116,7 +116,7 @@
  * (In the second pass the histogram space is re-used for pixel mapping data;
  * in that capacity, each cell must be able to store zero to the number of
  * desired colors.  16 bits/cell is plenty for that too.)
- * Since the JPEG code is intended to run in small memory model on 80x86
+ * Since the JPEG code is intended to run in small memory models on 80x86
  * machines, we can't just allocate the histogram in one chunk.  Instead
  * of a true 3-D array, we use a row of pointers to 2-D arrays.  Each
  * pointer corresponds to a C0 value (typically 2^5 = 32 pointers) and

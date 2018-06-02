@@ -338,9 +338,9 @@ struct jpeg_color_quantizer {
 
 /* On normal machines we can apply MEMCOPY() and MEMZERO() to sample arrays
  * and coefficient-block arrays.  This won't work on 80x86 because the arrays
- * are FAR and we're assuming a small-pointer memory model.  However, some
+ * are FAR and we're assuming a small-pointer memory models.  However, some
  * DOS compilers provide far-pointer versions of memcpy() and memset() even
- * in the small-model libraries.  These will be used if USE_FMEM is defined.
+ * in the small-models libraries.  These will be used if USE_FMEM is defined.
  * Otherwise, the routines in jutils.c do it the hard way.
  */
 

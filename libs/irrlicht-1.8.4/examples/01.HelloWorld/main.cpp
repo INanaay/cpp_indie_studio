@@ -154,7 +154,7 @@ int main()
 		rect<s32>(10,10,260,22), true);
 
 	/*
-	To show something interesting, we load a Quake 2 model and display it.
+	To show something interesting, we load a Quake 2 models and display it.
 	We only have to get the Mesh from the Scene Manager with getMesh() and add
 	a SceneNode to display the mesh with addAnimatedMeshSceneNode(). We
 	check the return value of getMesh() to become aware of loading problems
@@ -162,7 +162,7 @@ int main()
 
 	Instead of writing the filename sydney.md2, it would also be possible
 	to load a Maya object file (.obj), a complete Quake3 map (.bsp) or any
-	other supported file format. By the way, that cool Quake 2 model
+	other supported file format. By the way, that cool Quake 2 models
 	called sydney was modelled by Brian Collins.
 	*/
 	IAnimatedMesh* mesh = smgr->getMesh("../../media/sydney.md2");
@@ -191,7 +191,7 @@ int main()
 	/*
 	To look at the mesh, we place a camera into 3d space at the position
 	(0, 30, -40). The camera looks from there to (0,5,0), which is
-	approximately the place where our md2 model is.
+	approximately the place where our md2 models is.
 	*/
 	smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,0));
 

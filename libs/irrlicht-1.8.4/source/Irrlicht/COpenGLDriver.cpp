@@ -949,7 +949,7 @@ void COpenGLDriver::setTransform(E_TRANSFORMATION_STATE state, const core::matri
 	case ETS_VIEW:
 	case ETS_WORLD:
 		{
-			// OpenGL only has a model matrix, view and world is not existent. so lets fake these two.
+			// OpenGL only has a models matrix, view and world is not existent. so lets fake these two.
 			glMatrixMode(GL_MODELVIEW);
 
 			// first load the viewing transformation for user clip planes
@@ -960,7 +960,7 @@ void COpenGLDriver::setTransform(E_TRANSFORMATION_STATE state, const core::matri
 				if (UserClipPlanes[i].Enabled)
 					uploadClipPlane(i);
 
-			// now the real model-view matrix
+			// now the real models-view matrix
 			glMultMatrixf(Matrices[ETS_WORLD].pointer());
 		}
 		break;

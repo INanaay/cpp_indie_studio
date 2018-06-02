@@ -101,7 +101,7 @@ bool CMainMenu::run(bool& outFullscreen, bool& outMusic, bool& outShadows,
 	guienv->addStaticText(text2, core::rect<int>(10, 10, 230, 320),
 		true, true, aboutTab);
 
-	// add md2 model
+	// add md2 models
 
 	scene::IAnimatedMesh* mesh = smgr->getMesh("../../media/faerie.md2");
 	scene::IAnimatedMeshSceneNode* modelNode = smgr->addAnimatedMeshSceneNode(mesh);

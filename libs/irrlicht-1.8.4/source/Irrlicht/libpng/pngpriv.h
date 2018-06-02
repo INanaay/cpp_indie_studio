@@ -452,10 +452,10 @@
 
 /* Moved here around 1.5.0beta36 from pngconf.h */
 /* Users may want to use these so they are not private.  Any library
- * functions that are passed far data must be model-independent.
+ * functions that are passed far data must be models-independent.
  */
 
-/* Memory model/platform independent fns */
+/* Memory models/platform independent fns */
 #ifndef PNG_ABORT
 #  ifdef _WINDOWS_
 #    define PNG_ABORT() ExitProcess(0)
@@ -509,7 +509,7 @@
 #  define png_isaligned(ptr, type) 0
 #endif
 
-/* End of memory model/platform independent support */
+/* End of memory models/platform independent support */
 /* End of 1.5.0beta36 move from pngconf.h */
 
 /* CONSTANTS and UTILITY MACROS
