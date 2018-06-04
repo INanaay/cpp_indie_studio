@@ -15,10 +15,9 @@
 void Logger::logMessage(const std::string &msg, logLevel level)
 {
     auto time = std::time(nullptr);
-    struct tm info;
+    struct tm *info = localtime(&time);
 
-    localtime(&time);
-    std::cout << std::put_time(&info, "%T");
+    std::cout << std::put_time(info, "%T");
     if (level == logLevel::SUCCESS)
         std::cout << " | Success : ";
     else if (level == logLevel::WARNING)
