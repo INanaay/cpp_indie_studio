@@ -3,6 +3,7 @@
 
 cmake_minimum_required (VERSION 3.0)
 project (indieStudio)
+    set (CMAKE_CXX_STANDARD 11)
 set (Tutorial_VERSION_MAJOR 1)
 set (Tutorial_VERSION_MINOR 0)
 enable_language(CXX)
@@ -81,7 +82,7 @@ endif()
 
 ################# COMPILATION #################
 
-add_executable(indieStudio ${HDR_FILES} ${SRC_FILES})
+add_executable(indieStudio ${HDR_FILES} ${SRC_FILES} include/Components/PhysicalBody.hpp)
 target_link_libraries(indieStudio ${LIBRARIES})
 
 
