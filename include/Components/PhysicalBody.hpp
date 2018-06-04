@@ -22,13 +22,13 @@ namespace Components {
 	public:
 		Position(unsigned int xs, unsigned int ys, unsigned int zs) : x(xs), y(ys), z(zs), direction(UP) {};
 		~Position() override = default;
-		void summarize() const override { std::cout << "Position | X : " << x << " | Y : " << y << " | Z : " << z
+		void summarize() const override { std::cout << "PHYSICALBODY | X : " << x << " | Y : " << y << " | Z : " << z
 							    << "direction : " << direction << std::endl; };
 		typeComponent getType() const override { return PHYSICALBODY; };
 	public:
-		unsigned int x;
-		unsigned int y;
-		unsigned int z;
+		uint32_t x;
+		uint32_t y;
+		uint32_t z;
 		Direction direction;
 	};
 }
