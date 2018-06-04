@@ -12,7 +12,7 @@
 #include "IComponent.hpp"
 
 namespace Components {
-	class Position : public IComponent {
+	class PhysicalBody : public IComponent {
 		enum Direction {
 			UP = 180,
 			DOWN = 0,
@@ -20,10 +20,10 @@ namespace Components {
 			RIGHT = 270
 		};
 	public:
-		Position(unsigned int xs, unsigned int ys, unsigned int zs) : x(xs), y(ys), z(zs), direction(UP) {};
-		~Position() override = default;
-		void summarize() const override { std::cout << "PHYSICALBODY | X : " << x << " | Y : " << y << " | Z : " << z
-							    << "direction : " << direction << std::endl; };
+		PhysicalBody(unsigned int xs, unsigned int ys, unsigned int zs) : x(xs), y(ys), z(zs), direction(DOWN) {};
+		~PhysicalBody() override = default;
+		void summarize() const override
+			{ std::cout << "PhysicalBody | X : " << x << " | Y : " << y << " | Z : " << z << " | Direction : " << direction << std::endl; };
 		typeComponent getType() const override { return PHYSICALBODY; };
 	public:
 		uint32_t x;

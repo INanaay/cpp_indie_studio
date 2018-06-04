@@ -5,7 +5,7 @@
 #ifndef INDIESTUDIO_COMPONENTS_HPP
 #define INDIESTUDIO_COMPONENTS_HPP
 
-#include "Position.hpp"
 #include "Acceleration.hpp"
+#include "PhysicalBody.hpp"
 
 #endif //INDIESTUDIO_COMPONENTS_HPP

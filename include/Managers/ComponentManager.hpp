@@ -20,6 +20,7 @@ using EntitiesComponents = std::unordered_map<uint32_t, ComponentsList>;
 class ComponentManager {
     public:
         void addComponent(IComponent *, uint32_t);
+        void removeComponent(uint32_t, typeComponent);
         ComponentsList &getComponent(uint32_t);
         std::vector<uint32_t> getEntityByComponents(std::vector<typeComponent>) const;
         void infoComponent(uint32_t);

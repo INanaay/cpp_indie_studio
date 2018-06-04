@@ -32,6 +32,8 @@ public:
         _world->getComponentManager().addComponent(new componentType(), id);
     };
 
+    void removeComponent(typeComponent rm) {_world->getComponentManager().removeComponent(id, rm);};
+
 public:
     uint32_t id;
 };

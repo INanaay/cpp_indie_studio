@@ -18,8 +18,12 @@ int main()
 
         world.addEntity(player);
 
-        player.addComponent<Components::Position>(uint32_t(20), uint32_t(20), uint32_t(20));
+        player.addComponent<Components::PhysicalBody>(uint32_t(20), uint32_t(20), uint32_t(20));
         player.addComponent<Components::Acceleration>(uint32_t(10));
+
+        world.info();
+
+        player.removeComponent(ACCELERATION);
 
         world.info();
 

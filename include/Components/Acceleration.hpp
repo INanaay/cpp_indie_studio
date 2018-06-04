@@ -14,7 +14,7 @@ namespace Components {
         Acceleration(uint32_t vs) : value(vs) {};
         ~Acceleration() override = default;
         void summarize() const override {std::cout << "Acceleration | Value : " << value << std::endl;};
-        typeComponent getType() const override { return POSITION; };
+        typeComponent getType() const override { return ACCELERATION; };
 
     public:
         uint32_t value;
