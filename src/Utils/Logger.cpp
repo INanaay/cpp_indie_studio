@@ -5,6 +5,7 @@
 #include <ctime>
 #include <iostream>
 #include <iomanip>
+#include <time.h>
 #include "Logger.hpp"
 
 #define RED "\033[0;31m"
@@ -18,7 +19,7 @@ void Logger::logMessage(const std::string &msg, logLevel level)
     auto time = std::time(nullptr);
     struct tm info;
 
-    localtime_s(&info, &time);
+    localtime(&time);
     std::cout << std::put_time(&info, "%T");
     if (level == logLevel::SUCCESS)
         std::cout << " | Success : ";
