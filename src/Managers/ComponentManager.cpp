@@ -13,14 +13,14 @@ void ComponentManager::addComponent(IComponent *toPush, uint32_t id)
 
 void ComponentManager::infoComponent(uint32_t id)
 {
-    if (_entities.find(id) == _entities.end())
+    if (_entities.find(id) == _entities.end() && !_entities.empty())
         throw std::runtime_error("Cannot find entity ID");
     for (const auto &entity : _entities[id]) {
         entity->summarize();
     }
 }
 
-ComponentsList &ComponentManager::getComponent(uint32_t id)
+ComponentsList &ComponentManager::getComponents(uint32_t id)
 {
     if (_entities.find(id) == _entities.end())
         throw std::runtime_error("Cannot find entity ID");
@@ -43,7 +43,6 @@ std::vector<uint32_t> ComponentManager::getEntityByComponents(std::vector<typeCo
                     foundCount++;
             }
         }
-        std::cout << "Found count value for Entity " << entity.first << " is " << foundCount << std::endl;
         if (foundCount == searchList.size())
             output.push_back(entity.first);
     }

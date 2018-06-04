@@ -10,7 +10,7 @@
 #include "ComponentManager.hpp"
 #include "EntityManager.hpp"
 
-using Systems = std::vector<std::unique_ptr<ISystem>>;
+using SystemsList = std::vector<std::unique_ptr<ISystem>>;
 
 /*!
  * \brief This class represent the whole world of the game
@@ -51,7 +51,7 @@ public:
     ComponentManager _componentManager;
 private:
     EntityManager _entityManager;
-    Systems _systems;
+    SystemsList _systems;
 };
 
 

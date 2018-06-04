@@ -21,9 +21,20 @@ class ComponentManager {
     public:
         void addComponent(IComponent *, uint32_t);
         void removeComponent(uint32_t, typeComponent);
-        ComponentsList &getComponent(uint32_t);
+        ComponentsList &getComponents(uint32_t);
         std::vector<uint32_t> getEntityByComponents(std::vector<typeComponent>) const;
         void infoComponent(uint32_t);
+
+        template <class T>
+        T *getComponent(uint32_t id, typeComponent search) {
+            for (auto &e : _entities[id]) {
+                if (e->getType() == search) {
+                    return (static_cast<T *>(e.get()));
+                }
+            }
+            return nullptr;
+        }
+
     private:
         EntitiesComponents _entities;
 };

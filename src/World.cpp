@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <thread>
 #include "Logger.hpp"
 #include "Entity.hpp"
 #include "World.hpp"

@@ -7,5 +7,6 @@
 
 #include "Acceleration.hpp"
 #include "PhysicalBody.hpp"
+#include "GraphicalBody.hpp"
 
 #endif //INDIESTUDIO_COMPONENTS_HPP
