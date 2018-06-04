@@ -1,3 +1,0 @@
-Execute "cmake .." from this folder to generate the cmake project
-
-Then make to build the project. You may need to "make install" if you haven't the library installed yet.
