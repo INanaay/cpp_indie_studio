@@ -8,17 +8,9 @@
 #include <unordered_map>
 #include "ISystem.hpp"
 #include "ComponentManager.hpp"
+#include "EntityManager.hpp"
 
-class Entity;
-using Entities = std::vector<std::unique_ptr<Entity>>;
 using Systems = std::vector<std::unique_ptr<ISystem>>;
-
-struct WorldStats
-{
-    WorldStats() : entitiesCount(0), componentsCount(0) {};
-    uint32_t entitiesCount;
-    uint32_t componentsCount;
-};
 
 /*!
  * \brief This class represent the whole world of the game
@@ -33,8 +25,10 @@ public:
 
     int update();
 
-    ComponentManager *getComponentManager() {return &_componentManager;};
-    Entity *createEntity();
+    ComponentManager &getComponentManager() {return _componentManager;};
+    EntityManager &getEntityManager() {return _entityManager;};
+    Entity createEntity();
+    void info();
 
 
     template <class systemType, class... Args>
@@ -43,11 +37,21 @@ public:
         _systems.emplace_back(new systemType({args...}));
     }
 
-private:
+    template <class systemType>
+    void addSystem()
+    {
+        _systems.emplace_back(new systemType());
+    }
+
+    void addEntity(Entity &ref)
+    {
+        _entityManager.addEntity(ref);
+    }
+
     ComponentManager _componentManager;
-    Entities _entities;
+private:
+    EntityManager _entityManager;
     Systems _systems;
-    WorldStats _stats;
 };
 
 

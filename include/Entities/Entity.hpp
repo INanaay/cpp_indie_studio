@@ -5,6 +5,7 @@
 #ifndef INDIESTUDIO_IENTITY_HPP
 #define INDIESTUDIO_IENTITY_HPP
 
+#include <iostream>
 #include "Logger.hpp"
 #include "World.hpp"
 
@@ -22,18 +23,17 @@ public:
     template <class componentType, class... Args>
     void addComponent(Args&&... args)
     {
-        _world->getComponentManager()->addComponent(new componentType({args...}), id);
+        _world->getComponentManager().addComponent(new componentType({args...}), id);
     };
 
     template <class componentType>
     void addComponent()
     {
-        _world->getComponentManager()->addComponent(new componentType(), id);
+        _world->getComponentManager().addComponent(new componentType(), id);
     };
 
 public:
     uint32_t id;
-
 };
 
 #endif //INDIESTUDIO_IENTITY_HPP

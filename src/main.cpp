@@ -10,11 +10,21 @@
 
 int main()
 {
-    World world;
-    Entity *test = world.createEntity();
+    try {
+        World world;
 
-    world.addSystem<DemoSystem>(uint32_t(99));
+        auto player = world.createEntity();
+        auto test = world.createEntity();
 
+        world.addEntity(player);
 
-    world.update();
+        player.addComponent<Components::Position>(uint32_t(20), uint32_t(20), uint32_t(20));
+        player.addComponent<Components::Acceleration>(uint32_t(10));
+
+        world.info();
+
+    } catch (...) {
+        std::cerr << "An error occured" << std::endl;
+        return (84);
+    }
 }

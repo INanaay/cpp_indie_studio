@@ -2,6 +2,7 @@
 // Created by lucas on 02/06/2018.
 //
 
+#include <iostream>
 #include "Logger.hpp"
 #include "Entity.hpp"
 #include "World.hpp"
@@ -24,8 +25,17 @@ int World::update()
     return 0;
 }
 
-Entity *World::createEntity()
+Entity World::createEntity()
 {
-    _entities.emplace_back(new Entity(this, ++_stats.entitiesCount));
-    return _entities.back().get();
+    return (Entity(this, _entityManager.getNextInstance()));
+}
+
+void World::info()
+{
+    std::cout << "\n\n######## Displaying info for World ########\n" << std::endl;
+    for (const auto &entity : _entityManager.getEntities()) {
+        std::cout << "Entity " << entity << " ------------------- " << std::endl;
+        _componentManager.infoComponent(entity);
+    }
+    std::cout << "\n###########################################" << std::endl;
 }

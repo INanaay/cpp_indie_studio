@@ -15,13 +15,4 @@ GraphicalEngine::GraphicalEngine(uint32_t x, uint32_t y)
     _driver = _device->getVideoDriver();
     _scene = _device->getSceneManager();
     _gui = _device->getGUIEnvironment();
-<<<<<<< HEAD
 }
-=======
-	_context.device = _device;
-}
-
-GraphicalEngine::GraphicalEngine(const MenuEventHandler &eventHandler) : eventHandler(eventHandler) {}
-
-
->>>>>>> master
