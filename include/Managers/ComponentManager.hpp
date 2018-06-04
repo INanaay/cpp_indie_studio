@@ -7,7 +7,7 @@
 
 #include <unordered_map>
 #include <memory>
-#include "ComponentManager.hpp"
+#include <vector>
 #include "IComponent.hpp"
 
 using EntitiesComponents = std::unordered_map<uint32_t, std::vector<std::unique_ptr<IComponent>>>;
