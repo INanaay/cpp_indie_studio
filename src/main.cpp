@@ -29,10 +29,9 @@ int main()
 
         engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 10, -10), irr::core::vector3df(0, 5, 0));
 
+        world.startSystems();
         while (engine.isRunning()) {
             engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
-
-            world.update();
 
             engine.getScene()->drawAll();
             engine.getDriver()->endScene();

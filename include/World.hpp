@@ -24,6 +24,7 @@ public:
     ~World() noexcept;
 
     int update();
+    int startSystems() {return 0;};
 
     ComponentManager &getComponentManager() {return _componentManager;};
     EntityManager &getEntityManager() {return _entityManager;};

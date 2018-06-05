@@ -35,7 +35,7 @@ void World::info()
 {
     std::cout << "\n\n######## Displaying info for World ########\n" << std::endl;
     for (const auto &entity : _entityManager.getEntities()) {
-        std::cout << "Entity " << entity << " ------------------- " << std::endl;
+        std::cout << "\nEntity " << entity << " ------------------- " << std::endl;
         _componentManager.infoComponent(entity);
     }
     std::cout << "\n###########################################" << std::endl;
