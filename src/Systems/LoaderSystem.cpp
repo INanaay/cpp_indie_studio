@@ -26,6 +26,7 @@ void Systems::LoaderSystem::execute(World *ref)
 				irr::scene::IAnimatedMesh *mesh = _engine->getScene()->getMesh(
 					graphical->pathToModel.c_str());
 				graphical->node = _engine->getScene()->addAnimatedMeshSceneNode(mesh);
+				graphical->node->setMaterialTexture(0, _engine->getDriver()->getTexture(graphical->pathToTexture.c_str()));
 				graphical->isLoaded = true;
 			}
 			positionComponentMutex.lock();
