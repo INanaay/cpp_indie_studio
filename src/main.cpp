@@ -11,6 +11,7 @@
 #include "Systems.hpp"
 #include "Components.hpp"
 #include "Entity.hpp"
+#include "Map.hpp"
 #include "World.hpp"
 
 int main()
@@ -22,16 +23,31 @@ int main()
 	try {
         World world;
         GraphicalEngine engine(500, 500);
+	Map map(9);
 
-
-        auto player = world.createEntity();
-        world.addEntity(player);
-        player.addComponent<Components::GraphicalBody>("../ressources/models/rere.b3d", "non");
-        player.addComponent<Components::PhysicalBody>(0.0f, 0.0f, 0.0f);
-	player.addComponent<Components::Velocity>(0.0001f);
+	float ycursor = 0.0;
+	for (auto y : map.getMap()) {
+		float xcursor = 0.0;
+		for (auto x : y) {
+			auto entity = world.createEntity();
+			world.addEntity(entity);
+			if (x == 2)
+				entity.addComponent<Components::GraphicalBody>(
+					"../ressources/models/cobblestone.b3d", "non");
+			if (x == 1)
+				entity.addComponent<Components::GraphicalBody>(
+					"../ressources/models/wood.b3d", "non");
+			float posx = 1.0f * xcursor;
+			float posy = 1.0f * ycursor;
+			entity.addComponent<Components::PhysicalBody>(
+				posx, posy, 0.0f);
+			xcursor += 1.0f;
+		}
+		ycursor += 1.0f;
+	}
 
         world.addSystem<Systems::LoaderSystem>(&engine);
-	world.addSystem<Systems::MovementSystem>(&engine);
+	//world.addSystem<Systems::MovementSystem>(&engine);
         world.info();
 
         engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 10, -10), irr::core::vector3df(0, 5, 0));
