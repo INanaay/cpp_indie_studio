@@ -11,7 +11,8 @@ enum typeComponent {
 	GRAPHICALBODY,
 	POSITION,
 	VELOCITY,
-	BOMB
+	BOMB,
+    CONTROLLABLE
 };
 
 /*!

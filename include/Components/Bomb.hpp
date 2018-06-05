@@ -13,6 +13,7 @@
 #include <iostream>
 #include <irrlicht.h>
 #include <chrono>
+#include <ctime>
 #include "IComponent.hpp"
 
 namespace Components {

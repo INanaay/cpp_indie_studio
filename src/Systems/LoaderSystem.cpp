@@ -20,7 +20,8 @@ void Systems::LoaderSystem::execute(World *ref)
 													    GRAPHICALBODY);
 			auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(entityID,
 													  PHYSICALBODY);
-
+			auto bombs = ref->getComponentManager().getComponent<Components::PhysicalBody>(entityID,
+                                                                                           BOMB);
 			if (!graphical->isLoaded) {
 				irr::scene::IAnimatedMesh *mesh = _engine->getScene()->getMesh(
 					graphical->pathToModel.c_str());
@@ -31,7 +32,6 @@ void Systems::LoaderSystem::execute(World *ref)
 			graphical->node->setPosition(irr::core::vector3df(physical->x, physical->y, physical->z));
 			positionComponentMutex.unlock();
 			graphical->node->setAnimationSpeed(60);
-
 		}
 	}
 }

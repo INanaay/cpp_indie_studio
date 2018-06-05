@@ -8,6 +8,7 @@
 #include <X11/Xlib.h>
 #endif
 
+#include "ControllableEventHandler.hpp"
 #include "Systems.hpp"
 #include "Components.hpp"
 #include "Entity.hpp"
@@ -22,9 +23,11 @@ int main()
 
 	try {
         World world;
+        ControllableEventHandler handler;
         GraphicalEngine engine(500, 500);
 	Map map(9);
 
+<<<<<<< Updated upstream
 	float ycursor = 0.0;
 	for (auto y : map.getMap()) {
 		float xcursor = 0.0;
@@ -48,11 +51,24 @@ int main()
 
         world.addSystem<Systems::LoaderSystem>(&engine);
 	//world.addSystem<Systems::MovementSystem>(&engine);
+=======
+        engine.setHandler(&handler);
+
+        auto player = world.createEntity();
+        world.addEntity(player);
+        player.addComponent<Components::GraphicalBody>("../ressources/models/rere.b3d", "non");
+        player.addComponent<Components::PhysicalBody>(0.0f, 0.0f, 0.0f);
+	    player.addComponent<Components::Velocity>(0.0001f);
+
+        world.addSystem<Systems::LoaderSystem>(&engine);
+	    world.addSystem<Systems::MovementSystem>(&engine);
+>>>>>>> Stashed changes
         world.info();
 
         engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 10, -10), irr::core::vector3df(0, 5, 0));
 
         world.startWorkers();
+
         while (engine.isRunning()) {
             engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
             engine.getScene()->drawAll();
