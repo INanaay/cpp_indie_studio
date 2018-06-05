@@ -53,12 +53,15 @@ endif(MSVC)
 
 if (UNIX AND NOT APPLE)
     message(STATUS "Compiling for UNIX")
+    find_package(OpenGL REQUIRED)
 
     set(LIBRARIES ${LIBRARIES} ${IRRLICH_DIR}/lib/Linux/libIrrlicht.a)
     set(LIBRARIES ${LIBRARIES} ${X11_DIR}/libX11.so.6.3.0)
     set(LIBRARIES ${LIBRARIES} ${XXF86VM_DIR}/libXxf86vm.so.1)
     set(LIBRARIES ${LIBRARIES} ${GL_DIR}/libGL.so)
     set(LIBRARIES ${LIBRARIES} pthread)
+
+
 
     set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES
             "${BASE_PATH}/dist/Irrlicht.dll"
@@ -82,7 +85,7 @@ endif()
 
 ################# COMPILATION #################
 
-add_executable(indieStudio ${HDR_FILES} ${SRC_FILES} include/Components/PhysicalBody.hpp)
+add_executable(indieStudio ${HDR_FILES} ${SRC_FILES} include/Components/PhysicalBody.hpp include/Systems/MovementSystem.hpp src/Systems/MovementSystem.cpp)
 target_link_libraries(indieStudio ${LIBRARIES})
 
 
