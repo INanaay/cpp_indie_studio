@@ -25,25 +25,33 @@ int main()
         World world;
         ControllableEventHandler handler;
         GraphicalEngine engine(500, 500);
-	Map map(9);
+		Map map(9);
 
-<<<<<<< Updated upstream
-	float ycursor = 0.0;
-	for (auto y : map.getMap()) {
+		float ycursor = 0.0;
+		for (auto y : map.getMap()) {
 		float xcursor = 0.0;
 		for (auto x : y) {
-			auto entity = world.createEntity();
-			world.addEntity(entity);
-			if (x == 2)
+
+			if (x == '2') {
+				auto entity = world.createEntity();
+				world.addEntity(entity);
 				entity.addComponent<Components::GraphicalBody>(
-					"../ressources/models/cobblestone.b3d", "non");
-			if (x == 1)
+						"../ressources/models/cobblestone.b3d", "../ressources/models/cobblestone.png");
+				float posx = 1.0f * xcursor;
+				float posy = 1.0f * ycursor;
+				entity.addComponent<Components::PhysicalBody>(
+						posx, posy, 0.0f);
+			}
+			if (x == '1') {
+				auto entity = world.createEntity();
+				world.addEntity(entity);
 				entity.addComponent<Components::GraphicalBody>(
-					"../ressources/models/wood.b3d", "non");
-			float posx = 1.0f * xcursor;
-			float posy = 1.0f * ycursor;
-			entity.addComponent<Components::PhysicalBody>(
-				posx, posy, 0.0f);
+						"../ressources/models/wood.b3d", "../ressources/models/wood.png");
+				float posx = 1.0f * xcursor;
+				float posy = 1.0f * ycursor;
+				entity.addComponent<Components::PhysicalBody>(
+						posx, posy, 0.0f);
+			}
 			xcursor += 1.0f;
 		}
 		ycursor += 1.0f;
@@ -51,18 +59,10 @@ int main()
 
         world.addSystem<Systems::LoaderSystem>(&engine);
 	//world.addSystem<Systems::MovementSystem>(&engine);
-=======
         engine.setHandler(&handler);
 
-        auto player = world.createEntity();
-        world.addEntity(player);
-        player.addComponent<Components::GraphicalBody>("../ressources/models/rere.b3d", "non");
-        player.addComponent<Components::PhysicalBody>(0.0f, 0.0f, 0.0f);
-	    player.addComponent<Components::Velocity>(0.0001f);
-
         world.addSystem<Systems::LoaderSystem>(&engine);
-	    world.addSystem<Systems::MovementSystem>(&engine);
->>>>>>> Stashed changes
+	    //world.addSystem<Systems::MovementSystem>(&engine);
         world.info();
 
         engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 10, -10), irr::core::vector3df(0, 5, 0));
