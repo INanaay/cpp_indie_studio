@@ -9,20 +9,24 @@
 
 void Systems::LoaderSystem::execute(World *ref)
 {
-    while (_engine->isRunning()) {
-        auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY});
+	while (_engine->isRunning()) {
+		auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY});
 
-        for (const auto &entityID : entities) {
-            auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(entityID,
-                                                                                                GRAPHICALBODY);
-            auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(entityID, PHYSICALBODY);
+		for (const auto &entityID : entities) {
+			auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(entityID,
+													    GRAPHICALBODY);
+			auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(entityID,
+													  PHYSICALBODY);
 
-            if (!graphical->isLoaded) {
-                irr::scene::IAnimatedMesh *mesh = _engine->getScene()->getMesh(graphical->pathToModel.c_str());
-                graphical->node = _engine->getScene()->addAnimatedMeshSceneNode(mesh);
-                graphical->isLoaded = true;
-            }
-            graphical->node->setPosition(irr::core::vector3df(physical->x, physical->y, physical->z));
-        }
-    }
+			if (!graphical->isLoaded) {
+				std::cout << "Loading UI" << std::endl;
+				irr::scene::IAnimatedMesh *mesh = _engine->getScene()->getMesh(
+					graphical->pathToModel.c_str());
+				graphical->node = _engine->getScene()->addAnimatedMeshSceneNode(mesh);
+				graphical->isLoaded = true;
+			}
+			graphical->node->setPosition(irr::core::vector3df(physical->x, physical->y, physical->z));
+
+		}
+	}
 }

@@ -3,6 +3,11 @@
 //
 
 #include <iostream>
+
+#ifdef __linux__
+#include <X11/Xlib.h>
+#endif
+
 #include "Systems.hpp"
 #include "Components.hpp"
 #include "Entity.hpp"
@@ -10,9 +15,14 @@
 
 int main()
 {
-    try {
+#ifdef __linux__
+	XInitThreads();
+#endif
+
+	try {
         World world;
         GraphicalEngine engine(500, 500);
+
 
         auto player = world.createEntity();
         world.addEntity(player);
@@ -24,10 +34,8 @@ int main()
         engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 10, -10), irr::core::vector3df(0, 5, 0));
 
         world.startWorkers();
-
         while (engine.isRunning()) {
             engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
-
             engine.getScene()->drawAll();
             engine.getDriver()->endScene();
         }
