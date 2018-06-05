@@ -18,9 +18,11 @@ namespace Systems {
 
 	class MovementSystem : public ISystem {
 	public:
-		MovementSystem();
+		MovementSystem(GraphicalEngine *engine) : _engine(engine) {};
 
 		void execute(World *ref) override;
+	private:
+		GraphicalEngine *_engine;
 	};
 }
 

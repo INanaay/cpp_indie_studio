@@ -28,9 +28,12 @@ int main()
         world.addEntity(player);
         player.addComponent<Components::GraphicalBody>("../ressources/models/rere.b3d", "non");
         player.addComponent<Components::PhysicalBody>(0.0f, 0.0f, 0.0f);
+	player.addComponent<Components::Velocity>(0.0001f);
 
         world.addSystem<Systems::LoaderSystem>(&engine);
+	world.addSystem<Systems::MovementSystem>(&engine);
         world.info();
+
         engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 10, -10), irr::core::vector3df(0, 5, 0));
 
         world.startWorkers();

@@ -3,9 +3,12 @@
 //
 
 #include <iostream>
+#include <mutex>
 #include "World.hpp"
 #include "Components.hpp"
 #include "LoaderSystem.hpp"
+
+extern std::mutex positionComponentMutex;
 
 void Systems::LoaderSystem::execute(World *ref)
 {
@@ -24,7 +27,9 @@ void Systems::LoaderSystem::execute(World *ref)
 				graphical->node = _engine->getScene()->addAnimatedMeshSceneNode(mesh);
 				graphical->isLoaded = true;
 			}
+			positionComponentMutex.lock();
 			graphical->node->setPosition(irr::core::vector3df(physical->x, physical->y, physical->z));
+			positionComponentMutex.unlock();
 			graphical->node->setAnimationSpeed(60);
 
 		}

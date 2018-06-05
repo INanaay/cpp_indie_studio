@@ -6,6 +6,7 @@
 #define INDIESTUDIO_SYSTEMS_HPP
 
 #include "DemoSystem.hpp"
+#include "MovementSystem.hpp"
 #include "LoaderSystem.hpp"
 
 #endif //INDIESTUDIO_SYSTEMS_HPP

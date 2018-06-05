@@ -13,6 +13,7 @@
 
 namespace Components {
 	class PhysicalBody : public IComponent {
+	public:
 		enum Direction {
 			UP = 180,
 			DOWN = 0,

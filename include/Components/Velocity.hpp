@@ -11,13 +11,13 @@
 namespace Components {
     class Velocity : public IComponent {
     public:
-        Velocity(uint32_t vs) : value(vs) {};
+        Velocity(float vs) : value(vs) {};
         ~Velocity() override = default;
         void summarize() const override {std::cout << "Velocity | Value : " << value << std::endl;};
         typeComponent getType() const override { return VELOCITY; };
 
     public:
-        uint32_t value;
+        float value;
     };
 }
 
