@@ -10,7 +10,7 @@ enum typeComponent {
 	PHYSICALBODY,
 	GRAPHICALBODY,
 	POSITION,
-	ACCELERATION,
+	VELOCITY,
 };
 
 /*!

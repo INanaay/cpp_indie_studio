@@ -19,13 +19,13 @@ void Systems::LoaderSystem::execute(World *ref)
 													  PHYSICALBODY);
 
 			if (!graphical->isLoaded) {
-				std::cout << "Loading UI" << std::endl;
 				irr::scene::IAnimatedMesh *mesh = _engine->getScene()->getMesh(
 					graphical->pathToModel.c_str());
 				graphical->node = _engine->getScene()->addAnimatedMeshSceneNode(mesh);
 				graphical->isLoaded = true;
 			}
 			graphical->node->setPosition(irr::core::vector3df(physical->x, physical->y, physical->z));
+			graphical->node->setAnimationSpeed(60);
 
 		}
 	}
