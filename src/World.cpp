@@ -40,3 +40,20 @@ void World::info()
     }
     std::cout << "\n###########################################" << std::endl;
 }
+
+int World::startWorkers()
+{
+    for (auto &system : _systems) {
+        _workers.emplace_back(&ISystem::execute, system, this);
+    }
+    return 0;
+}
+
+int World::waitWorkers()
+{
+    for (auto &worker : _workers) {
+        if (worker.joinable())
+            worker.join();
+    }
+    return 0;
+}

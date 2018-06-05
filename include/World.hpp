@@ -6,11 +6,13 @@
 #define INDIESTUDIO_WORLD_H
 
 #include <unordered_map>
+#include <thread>
 #include "ISystem.hpp"
 #include "ComponentManager.hpp"
 #include "EntityManager.hpp"
 
-using SystemsList = std::vector<std::unique_ptr<ISystem>>;
+using SystemsList = std::vector<std::shared_ptr<ISystem>>;
+using Workers = std::vector<std::thread>;
 
 /*!
  * \brief This class represent the whole world of the game
@@ -24,7 +26,8 @@ public:
     ~World() noexcept;
 
     int update();
-    int startSystems() {return 0;};
+    int startWorkers();
+    int waitWorkers();
 
     ComponentManager &getComponentManager() {return _componentManager;};
     EntityManager &getEntityManager() {return _entityManager;};
@@ -49,10 +52,11 @@ public:
         _entityManager.addEntity(ref);
     }
 
-    ComponentManager _componentManager;
 private:
+    ComponentManager _componentManager;
     EntityManager _entityManager;
     SystemsList _systems;
+    Workers _workers;
 };
 
 
