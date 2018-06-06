@@ -24,8 +24,9 @@ int main()
 	try {
         World world;
         ControllableEventHandler handler;
-        GraphicalEngine engine(500, 500);
+        GraphicalEngine engine(800, 800);
 		Map map(9);
+
 
 		float ycursor = 0.0;
 		for (auto y : map.getMap()) {
@@ -37,40 +38,34 @@ int main()
 				world.addEntity(entity);
 				entity.addComponent<Components::GraphicalBody>(
 						"../ressources/models/cobblestone.b3d", "../ressources/models/cobblestone.png");
-				float posx = 1.0f * xcursor;
-				float posy = 1.0f * ycursor;
 				entity.addComponent<Components::PhysicalBody>(
-						posx, posy, 0.0f);
+						xcursor, ycursor, 0.0f);
 			}
 			if (x == '1') {
 				auto entity = world.createEntity();
 				world.addEntity(entity);
 				entity.addComponent<Components::GraphicalBody>(
 						"../ressources/models/wood.b3d", "../ressources/models/wood.png");
-				float posx = 1.0f * xcursor;
-				float posy = 1.0f * ycursor;
 				entity.addComponent<Components::PhysicalBody>(
-						posx, posy, 0.0f);
+						xcursor, ycursor, 0.0f);
 			}
-			xcursor += 1.0f;
+			xcursor += 2.0f;
 		}
-		ycursor += 1.0f;
+		ycursor += 2.0f;
 	}
 
         world.addSystem<Systems::LoaderSystem>(&engine);
-	//world.addSystem<Systems::MovementSystem>(&engine);
-        engine.setHandler(&handler);
-
-        world.addSystem<Systems::LoaderSystem>(&engine);
-	    //world.addSystem<Systems::MovementSystem>(&engine);
+	    world.addSystem<Systems::MovementSystem>(&engine);
         world.info();
 
-        engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 10, -10), irr::core::vector3df(0, 5, 0));
+		engine.setHandler(&handler);
+		
+        auto cam = engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(21, -15, -30), irr::core::vector3df(21, 21, 0));
 
         world.startWorkers();
 
         while (engine.isRunning()) {
-            engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
+			engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
             engine.getScene()->drawAll();
             engine.getDriver()->endScene();
         }

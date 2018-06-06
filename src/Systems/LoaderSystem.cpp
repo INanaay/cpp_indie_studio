@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <mutex>
+#include <ITexture.h>
 #include "World.hpp"
 #include "Components.hpp"
 #include "LoaderSystem.hpp"
@@ -20,8 +21,6 @@ void Systems::LoaderSystem::execute(World *ref)
 													    GRAPHICALBODY);
 			auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(entityID,
 													  PHYSICALBODY);
-			auto bombs = ref->getComponentManager().getComponent<Components::PhysicalBody>(entityID,
-                                                                                           BOMB);
 			if (!graphical->isLoaded) {
 				irr::scene::IAnimatedMesh *mesh = _engine->getScene()->getMesh(
 					graphical->pathToModel.c_str());
