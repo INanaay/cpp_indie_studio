@@ -37,7 +37,7 @@ int main()
 				auto entity = world.createEntity();
 				world.addEntity(entity);
 				entity.addComponent<Components::GraphicalBody>(
-						"../ressources/models/cobblestone.b3d", "../ressources/models/cobblestone.png");
+						"../ressources/models/cobblestone.obj", "../ressources/models/cobblestone.png");
 				entity.addComponent<Components::PhysicalBody>(
 						xcursor, ycursor, 0.0f);
 			}
@@ -45,7 +45,7 @@ int main()
 				auto entity = world.createEntity();
 				world.addEntity(entity);
 				entity.addComponent<Components::GraphicalBody>(
-						"../ressources/models/wood.b3d", "../ressources/models/wood.png");
+						"../ressources/models/wood.obj", "../ressources/models/wood.png");
 				entity.addComponent<Components::PhysicalBody>(
 						xcursor, ycursor, 0.0f);
 			}
@@ -55,7 +55,7 @@ int main()
 	}
 
         world.addSystem<Systems::LoaderSystem>(&engine);
-	    world.addSystem<Systems::MovementSystem>(&engine);
+	world.addSystem<Systems::MovementSystem>(&engine);
         world.info();
 
 		engine.setHandler(&handler);
