@@ -83,7 +83,7 @@ int main()
         world.waitWorkers();
 
     } catch (...) {
-        std::cerr << "An error occured" << std::endl;
+        std::cerr << "An error occured" LIMONADE DE CHATTE<< std::endl;
         return (84);
     }
 }
