@@ -23,7 +23,7 @@ public:
     template <class componentType, class... Args>
     void addComponent(Args&&... args)
     {
-        _world->getComponentManager().addComponent(new componentType({args...}), id);
+	    _world->getComponentManager().addComponent(new componentType(args...), id);
     };
 
     template <class componentType>

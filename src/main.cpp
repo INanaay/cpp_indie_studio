@@ -6,6 +6,9 @@
 
 #ifdef __linux__
 #include <X11/Xlib.h>
+#include <WallCollision.hpp>
+#include <PlayerCollision.hpp>
+#include <Systems/CollisionSystem.hpp>
 
 #endif
 
@@ -34,6 +37,7 @@ int main()
         perso.addComponent<Components::GraphicalBody>(
                 "../ressources/models/rere.b3d", "../ressources/models/re.png");
         perso.addComponent<Components::PhysicalBody>(2.0f, 2.0f, 0.0f);
+		perso.addComponent<Components::PlayerCollision>();
 
         keymap player1_keymaps;
 
@@ -57,6 +61,7 @@ int main()
                             "../ressources/models/cobblestone.obj", "../ressources/models/cobblestone.png");
                     entity.addComponent<Components::PhysicalBody>(
                             xcursor, ycursor, 0.0f);
+			entity.addComponent<Components::WallCollision>();
                 }
                 if (x == '1') {
                     auto entity = world.createEntity();
@@ -65,7 +70,9 @@ int main()
                             "../ressources/models/wood.obj", "../ressources/models/wood.png");
                     entity.addComponent<Components::PhysicalBody>(
                             xcursor, ycursor, 0.0f);
-                }
+			entity.addComponent<Components::WallCollision>();
+
+		}
                 xcursor += 2.0f;
             }
             ycursor += 2.0f;
@@ -74,6 +81,7 @@ int main()
         world.addSystem<Systems::LoaderSystem>(&engine);
         world.addSystem<Systems::MovementSystem>(&engine);
         world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
+		world.addSystem<Systems::CollisionSystem>(&engine);
 
         engine.setHandler(&handler);
 

@@ -16,6 +16,7 @@ namespace Systems {
     class ControllableSystem : public ISystem {
     public:
         ControllableSystem(GraphicalEngine *engine, bool *keyDown) : _keyDown(keyDown), _engine(engine) {};
+
         void disableAction(CONTROL_ACTION, Components::PhysicalBody *, Components::Velocity *);
         void enableAction(CONTROL_ACTION, Components::PhysicalBody *, Components::Velocity *);
         void execute(World *ref) override;

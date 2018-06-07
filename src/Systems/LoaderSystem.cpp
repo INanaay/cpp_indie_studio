@@ -31,6 +31,7 @@ void Systems::LoaderSystem::execute(World *ref)
 			}
 			positionComponentMutex.lock();
 			graphical->node->setPosition(irr::core::vector3df(physical->x, physical->y, physical->z));
+			graphical->node->setRotation(irr::core::vector3df(270, 0, 0));
 			positionComponentMutex.unlock();
 		}
 	}

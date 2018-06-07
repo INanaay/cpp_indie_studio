@@ -33,6 +33,8 @@ void Systems::CollisionSystem::execute(World *ref)
 		}
 
 		auto playerEntities = ref->getComponentManager().getEntityByComponents({PLAYERCOLLISION});
+		irr::core::vector3df hitbox(0.5, 0.5, 0.5);
+
 
 		for (const auto &entityID : playerEntities)
 		{
@@ -43,8 +45,8 @@ void Systems::CollisionSystem::execute(World *ref)
 				auto node = graphical->node;
 				collision->anim = _engine->getScene()->createCollisionResponseAnimator
 					(_engine->getMetaSelector(), node,
-					 (node->getBoundingBox().MaxEdge - node->getBoundingBox().MinEdge),
-					 irr::core::vector3df(0, -1, 0));
+					 (hitbox),
+					 irr::core::vector3df(0, 0, 0));
 				node->addAnimator(collision->anim);
 				collision->anim->drop();
 				collision->isLoaded = true;
