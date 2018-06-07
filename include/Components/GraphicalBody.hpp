@@ -23,10 +23,11 @@ namespace Components {
         typeComponent getType() const override { return GRAPHICALBODY; };
 
     public:
-        std::string pathToModel;
-        std::string pathToTexture;
-        irr::scene::IAnimatedMeshSceneNode *node;
-        bool isLoaded;
+	    std::string pathToModel;
+	    std::string pathToTexture;
+	    irr::scene::IAnimatedMeshSceneNode *node;
+	    irr::scene::IAnimatedMesh *mesh;
+	    bool isLoaded;
     };
 }
 
