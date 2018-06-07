@@ -5,6 +5,7 @@
 #ifndef INDIESTUDIO_CONTROLLABLE_HPP
 #define INDIESTUDIO_CONTROLLABLE_HPP
 
+#include <vector>
 #include <string>
 #include <iostream>
 #include <irrlicht.h>
