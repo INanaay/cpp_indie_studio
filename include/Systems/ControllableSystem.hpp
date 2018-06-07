@@ -6,6 +6,8 @@
 #define INDIESTUDIO_CONTROLLABLESYSTEM_HPP
 
 #include "ISystem.hpp"
+#include "Components.hpp"
+#include "GraphicalEngine.hpp"
 
 class World;
 
@@ -13,12 +15,15 @@ namespace Systems {
 
     class ControllableSystem : public ISystem {
     public:
-        ControllableSystem(bool *keyDown) : _keyDown(keyDown) {};
-
+        ControllableSystem(GraphicalEngine *engine, bool *keyDown) : _keyDown(keyDown), _engine(engine) {};
+        void disableAction(CONTROL_ACTION, Components::PhysicalBody *, Components::Velocity *);
+        void enableAction(CONTROL_ACTION, Components::PhysicalBody *, Components::Velocity *);
         void execute(World *ref) override;
 
     private:
         bool *_keyDown;
+        GraphicalEngine *_engine;
+        CONTROL_ACTION _lastAction;
     };
 }
 

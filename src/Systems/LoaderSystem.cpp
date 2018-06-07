@@ -26,12 +26,12 @@ void Systems::LoaderSystem::execute(World *ref)
 					graphical->pathToModel.c_str());
 				graphical->node = _engine->getScene()->addAnimatedMeshSceneNode(mesh);
 				graphical->node->setMaterialTexture(0, _engine->getDriver()->getTexture(graphical->pathToTexture.c_str()));
-				graphical->isLoaded = true;
+                graphical->node->setFrameLoop(0, 0);
+                graphical->isLoaded = true;
 			}
 			positionComponentMutex.lock();
 			graphical->node->setPosition(irr::core::vector3df(physical->x, physical->y, physical->z));
 			positionComponentMutex.unlock();
-			graphical->node->setAnimationSpeed(60);
 		}
 	}
 }

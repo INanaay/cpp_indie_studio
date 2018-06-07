@@ -6,8 +6,6 @@
 
 #ifdef __linux__
 #include <X11/Xlib.h>
-#include <Systems/AISystem.hpp>
-#include <AI.hpp>
 
 #endif
 
@@ -35,8 +33,18 @@ int main()
 		world.addEntity(perso);
         perso.addComponent<Components::GraphicalBody>(
                 "../ressources/models/rere.b3d", "../ressources/models/re.png");
-        perso.addComponent<Components::PhysicalBody>(2.0, 2.0, 0.0);
-        perso.addComponent<Components::AIComponent>();
+        perso.addComponent<Components::PhysicalBody>(2.0f, 2.0f, 0.0f);
+
+        keymap player1_keymaps;
+
+        player1_keymaps.emplace_back(irr::EKEY_CODE::KEY_LEFT, CONTROL_ACTION::MOVELEFT);
+        player1_keymaps.emplace_back(irr::EKEY_CODE::KEY_RIGHT, CONTROL_ACTION::MOVERIGHT);
+        player1_keymaps.emplace_back(irr::EKEY_CODE::KEY_UP, CONTROL_ACTION::MOVEUP);
+        player1_keymaps.emplace_back(irr::EKEY_CODE::KEY_DOWN, CONTROL_ACTION::MOVEDOWN);
+
+        perso.addComponent<Components::Controllable>(player1_keymaps);
+        perso.addComponent<Components::Velocity>(0.f);
+
 		float ycursor = 0.0;
 		for (auto y : map.getMap()) {
             float xcursor = 0.0;
@@ -65,12 +73,13 @@ int main()
 
         world.addSystem<Systems::LoaderSystem>(&engine);
         world.addSystem<Systems::MovementSystem>(&engine);
-        world.addSystem<Systems::AISystem>(&engine);
+        world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
+
+        engine.setHandler(&handler);
+
         world.info();
 
-		engine.setHandler(&handler);
-		
-        auto cam = engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(21, -15, -30), irr::core::vector3df(21, 21, 0));
+        auto cam = engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(21, 10,-40), irr::core::vector3df(21,21,21));
 
         world.startWorkers();
 
@@ -83,7 +92,6 @@ int main()
         world.waitWorkers();
 
     } catch (...) {
-        std::cerr << "An error occured" LIMONADE DE CHATTE<< std::endl;
         return (84);
     }
 }
