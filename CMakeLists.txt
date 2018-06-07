@@ -85,7 +85,7 @@ endif()
 
 ################# COMPILATION #################
 
-add_executable(indieStudio ${HDR_FILES} ${SRC_FILES} include/Components/PhysicalBody.hpp include/Systems/MovementSystem.hpp src/Systems/MovementSystem.cpp)
+add_executable(indieStudio ${HDR_FILES} ${SRC_FILES} include/Components/PhysicalBody.hpp include/Systems/MovementSystem.hpp src/Systems/MovementSystem.cpp include/Components/WallCollision.hpp include/Components/PlayerCollision.hpp include/Systems/CollisionSystem.hpp src/Systems/CollisionSystem.cpp)
 target_link_libraries(indieStudio ${LIBRARIES})
 
 

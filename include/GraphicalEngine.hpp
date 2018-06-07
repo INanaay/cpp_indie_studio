@@ -14,6 +14,7 @@ using Driver = irr::video::IVideoDriver *;
 using Scene = irr::scene::ISceneManager *;
 using Gui = irr::gui::IGUIEnvironment *;
 using EventHandler = irr::IEventReceiver *;
+using MetaSelector = irr::scene::IMetaTriangleSelector *;
 
 class GraphicalEngine {
 public:
@@ -28,14 +29,15 @@ public:
     const EventHandler getHandler() const noexcept {return _handler;};
     void dropHandler() noexcept  {_handler = nullptr; _device->setEventReceiver(nullptr);}
     void setHandler(EventHandler hand) noexcept {_handler = hand; _device->setEventReceiver(_handler);};
-
+	const MetaSelector getMetaSelector() const noexcept { return _metaSelector;};
 
 private:
 	Device _device;
 	Driver _driver;
 	Scene _scene;
 	Gui _gui;
-    EventHandler _handler;
+    	EventHandler _handler;
+	MetaSelector _metaSelector;
 };
 
 #endif //INDIESTUDIO_GRAPHICALINITIALIZER_H

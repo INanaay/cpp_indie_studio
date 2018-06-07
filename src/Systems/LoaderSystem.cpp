@@ -22,9 +22,9 @@ void Systems::LoaderSystem::execute(World *ref)
 			auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(entityID,
 													  PHYSICALBODY);
 			if (!graphical->isLoaded) {
-				irr::scene::IAnimatedMesh *mesh = _engine->getScene()->getMesh(
+				graphical->mesh = _engine->getScene()->getMesh(
 					graphical->pathToModel.c_str());
-				graphical->node = _engine->getScene()->addAnimatedMeshSceneNode(mesh);
+				graphical->node = _engine->getScene()->addAnimatedMeshSceneNode(graphical->mesh);
 				graphical->node->setMaterialTexture(0, _engine->getDriver()->getTexture(graphical->pathToTexture.c_str()));
                 graphical->node->setFrameLoop(0, 0);
                 graphical->isLoaded = true;
