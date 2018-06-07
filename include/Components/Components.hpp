@@ -8,5 +8,7 @@
 #include "Velocity.hpp"
 #include "PhysicalBody.hpp"
 #include "GraphicalBody.hpp"
+#include "AI.hpp"
+#include "Controllable.hpp"
 
 #endif //INDIESTUDIO_COMPONENTS_HPP

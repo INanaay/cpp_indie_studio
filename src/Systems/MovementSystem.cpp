@@ -19,10 +19,14 @@ std::mutex positionComponentMutex;
 
 void Systems::MovementSystem::execute(World *ref)
 {
-	//irr::u32 then = _engine->getDevice()->getTimer()->getRealTime();
+	irr::u32 then = _engine->getDevice()->getTimer()->getTime();
 	while (_engine->isRunning()) {
 		auto entities = ref->getComponentManager().getEntityByComponents(
 			{PHYSICALBODY, VELOCITY});
+
+		const irr::u32 now = _engine->getDevice()->getTimer()->getTime();
+		const irr::f32 frameDeltaTime = (irr::f32)(now - then) / 1000.f; // Time in seconds
+		then = now;
 
 		for (const auto &entityID : entities) {
 
@@ -32,27 +36,18 @@ void Systems::MovementSystem::execute(World *ref)
 			auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(
 				entityID,
 				PHYSICALBODY);
-			/* const irr::u32 now = _engine->getDevice()->getTimer()->getTime();
-			const irr::f32 frameDeltaTime =
-				(irr::f32) (now - then) /
-				1000.f; // Time in seconds
-			then = now; */
+
 			positionComponentMutex.lock();
 
-			if (physical->direction ==
-			    Components::PhysicalBody::Direction::LEFT)
-				physical->x = physical->x - velocity->value;
-			else if (physical->direction ==
-				 Components::PhysicalBody::Direction::RIGHT)
-				physical->x = physical->x +
-					      velocity->value;
-			else if (physical->direction ==
-				 Components::PhysicalBody::Direction::UP)
-				physical->y = physical->y +
-					      velocity->value;
+			if (physical->direction == Components::PhysicalBody::Direction::LEFT)
+				physical->x -= velocity->value * frameDeltaTime;
+			else if (physical->direction == Components::PhysicalBody::Direction::RIGHT)
+				physical->x += velocity->value * frameDeltaTime;
+			else if (physical->direction == Components::PhysicalBody::Direction::UP)
+				physical->y += velocity->value * frameDeltaTime;
 			else
-				physical->y = physical->y -
-					      velocity->value;
+				physical->y -= velocity->value * frameDeltaTime;
+
 			positionComponentMutex.unlock();
 		}
 	}

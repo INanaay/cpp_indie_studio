@@ -8,5 +8,7 @@
 #include "DemoSystem.hpp"
 #include "MovementSystem.hpp"
 #include "LoaderSystem.hpp"
+#include "AISystem.hpp"
+#include "ControllableSystem.hpp"
 
 #endif //INDIESTUDIO_SYSTEMS_HPP
