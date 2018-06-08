@@ -20,16 +20,21 @@ namespace Components {
     class Bomb : public IComponent {
     public:
         Bomb(std::string&& model, std::string&& texture, uint32_t player_id, float radius)
-                : pathToModel(model), pathToTexture(texture), player_id(player_id), radius(radius), node(nullptr), isLoaded(false), timer(std::clock()) {};
+                : pathToModel(model), pathToTexture(texture), player_id(player_id), radius(radius), node(nullptr), isLoaded(false), timer(std::chrono::system_clock::now()) {};
         ~Bomb() override = default;
         void summarize() const override {
             std::cout << "Bomb | Model : " << pathToModel
                       << " | Texture : " << pathToTexture << std::endl;
         };
         typeComponent getType() const override { return BOMB; };
-        bool explode(std::clock_t c_time) {
-            return (std::chrono::duration<double, std::milli>(c_time - timer).count() > 2000);
+        bool explode(std::chrono::time_point<std::chrono::system_clock> c_time) {
+            return (std::chrono::duration_cast<std::chrono::milliseconds>(c_time - timer) >  std::chrono::milliseconds(2000));
         };
+        void setPos(float xx, float yy, float zz) {
+            x = xx;
+            y = yy;
+            z = zz;
+        }
     public:
         std::string pathToModel;
         std::string pathToTexture;
@@ -37,7 +42,10 @@ namespace Components {
         bool isLoaded;
         float radius;
         uint32_t player_id;
-        std::clock_t timer;
+        float x;
+        float y;
+        float z;
+        std::chrono::time_point<std::chrono::system_clock> timer;
     };
 }
 

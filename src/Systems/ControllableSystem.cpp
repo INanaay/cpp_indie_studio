@@ -5,11 +5,12 @@
 #include <iostream>
 #include <mutex>
 #include <ITexture.h>
-#include "World.hpp"
 #include "Components.hpp"
 #include "ControllableSystem.hpp"
+#include "Bomb.hpp"
+#include "Entity.hpp"
 
-void Systems::ControllableSystem::enableAction(CONTROL_ACTION action, Components::PhysicalBody *physical, Components::Velocity *velocity)
+void Systems::ControllableSystem::enableAction(World *ref, CONTROL_ACTION action, Components::PhysicalBody *physical, Components::Velocity *velocity, uint32_t id)
 {
     switch (action) {
         case MOVEUP:
@@ -31,6 +32,14 @@ void Systems::ControllableSystem::enableAction(CONTROL_ACTION action, Components
             physical->direction = Components::PhysicalBody::Direction::LEFT;
             velocity->value = 10.f;
             _lastAction = MOVELEFT;
+            break;
+        case DROP:
+            if (physical->dropBomb()) {
+                std::cout << "bomb away" << std::endl;
+                auto entity = ref->createEntity();
+                ref->addEntity(entity);
+                entity.addComponent<Components::Bomb>("../ressources/models/cobblestone.obj", "../ressources/models/cobblestone.png", id, 3.0);
+            }
             break;
     }
 }
@@ -60,7 +69,7 @@ void Systems::ControllableSystem::execute(World *ref)
 
             for (const auto &key : controllable->_keymap) {
                 if (_keyDown[key.first])
-                    enableAction(key.second, physical, velocity);
+                    enableAction(ref, key.second, physical, velocity, entityID);
                 if (!_keyDown[key.first])
                     disableAction(key.second, physical, velocity);
             }

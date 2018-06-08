@@ -17,6 +17,7 @@ enum CONTROL_ACTION {
     MOVEDOWN,
     MOVELEFT,
     MOVERIGHT,
+    DROP,
     NONE
 };
 
