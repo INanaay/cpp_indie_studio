@@ -14,6 +14,30 @@
 #include "Entity.hpp"
 #include "Map.hpp"
 #include "World.hpp"
+#include "Menu.hpp"
+
+SAppContext startMenu(GraphicalEngine &engine)
+{
+	SAppContext context{engine.getDevice(), true, 0};
+	Menu menu(engine);
+	MenuEventHandler handler(context);
+
+	engine.setHandler(&handler);
+	while (engine.isRunning())
+	{
+		if (engine.getDevice()->isWindowActive()) {
+			if (!context.isRunning) {
+				menu.clearGUI();
+				break;
+			}
+		}
+		engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 200, 200, 200));
+		engine.getGui()->drawAll();
+		engine.getDriver()->endScene();
+	}
+	engine.dropHandler();
+	return context;
+}
 
 int main()
 {
@@ -22,10 +46,13 @@ int main()
 #endif
 
 	try {
-        World world;
-        GraphicalEngine engine(800, 800);
 
-        world.startWorkers();
+        GraphicalEngine engine(800, 800);
+		startMenu(engine);
+		World world;
+
+
+		world.startWorkers();
 
         while (engine.isRunning()) {
 			engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
