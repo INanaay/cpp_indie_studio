@@ -22,7 +22,7 @@ void Systems::MovementSystem::execute(World *ref)
 	irr::u32 then = _engine->getDevice()->getTimer()->getTime();
 	while (_engine->isRunning()) {
 		auto entities = ref->getComponentManager().getEntityByComponents(
-			{PHYSICALBODY, VELOCITY});
+			{PHYSICALBODY, VELOCITY, GRAPHICALBODY});
 
 		const irr::u32 now = _engine->getDevice()->getTimer()->getTime();
 		const irr::f32 frameDeltaTime = (irr::f32)(now - then) / 1000.f; // Time in seconds
@@ -36,18 +36,31 @@ void Systems::MovementSystem::execute(World *ref)
 			auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(
 				entityID,
 				PHYSICALBODY);
+			auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
+					entityID,
+					GRAPHICALBODY);
 
 			positionComponentMutex.lock();
 
-			if (physical->direction == Components::PhysicalBody::Direction::LEFT)
-				physical->x -= velocity->value * frameDeltaTime;
-			else if (physical->direction == Components::PhysicalBody::Direction::RIGHT)
-				physical->x += velocity->value * frameDeltaTime;
-			else if (physical->direction == Components::PhysicalBody::Direction::UP)
-				physical->y += velocity->value * frameDeltaTime;
-			else
-				physical->y -= velocity->value * frameDeltaTime;
+			if (graphical->isLoaded) {
+				auto pos = graphical->node->getPosition();
 
+				if (physical->direction == Components::PhysicalBody::Direction::LEFT)
+					pos.X -= velocity->value * frameDeltaTime;
+				else if (physical->direction == Components::PhysicalBody::Direction::RIGHT)
+					pos.X += velocity->value * frameDeltaTime;
+				else if (physical->direction == Components::PhysicalBody::Direction::UP)
+					pos.Y += velocity->value * frameDeltaTime;
+				else if (physical->direction == Components::PhysicalBody::Direction::DOWN)
+					pos.Y -= velocity->value * frameDeltaTime;
+
+				graphical->node->setPosition(pos);
+				if (pos != graphical->node->getPosition()) {
+					physical->x = pos.X;
+					physical->y = pos.Y;
+					physical->z = pos.Z;
+				}
+			}
 			positionComponentMutex.unlock();
 		}
 	}

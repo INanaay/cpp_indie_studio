@@ -6,10 +6,6 @@
 
 #ifdef __linux__
 #include <X11/Xlib.h>
-#include <WallCollision.hpp>
-#include <PlayerCollision.hpp>
-#include <Systems/CollisionSystem.hpp>
-
 #endif
 
 #include "ControllableEventHandler.hpp"

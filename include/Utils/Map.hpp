@@ -10,8 +10,8 @@
 
 #include <vector>
 
-#define WALL_LENGTH 21
-#define PLAYABLE 20
+#define WALL_LENGTH 11
+#define PLAYABLE 10
 
 using typeMap = std::vector<std::vector<unsigned char>>;
 

@@ -10,5 +10,6 @@
 #include "LoaderSystem.hpp"
 #include "AISystem.hpp"
 #include "ControllableSystem.hpp"
+#include "CollisionSystem.hpp"
 
 #endif //INDIESTUDIO_SYSTEMS_HPP

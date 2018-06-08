@@ -10,5 +10,7 @@
 #include "GraphicalBody.hpp"
 #include "AI.hpp"
 #include "Controllable.hpp"
+#include "WallCollision.hpp"
+#include "PlayerCollision.hpp"
 
 #endif //INDIESTUDIO_COMPONENTS_HPP
