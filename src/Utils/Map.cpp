@@ -39,7 +39,7 @@ void Map::fillMapRandomly() noexcept
 
 	/* add walls randomly */
         for (unsigned int y = 1; y <= WALL_LENGTH; y++) {
-                nbWall = myRand(PLAYABLE / 2, PLAYABLE);
+                nbWall = myRand(PLAYABLE / 3, PLAYABLE);
                 for (int x = 0; x < nbWall; x++) {
                         int getRand = myRand(0, PLAYABLE);
                         if (_map[y][getRand] == '1')
