@@ -123,9 +123,9 @@ void Map::cleanCornersAddPlayers() noexcept
 	_map[1][1 + 1] = '0';
 	_map[1 + 1][1] = '0';
 	_map[1][PLAYABLE - 1] = '0';
-	_map[1][PLAYABLE] = '0';
+	_map[1 + 1][PLAYABLE] = '0';
 	_map[PLAYABLE - 1][1] = '0';
-	_map[PLAYABLE][1] = '0';
+	_map[PLAYABLE][1 + 1] = '0';
 	_map[PLAYABLE][PLAYABLE - 1] = '0';
 	_map[PLAYABLE - 1][PLAYABLE] = '0';
 
@@ -166,9 +166,9 @@ void loadLandscapeModel(World &world, std::string model, std::string png, float 
 
 void Map::load3DMap(World &world, int nbPlayer)
 {
-	float ycursor = -10.0f;
+	float ycursor = -15.0f;
 	for (auto y : _map) {
-		float xcursor = -10.0f;
+		float xcursor = -15.0f;
 		for (auto x : y) {
 		if (x >= 'a' &&  x <= 'd') {
 			if (x == 'a' || (x == 'c' && nbPlayer > 1))
@@ -177,12 +177,12 @@ void Map::load3DMap(World &world, int nbPlayer)
 				loadPlayerModel(world, "../ressources/models/rere.b3d", "../ressources/models/re.png", xcursor, ycursor, true);
 		}
 			if (x == '2')
-				loadLandscapeModel(world, "../ressources/models/wall.obj", "../ressources/models/terrain.png", xcursor, ycursor);
+				loadLandscapeModel(world, "../ressources/models/iron.obj", "../ressources/models/terrain.png", xcursor, ycursor);
 			if (x == '1')
 				loadLandscapeModel(world, "../ressources/models/glass.obj", "../ressources/models/terrain.png", xcursor, ycursor);
-			xcursor += 2.0f;
+			xcursor += 2.f;
 		}
-		ycursor += 2.0f;
+		ycursor += 2.f;
 	}
 }
 
