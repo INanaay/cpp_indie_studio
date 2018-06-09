@@ -20,6 +20,7 @@ namespace Systems {
 
     private:
         GraphicalEngine *_engine;
+        int _lastSize = 0;
     };
 }
 

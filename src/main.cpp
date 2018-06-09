@@ -46,46 +46,26 @@ int main()
 #endif
 
 	try {
-<<<<<<< Updated upstream
-
         GraphicalEngine engine(800, 800);
-=======
-        GraphicalEngine engine(1000, 1000);
->>>>>>> Stashed changes
 		World world;
 		Map map;
 		ControllableEventHandler handler;
 
-<<<<<<< Updated upstream
-		//startMenu(engine);
+		auto ctx = startMenu(engine);
 		engine.setHandler(&handler);
-		map.load3DMap(world, 2);
+		map.load3DMap(world, ctx.nbPlayers);
 		world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
 		world.addSystem<Systems::MovementSystem>(&engine);
 		world.addSystem<Systems::CollisionSystem>(&engine);
 		world.addSystem<Systems::LoaderSystem>(&engine);
-		engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 0, -40), irr::core::vector3df(0, 0, 0));
+		engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 0, -50), irr::core::vector3df(0, 0, 0));
 
         while (engine.isRunning()) {
-		engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
-		world.update();
-		engine.getScene()->drawAll();
-		engine.getDriver()->endScene();
+		    engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
+            world.update();
+            engine.getScene()->drawAll();
+		    engine.getDriver()->endScene();
         }
-
-=======
-		engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(10, 10, 10), irr::core::vector3df(0, 0, 0));
-		world.startWorkers();
-
-        while (engine.isRunning()) {
-			engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
-			engine.getScene()->drawAll();
-			engine.getDriver()->endScene();
-		}
-
-		world.waitWorkers();
-
->>>>>>> Stashed changes
     } catch (...) {
         return (84);
     }
