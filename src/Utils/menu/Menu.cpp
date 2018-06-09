@@ -21,18 +21,22 @@ Menu::Menu(GraphicalEngine &engine) : m_engine(engine)
 
 void Menu::initGUI()
 {
-	auto x = SCREEN_WIDTH / 4;
-	auto y = 240;
+	auto screenSize = m_driver->getScreenSize();
 
+	auto y = 240;
+	auto x1 = screenSize.Width / 2 - screenSize.Width / 4;
+	auto x2 = screenSize.Width / 2 + screenSize.Width / 4;
+
+	auto background = m_driver->getTexture("../ressources/menubackground.jpg");
 	m_env->addImage(m_driver->getTexture("../ressources/menubackground.jpg"), irr::core::position2d<int>(0,0));
-	m_env->addImage(m_driver->getTexture("../ressources/title2.png"), irr::core::position2d<int>(220,20));
-	m_env->addButton(irr::core::rect<irr::s32>(x , y, x * 3, y + 64), 0, GUI_ID_ONE_PLAYER,
+	m_env->addImage(m_driver->getTexture("../ressources/title2.png"), irr::core::position2d<int>(screenSize.Width / 2 - screenSize.Width / 4,20));
+	m_env->addButton(irr::core::rect<irr::s32>(x1, y, x2, y + 64), 0, GUI_ID_ONE_PLAYER,
 		       L"1 PLAYER", L"Exits Program");
 	y += 80;
-	m_env->addButton(irr::core::rect<irr::s32>(x, y,x * 3, y + 64), 0, GUI_ID_TWO_PLAYERS,
+	m_env->addButton(irr::core::rect<irr::s32>(x1, y,x2, y + 64), 0, GUI_ID_TWO_PLAYERS,
 			 L"2 PLAYER", L"Exits Program");
 	y += 80;
-	m_env->addButton(irr::core::rect<irr::s32>(x, y, x * 3, y + 64), 0, GUI_ID_QUIT_BUTTON,
+	m_env->addButton(irr::core::rect<irr::s32>(x1, y, x2, y + 64), 0, GUI_ID_QUIT_BUTTON,
 			 L"QUIT", L"Exits Program");
 }
 
