@@ -58,8 +58,6 @@ void Systems::ControllableSystem::disableAction(CONTROL_ACTION action, Component
 
 void Systems::ControllableSystem::execute(World *ref)
 {
-    _lastAction = NONE;
-    while (_engine->isRunning()) {
         auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, CONTROLLABLE, VELOCITY});
 
         for (const auto &entityID : entities) {
@@ -68,11 +66,11 @@ void Systems::ControllableSystem::execute(World *ref)
             auto controllable = ref->getComponentManager().getComponent<Components::Controllable>(entityID, CONTROLLABLE);
 
             for (const auto &key : controllable->_keymap) {
-                if (_keyDown[key.first])
+                if (_keyDown[key.first]) {
                     enableAction(ref, key.second, physical, velocity, entityID);
+                }
                 if (!_keyDown[key.first])
                     disableAction(key.second, physical, velocity);
             }
         }
-    }
 }

@@ -5,6 +5,7 @@
 #ifndef INDIESTUDIO_SYSTEMS_HPP
 #define INDIESTUDIO_SYSTEMS_HPP
 
+#include <chrono>
 #include "DemoSystem.hpp"
 #include "MovementSystem.hpp"
 #include "LoaderSystem.hpp"

@@ -11,7 +11,6 @@
 void Systems::BombSystem::execute(World *ref)
 {
 	std::cout << "bomb system executed" << std::endl;
-	while (_engine->isRunning()) {
 		auto entities = ref->getComponentManager().getEntityByComponents({BOMB});
 		std::chrono::time_point<std::chrono::system_clock> c_time = std::chrono::system_clock::now();
 		for (auto &entityID : entities) {
@@ -29,7 +28,6 @@ void Systems::BombSystem::execute(World *ref)
 			if (explode)
 				explodeBomb(ref, graphical, entityID, player);
 		}
-	}
 }
 
 void Systems::BombSystem::explodeBomb(World *ref, Components::Bomb *&bomb, const uint32_t bomb_id, Components::PhysicalBody *&player)

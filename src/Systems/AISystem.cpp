@@ -9,7 +9,6 @@
 
 void Systems::AISystem::execute(World *ref)
 {
-    while (_engine->isRunning()) {
         auto ai_players = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY, AI});
         auto blocks = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY});
         auto top_free = true;
@@ -31,5 +30,4 @@ void Systems::AISystem::execute(World *ref)
             if (right_free)
                 physical->x += 0.001f;
         }
-    }
 }

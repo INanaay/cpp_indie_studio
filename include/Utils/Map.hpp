@@ -9,15 +9,16 @@
 #define ___MAP_HPP___
 
 #include <vector>
+#include "World.hpp"
 
-#define WALL_LENGTH 11
-#define PLAYABLE 10
+#define WALL_LENGTH 15
+#define PLAYABLE (WALL_LENGTH - 1)
 
 using typeMap = std::vector<std::vector<unsigned char>>;
 
 class Map {
 public:
-	Map(int);
+	explicit Map();
 	void fillMapRandomly() noexcept;
 	void addUnbreakableWalls() noexcept;
 	void physicalMapToGraphicalEntity() noexcept;
@@ -25,7 +26,7 @@ public:
 	void addOutsideWalls() noexcept;
 
 	typeMap const &getMap() const noexcept { return _map; }
-
+	void load3DMap(World &, int);
 	void printMap() noexcept;
 	~Map() = default;
 private:

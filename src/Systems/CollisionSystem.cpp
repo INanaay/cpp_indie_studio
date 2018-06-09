@@ -14,7 +14,6 @@ extern std::mutex positionComponentMutex;
 
 void Systems::CollisionSystem::execute(World *ref)
 {
-	while (_engine->isRunning()) {
 		auto wallEntities = ref->getComponentManager().getEntityByComponents({WALLCOLLISION});
 
 		for (const auto &entityID : wallEntities)
@@ -52,6 +51,4 @@ void Systems::CollisionSystem::execute(World *ref)
 				collision->isLoaded = true;
 			}
 		}
-
-	}
 }

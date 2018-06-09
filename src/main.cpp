@@ -48,19 +48,25 @@ int main()
 	try {
 
         GraphicalEngine engine(800, 800);
-		startMenu(engine);
 		World world;
+		Map map;
+		ControllableEventHandler handler;
 
-
-		world.startWorkers();
+		//startMenu(engine);
+		engine.setHandler(&handler);
+		map.load3DMap(world, 2);
+		world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
+		world.addSystem<Systems::MovementSystem>(&engine);
+		world.addSystem<Systems::CollisionSystem>(&engine);
+		world.addSystem<Systems::LoaderSystem>(&engine);
+		engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 0, -40), irr::core::vector3df(0, 0, 0));
 
         while (engine.isRunning()) {
-			engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
-            engine.getScene()->drawAll();
-            engine.getDriver()->endScene();
+		engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
+		world.update();
+		engine.getScene()->drawAll();
+		engine.getDriver()->endScene();
         }
-
-        world.waitWorkers();
 
     } catch (...) {
         return (84);

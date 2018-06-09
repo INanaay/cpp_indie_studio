@@ -8,6 +8,24 @@
 #include <iostream>
 #include <random>
 #include "Map.hpp"
+#include "Components.hpp"
+#include "Entity.hpp"
+
+const keymap preset1 = {
+	std::make_pair(irr::EKEY_CODE::KEY_LEFT, MOVELEFT),
+	std::make_pair(irr::EKEY_CODE::KEY_RIGHT, MOVERIGHT),
+	std::make_pair(irr::EKEY_CODE::KEY_UP, MOVEUP),
+	std::make_pair(irr::EKEY_CODE::KEY_DOWN, MOVEDOWN),
+};
+
+const keymap preset2 = {
+	std::make_pair(irr::EKEY_CODE::KEY_KEY_Q, MOVELEFT),
+	std::make_pair(irr::EKEY_CODE::KEY_KEY_D, MOVERIGHT),
+	std::make_pair(irr::EKEY_CODE::KEY_KEY_Z, MOVEUP),
+	std::make_pair(irr::EKEY_CODE::KEY_KEY_S, MOVEDOWN),
+};
+
+const std::vector<keymap> keymaps = {preset1, preset2};
 
 static unsigned char myRand(std::size_t from, std::size_t to)
 {
@@ -81,15 +99,6 @@ void Map::addUnbreakableWalls() noexcept
 	}
 }
 
-void Map::physicalMapToGraphicalEntity() noexcept
-{
-	for (unsigned int y = 0 ; y <= WALL_LENGTH ; y++) {
-		for (unsigned int x = 0 ; x <= WALL_LENGTH ; x++) {
-			/* to do once the node is updated */
-		}
-	}
-}
-
 void Map::addOutsideWalls() noexcept
 {
 	int val;
@@ -123,9 +132,57 @@ void Map::cleanCornersAddPlayers() noexcept
 	_map[PLAYABLE][1] = 'd';
 }
 
-Map::Map(int noiselevel)
+void loadPlayerModel(World &world, std::string model, std::string png, float posx, float posy, bool isIa)
 {
-	(void)noiselevel;
+	static int player = 0;
+	auto entity = world.createEntity();
+	world.addEntity(entity);
+	entity.addComponent<Components::GraphicalBody>(std::string(model), std::string(png));
+	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f);
+	entity.addComponent<Components::PlayerCollision>();
+	entity.addComponent<Components::Velocity>(0.f);
+
+	if (!isIa) {
+		entity.addComponent<Components::Controllable>(keymaps[player]);
+		player++;
+	}
+	else
+		entity.addComponent<Components::AIComponent>();
+}
+
+void loadLandscapeModel(World &world, std::string model, std::string png, float posx, float posy)
+{
+	auto entity = world.createEntity();
+	world.addEntity(entity);
+	entity.addComponent<Components::GraphicalBody>(std::string(model), std::string(png));
+	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f);
+	entity.addComponent<Components::WallCollision>();
+}
+
+void Map::load3DMap(World &world, int nbPlayer)
+{
+	float ycursor = -10.0f;
+	for (auto y : _map) {
+		float xcursor = -10.0f;
+		for (auto x : y) {
+		if (x >= 'a' &&  x <= 'd') {
+			if (x == 'a' || (x == 'c' && nbPlayer > 1))
+				loadPlayerModel(world, "../ressources/models/rere.b3d", "../ressources/models/re.png", xcursor, ycursor, false);
+			else
+				loadPlayerModel(world, "../ressources/models/rere.b3d", "../ressources/models/re.png", xcursor, ycursor, true);
+		}
+			if (x == '2')
+				loadLandscapeModel(world, "../ressources/models/wall.obj", "../ressources/models/terrain.png", xcursor, ycursor);
+			if (x == '1')
+				loadLandscapeModel(world, "../ressources/models/glass.obj", "../ressources/models/terrain.png", xcursor, ycursor);
+			xcursor += 1.602f;
+		}
+		ycursor += 1.602f;
+	}
+}
+
+Map::Map()
+{
 	fillMapRandomly();
 	addUnbreakableWalls();
 	addOutsideWalls();

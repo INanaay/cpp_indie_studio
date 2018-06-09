@@ -19,8 +19,7 @@ std::mutex positionComponentMutex;
 
 void Systems::MovementSystem::execute(World *ref)
 {
-	irr::u32 then = _engine->getDevice()->getTimer()->getTime();
-	while (_engine->isRunning()) {
+		static irr::u32 then = _engine->getDevice()->getTimer()->getTime();
 		auto entities = ref->getComponentManager().getEntityByComponents(
 			{PHYSICALBODY, VELOCITY, GRAPHICALBODY});
 
@@ -39,12 +38,8 @@ void Systems::MovementSystem::execute(World *ref)
 			auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
 					entityID,
 					GRAPHICALBODY);
-
-			positionComponentMutex.lock();
-
 			if (graphical->isLoaded) {
 				auto pos = graphical->node->getPosition();
-
 				if (physical->direction == Components::PhysicalBody::Direction::LEFT)
 					pos.X -= velocity->value * frameDeltaTime;
 				else if (physical->direction == Components::PhysicalBody::Direction::RIGHT)
@@ -61,7 +56,5 @@ void Systems::MovementSystem::execute(World *ref)
 					physical->z = pos.Z;
 				}
 			}
-			positionComponentMutex.unlock();
 		}
-	}
 }
