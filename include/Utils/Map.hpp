@@ -11,7 +11,7 @@
 #include <vector>
 #include "World.hpp"
 
-#define WALL_LENGTH 15
+#define WALL_LENGTH 20
 #define PLAYABLE (WALL_LENGTH - 1)
 
 using typeMap = std::vector<std::vector<unsigned char>>;

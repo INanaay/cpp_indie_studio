@@ -46,15 +46,14 @@ int main()
 #endif
 
 	try {
-
         GraphicalEngine engine(800, 800);
 		World world;
 		Map map;
 		ControllableEventHandler handler;
 
-		//startMenu(engine);
+		auto ctx = startMenu(engine);
 		engine.setHandler(&handler);
-		map.load3DMap(world, 2);
+		map.load3DMap(world, ctx.nbPlayers);
 		world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
 		world.addSystem<Systems::MovementSystem>(&engine, handler.getKeyDownArray());
 		world.addSystem<Systems::CollisionSystem>(&engine);
@@ -62,12 +61,11 @@ int main()
 		engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, -20, -40), irr::core::vector3df(0, 0, 0));
 
         while (engine.isRunning()) {
-		engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
-		world.update();
-		engine.getScene()->drawAll();
-		engine.getDriver()->endScene();
+		    engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
+            world.update();
+            engine.getScene()->drawAll();
+		    engine.getDriver()->endScene();
         }
-
     } catch (...) {
         return (84);
     }

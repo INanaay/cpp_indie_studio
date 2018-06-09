@@ -60,3 +60,10 @@ void ComponentManager::removeComponent(uint32_t id, typeComponent rm)
         }
     }
 }
+
+void ComponentManager::removeComponents()
+{
+    for (auto &entity : _entities) {
+        entity.second.clear();
+    }
+}

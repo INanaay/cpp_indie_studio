@@ -57,3 +57,9 @@ int World::waitWorkers()
     }
     return 0;
 }
+
+int World::clean()
+{
+    _componentManager.removeComponents();
+    return 0;
+}
