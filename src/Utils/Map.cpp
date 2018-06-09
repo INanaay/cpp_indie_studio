@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <random>
+#include <Bomb.hpp>
 #include "Map.hpp"
 #include "Components.hpp"
 #include "Entity.hpp"
@@ -16,6 +17,7 @@ const keymap preset1 = {
 	std::make_pair(irr::EKEY_CODE::KEY_RIGHT, MOVERIGHT),
 	std::make_pair(irr::EKEY_CODE::KEY_UP, MOVEUP),
 	std::make_pair(irr::EKEY_CODE::KEY_DOWN, MOVEDOWN),
+	std::make_pair(irr::EKEY_CODE::KEY_SPACE, DROP),
 };
 
 const keymap preset2 = {
@@ -23,6 +25,7 @@ const keymap preset2 = {
 	std::make_pair(irr::EKEY_CODE::KEY_KEY_D, MOVERIGHT),
 	std::make_pair(irr::EKEY_CODE::KEY_KEY_Z, MOVEUP),
 	std::make_pair(irr::EKEY_CODE::KEY_KEY_S, MOVEDOWN),
+	std::make_pair(irr::EKEY_CODE::KEY_TAB, DROP),
 };
 
 const std::vector<keymap> keymaps = {preset1, preset2};
@@ -140,7 +143,9 @@ void loadPlayerModel(World &world, std::string model, std::string png, float pos
 	entity.addComponent<Components::GraphicalBody>(std::string(model), std::string(png));
 	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f);
 	entity.addComponent<Components::PlayerCollision>();
-	entity.addComponent<Components::Velocity>(0.f);
+    entity.addComponent<Components::Velocity>(0.f);
+    entity.addComponent<Components::BombManager>();
+    //entity.addComponent<Components::Bomb>("../ressources/models/bomb.obj", "../ressources/models/bomb.mtl", entity.id, 3.0);
 
 	if (!isIa) {
 		entity.addComponent<Components::Controllable>(keymaps[player]);
@@ -174,10 +179,10 @@ void Map::load3DMap(World &world, int nbPlayer)
 			if (x == '2')
 				loadLandscapeModel(world, "../ressources/models/wall.obj", "../ressources/models/terrain.png", xcursor, ycursor);
 			if (x == '1')
-				loadLandscapeModel(world, "../ressources/models/wood.obj", "../ressources/models/wood.png", xcursor, ycursor);
-			xcursor += 1.602f;
+				loadLandscapeModel(world, "../ressources/models/glass.obj", "../ressources/models/terrain.png", xcursor, ycursor);
+			xcursor += 2.0f;
 		}
-		ycursor += 1.602f;
+		ycursor += 2.0f;
 	}
 }
 

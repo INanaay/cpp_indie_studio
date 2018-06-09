@@ -72,11 +72,11 @@ void Systems::MovementSystem::execute(World *ref)
 					pos.Y -= velocity->value * frameDeltaTime;
 
 				node->setPosition(pos);
-				if (pos != node->getPosition()) {
+				if (pos.X != physical->x)
 					physical->x = pos.X;
-					physical->y = pos.Y;
-					physical->z = pos.Z;
-				}
+                if (pos.Y != physical->y)
+                    physical->y = pos.Y;
 			}
 		}
+		std::cout << "tamer" << std::endl;
 }

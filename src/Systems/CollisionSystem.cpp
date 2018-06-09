@@ -14,6 +14,7 @@ extern std::mutex positionComponentMutex;
 
 void Systems::CollisionSystem::execute(World *ref)
 {
+    std::cout << "coll check" << std::endl;
 		auto wallEntities = ref->getComponentManager().getEntityByComponents({WALLCOLLISION});
 
 		for (const auto &entityID : wallEntities)
@@ -33,7 +34,6 @@ void Systems::CollisionSystem::execute(World *ref)
 
 		auto playerEntities = ref->getComponentManager().getEntityByComponents({PLAYERCOLLISION});
 		irr::core::vector3df hitbox(0.5, 0.5, 0.5);
-
 
 		for (const auto &entityID : playerEntities)
 		{

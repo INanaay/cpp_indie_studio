@@ -11,7 +11,8 @@
 
 void Systems::LoaderSystem::execute(World *ref)
 {
-    int size  = ref->getEntityManager().getEntities().size();
+    std::cout << "Loader system" << std::endl;
+    int size = ref->getEntityManager().getEntities().size();
     if (size != _lastSize) {
         _lastSize = size;
         auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY});
@@ -29,6 +30,7 @@ void Systems::LoaderSystem::execute(World *ref)
                 graphical->node->setFrameLoop(0, 0);
                 graphical->node->setPosition(irr::core::vector3df(physical->x, physical->y, physical->z));
                 graphical->node->setRotation(irr::core::vector3df(270, 0, 0));
+                graphical->node->setScale(irr::core::vector3df(1.1, 1.1, 1.1));
                 graphical->isLoaded = true;
             }
 

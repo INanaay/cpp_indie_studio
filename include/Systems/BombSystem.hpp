@@ -18,8 +18,8 @@ namespace Systems {
 	public:
 		BombSystem(GraphicalEngine *engine) : _engine(engine) {};
 		void execute(World *ref) override;
-		void explodeBomb(World *ref, Components::Bomb *&bomb, const uint32_t bomb_id, Components::PhysicalBody *&player);
 	private:
+		void explodeBomb(World *ref, Components::Bomb *&bomb, const uint32_t bomb_id, Components::PhysicalBody *&player);
 		GraphicalEngine *_engine;
 	};
 }

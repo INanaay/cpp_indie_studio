@@ -6,6 +6,8 @@
 
 #ifdef __linux__
 #include <X11/Xlib.h>
+#include <Systems/BombSystem.hpp>
+
 #endif
 
 #include "ControllableEventHandler.hpp"
@@ -54,11 +56,13 @@ int main()
 		auto ctx = startMenu(engine);
 		engine.setHandler(&handler);
 		map.load3DMap(world, ctx.nbPlayers);
-		world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
-		world.addSystem<Systems::MovementSystem>(&engine, handler.getKeyDownArray());
-		world.addSystem<Systems::CollisionSystem>(&engine);
-		world.addSystem<Systems::LoaderSystem>(&engine);
-		engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, -20, -40), irr::core::vector3df(0, 0, 0));
+        world.addSystem<Systems::BombSystem>(&engine);
+        world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
+        world.addSystem<Systems::MovementSystem>(&engine, handler.getKeyDownArray());
+        world.addSystem<Systems::CollisionSystem>(&engine);
+        world.addSystem<Systems::BombSystem>(&engine);
+        world.addSystem<Systems::LoaderSystem>(&engine);
+        engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, -20, -40), irr::core::vector3df(0, 0, 0));
 
         while (engine.isRunning()) {
 		    engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
