@@ -42,7 +42,7 @@ void Systems::ControllableSystem::enableAction(World *ref, CONTROL_ACTION action
                 std::cout << "bomb away" << std::endl;
                 auto entity = ref->createEntity();
                 ref->addEntity(entity);
-                entity.addComponent<Components::Bomb>("../ressources/models/cobblestone.obj", "../ressources/models/cobblestone.png", id, 3.0);
+                entity.addComponent<Components::Bomb>("../ressources/models/tnt.obj", "../ressources/models/terrain.png", id, 3.0);
             }
             break;
     }
