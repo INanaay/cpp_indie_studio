@@ -17,8 +17,8 @@ namespace Components {
 		enum Direction {
 			UP = 180,
 			DOWN = 0,
-			LEFT = 90,
-			RIGHT = 270
+			LEFT = 270,
+			RIGHT = 90
 		};
 	public:
 		PhysicalBody(float xs, float ys, float zs) : x(xs), y(ys), z(zs), direction(DOWN) {};

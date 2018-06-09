@@ -20,8 +20,9 @@ std::mutex positionComponentMutex;
 void Systems::MovementSystem::execute(World *ref)
 {
 		static irr::u32 then = _engine->getDevice()->getTimer()->getTime();
+		bool isKeyPressed = false;
 		auto entities = ref->getComponentManager().getEntityByComponents(
-			{PHYSICALBODY, VELOCITY, GRAPHICALBODY});
+			{PHYSICALBODY, VELOCITY, GRAPHICALBODY, CONTROLLABLE});
 
 		const irr::u32 now = _engine->getDevice()->getTimer()->getTime();
 		const irr::f32 frameDeltaTime = (irr::f32)(now - then) / 1000.f; // Time in seconds
@@ -38,9 +39,30 @@ void Systems::MovementSystem::execute(World *ref)
 			auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
 					entityID,
 					GRAPHICALBODY);
-			if (graphical->isLoaded) {
-				auto pos = graphical->node->getPosition();
-				if (physical->direction == Components::PhysicalBody::Direction::LEFT)
+            auto controllable = ref->getComponentManager().getComponent<Components::Controllable>(
+                    entityID, CONTROLLABLE);
+            if (graphical->isLoaded) {
+                auto node = graphical->node;
+				auto pos = node->getPosition();
+
+                bool wasKeyPressed = isKeyPressed;
+                isKeyPressed = false;
+                for (auto &key : controllable->_keymap) {
+                    if (_keyDown[key.first]) {
+                        isKeyPressed = true;
+                        break;
+                    }
+                }
+                if (!isKeyPressed) {
+                    node->setFrameLoop(34, 34);
+                } else {
+                    if (!wasKeyPressed) {
+                        node->setFrameLoop(1, 35);
+                        node->setAnimationSpeed(120);
+                    }
+                }
+                graphical->node->setRotation(irr::core::vector3df(270, 0, physical->direction));
+                if (physical->direction == Components::PhysicalBody::Direction::LEFT)
 					pos.X -= velocity->value * frameDeltaTime;
 				else if (physical->direction == Components::PhysicalBody::Direction::RIGHT)
 					pos.X += velocity->value * frameDeltaTime;
@@ -49,8 +71,8 @@ void Systems::MovementSystem::execute(World *ref)
 				else if (physical->direction == Components::PhysicalBody::Direction::DOWN)
 					pos.Y -= velocity->value * frameDeltaTime;
 
-				graphical->node->setPosition(pos);
-				if (pos != graphical->node->getPosition()) {
+				node->setPosition(pos);
+				if (pos != node->getPosition()) {
 					physical->x = pos.X;
 					physical->y = pos.Y;
 					physical->z = pos.Z;
