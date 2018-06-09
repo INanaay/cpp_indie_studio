@@ -28,6 +28,7 @@ public:
     int update();
     int startWorkers();
     int waitWorkers();
+    int clean();
 
     ComponentManager &getComponentManager() {return _componentManager;};
     EntityManager &getEntityManager() {return _entityManager;};

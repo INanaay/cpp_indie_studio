@@ -21,6 +21,7 @@ class ComponentManager {
     public:
         void addComponent(IComponent *, uint32_t);
         void removeComponent(uint32_t, typeComponent);
+        void removeComponents();
         ComponentsList &getComponents(uint32_t);
         std::vector<uint32_t> getEntityByComponents(std::vector<typeComponent>) const;
         void infoComponent(uint32_t);
