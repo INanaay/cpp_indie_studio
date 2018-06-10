@@ -9,6 +9,7 @@
 #include "BombSystem.hpp"
 #include "PhysicalBody.hpp"
 #include <cmath>
+#include <Pickup.hpp>
 
 bool isInRange(float x, float y, float x2, float y2)
 {
@@ -25,6 +26,43 @@ bool isInRange(float x, float y, float x2, float y2)
     } else {
         return false;
     }
+}
+
+void Systems::BombSystem::putPickup(Components::GraphicalBody *wall, World *ref)
+{
+	int randNum = rand()%(4 -1 + 1) + 1;
+
+	std::cout << "Rand = " << randNum << std::endl;
+	if (randNum == 2)
+	{
+		int randType = rand()%(3 -1 + 1) + 1;
+
+		std::cout << "Adding pickup\n";
+		auto pos = wall->node->getPosition();
+		auto bomb = ref->createEntity();
+		ref->addEntity(bomb);
+
+		bomb.addComponent<Components::PhysicalBody>(pos.X, pos.Y, 0.0f, false);
+		switch (randType) {
+			case 1 :
+				bomb.addComponent<Components::Pickup>(SPEEDPICKUP);
+				bomb.addComponent<Components::GraphicalBody>("../ressources/models/mushroom.obj",
+									     "../ressources/models/terrain.png");
+				break;
+			case 2:
+				bomb.addComponent<Components::Pickup>(RADIUSPICKUP);
+				bomb.addComponent<Components::GraphicalBody>("../ressources/models/mushroom.obj",
+									     "../ressources/models/terrain.png");
+				break;
+			case 3:
+				bomb.addComponent<Components::Pickup>(BOMBPICKUP);
+				bomb.addComponent<Components::GraphicalBody>("../ressources/models/mushroom.obj",
+									     "../ressources/models/terrain.png");
+				break;
+			default : break;
+		}
+	}
+
 }
 
 void putNewBombs(World *ref) {
@@ -102,8 +140,11 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
             auto wallcollision = ref->getComponentManager().getComponent<Components::WallCollision>(entity,
                                                                                                     WALLCOLLISION);
             _engine->getMetaSelector()->removeTriangleSelector(wallcollision->selector);
-            if (graphical->node->isVisible())
-                graphical->node->setVisible(false);
+            if (graphical->node->isVisible()) {
+		    graphical->node->setVisible(false);
+		    putPickup(graphical, ref);
+	    }
+
         }
     }
     auto players = ref->getComponentManager().getEntityByComponents(

@@ -8,6 +8,7 @@
 #ifdef __linux__
 #include <X11/Xlib.h>
 #include <Systems/BombSystem.hpp>
+#include <Systems/PickupSystem.hpp>
 
 #endif
 
@@ -49,6 +50,7 @@ int main()
 	XInitThreads();
 #endif
 
+	srand(time(NULL));
 	try {
         GraphicalEngine engine(960, 540);
 		World world;
@@ -66,6 +68,7 @@ int main()
         world.addSystem<Systems::CollisionSystem>(&engine);
         world.addSystem<Systems::LoaderSystem>(&engine);
         world.addSystem<Systems::AISystem>(&engine, map.getMap());
+		world.addSystem<Systems::PickupSystem>(&engine);
         engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 0, -30), irr::core::vector3df(0, 0, 0));
         engine.getScene()->addLightSceneNode(0, irr::core::vector3df(-15, 0, -30), irr::video::SColorf(1.0f, 0.6f, 0.7f, 1.0f), 800.f);
 

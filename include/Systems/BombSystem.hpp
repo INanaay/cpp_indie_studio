@@ -23,6 +23,7 @@ namespace Systems {
         Components::PhysicalBody *&bombPhysical, Components::Timer *&timer);
             private:
 		GraphicalEngine *_engine;
+		void putPickup(Components::GraphicalBody *wall, World *ref);
 	};
 }
 
