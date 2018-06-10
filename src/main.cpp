@@ -63,7 +63,7 @@ int main()
         world.addSystem<Systems::BombSystem>(&engine);
         world.addSystem<Systems::LoaderSystem>(&engine);
         world.addSystem<Systems::AISystem>(&engine);
-        engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, -40, -20), irr::core::vector3df(0, 0, 0));
+        engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, -30, -40), irr::core::vector3df(0, 0, 0));
 
         while (engine.isRunning()) {
 		    engine.getDriver()->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));

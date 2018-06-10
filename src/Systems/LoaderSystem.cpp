@@ -11,7 +11,6 @@
 
 void Systems::LoaderSystem::execute(World *ref)
 {
-    std::cout << "Loader system" << std::endl;
     int size = ref->getEntityManager().getEntities().size();
     if (size != _lastSize) {
         _lastSize = size;

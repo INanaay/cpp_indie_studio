@@ -20,7 +20,7 @@ std::mutex positionComponentMutex;
 void Systems::MovementSystem::execute(World *ref)
 {
 		static irr::u32 then = _engine->getDevice()->getTimer()->getTime();
-		bool isKeyPressed = false;
+		static bool isKeyPressed = false;
 		auto entities = ref->getComponentManager().getEntityByComponents(
 			{PHYSICALBODY, VELOCITY, GRAPHICALBODY, CONTROLLABLE});
 
@@ -53,6 +53,7 @@ void Systems::MovementSystem::execute(World *ref)
                         break;
                     }
                 }
+                std::cout << wasKeyPressed << isKeyPressed << std::endl;
                 if (!isKeyPressed) {
                     node->setFrameLoop(34, 34);
                 } else {

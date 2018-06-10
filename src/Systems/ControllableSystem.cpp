@@ -60,7 +60,6 @@ void Systems::ControllableSystem::disableAction(CONTROL_ACTION action, Component
 
 void Systems::ControllableSystem::execute(World *ref)
 {
-    std::cout << "controllable check" << std::endl;
     auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, CONTROLLABLE, VELOCITY, BOMBMANAGER});
 
         for (const auto &entityID : entities) {

@@ -25,36 +25,51 @@ bool isInRange(float x, float y, float x2, float y2)
     }
 }
 
-void Systems::BombSystem::execute(World *ref)
-{
+void Systems::BombSystem::execute(World *ref) {
     auto bombs = ref->getComponentManager().getEntityByComponents({TIMER, PHYSICALBODY});
-	for (auto const &bomb : bombs) {
+    for (auto const &bomb : bombs) {
         auto timer = ref->getComponentManager().getComponent<Components::Timer>(bomb, TIMER);
         auto bombGraphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(bomb, GRAPHICALBODY);
         auto bombPhysical = ref->getComponentManager().getComponent<Components::PhysicalBody>(bomb, PHYSICALBODY);
         auto c_time = std::chrono::system_clock::now();
-        if ((c_time - timer->_start).count() >= (3.f * 1000000000.f) && (c_time - timer->_start).count() < (3.5f * 1000000000.f)) {
+        if ((c_time - timer->_start).count() >= (3.f * 1000000000.f) &&
+            (c_time - timer->_start).count() < (3.5f * 1000000000.f)) {
             if (bombGraphical->node->isVisible())
                 bombGraphical->node->setVisible(false);
             bombGraphical->mesh = _engine->getScene()->getMesh("../ressources/models/explosion.obj");
             bombGraphical->node = _engine->getScene()->addAnimatedMeshSceneNode(bombGraphical->mesh);
-            bombGraphical->node->setMaterialTexture(0, _engine->getDriver()->getTexture("../ressources/models/terrain.png"));
+            bombGraphical->node->setMaterialTexture(0, _engine->getDriver()->getTexture(
+                    "../ressources/models/terrain.png"));
             bombGraphical->node->setPosition(irr::core::vector3df(bombPhysical->x, bombPhysical->y, 0.0f));
             bombGraphical->node->setRotation(irr::core::vector3df(270, 0, 0));
-            auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY, WALLCOLLISION});
+            auto otherBombs = ref->getComponentManager().getEntityByComponents(
+                    {TIMER});
+            for (const auto &otherBomb : otherBombs) {
+                auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(
+                        otherBomb, PHYSICALBODY);
+                auto otherTimer = ref->getComponentManager().getComponent<Components::Timer>(
+                        otherBomb, TIMER);
+                if (isInRange(bombPhysical->x, bombPhysical->y, physical->x, physical->y)) {
+                    otherTimer->_start = timer->_start;
+                }
+            }
+            auto entities = ref->getComponentManager().getEntityByComponents(
+                    {PHYSICALBODY, GRAPHICALBODY, WALLCOLLISION});
             for (const auto &entity : entities) {
                 auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(
                         entity, PHYSICALBODY);
                 if (physical->_destroyable && isInRange(bombPhysical->x, bombPhysical->y, physical->x, physical->y)) {
                     auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
                             entity, GRAPHICALBODY);
-                    auto wallcollision = ref->getComponentManager().getComponent<Components::WallCollision>(entity, WALLCOLLISION);
+                    auto wallcollision = ref->getComponentManager().getComponent<Components::WallCollision>(entity,
+                                                                                                            WALLCOLLISION);
                     _engine->getMetaSelector()->removeTriangleSelector(wallcollision->selector);
                     if (graphical->node->isVisible())
                         graphical->node->setVisible(false);
                 }
             }
-            auto players = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY, PLAYERCOLLISION});
+            auto players = ref->getComponentManager().getEntityByComponents(
+                    {PHYSICALBODY, GRAPHICALBODY, PLAYERCOLLISION});
             for (auto const &p : players) {
                 auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(
                         p, PHYSICALBODY);
@@ -65,12 +80,13 @@ void Systems::BombSystem::execute(World *ref)
                 }
             }
         }
-        if (((c_time - timer->_start).count() >= (3.5f * 1000000000.f)) && (c_time - timer->_start).count() <= (4.5f * 1000000000.f)) {
+        if (((c_time - timer->_start).count() >= (3.5f * 1000000000.f)) &&
+            (c_time - timer->_start).count() <= (4.5f * 1000000000.f)) {
             if (bombGraphical->node->isVisible())
                 bombGraphical->node->setVisible(false);
         }
     }
-    auto players = ref->getComponentManager().getEntityByComponents({PHYSICALBODY ,BOMBMANAGER});
+    auto players = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, BOMBMANAGER});
     for (auto const &p : players) {
         auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
         if (bombManager->putBomb) {
@@ -78,16 +94,16 @@ void Systems::BombSystem::execute(World *ref)
             auto bomb = ref->createEntity();
             ref->addEntity(bomb);
             bomb.addComponent<Components::Timer>();
-            bomb.addComponent<Components::GraphicalBody>("../ressources/models/tnt.obj", "../ressources/models/terrain.png");
-            auto div = player->x / 2.0f;
-            auto round = (float)((int)div) - 0.5f;
+            bomb.addComponent<Components::GraphicalBody>("../ressources/models/tnt.obj",
+                                                         "../ressources/models/terrain.png");
+            auto div = (player->x + 1.0f) / 2.0f;
+            auto round = (float) ((int) div) - 0.5f;
             auto new_x = round * 2.0f;
-            div = player->y / 2.0f;
-            round = (float)((int)div) - 0.5f;
-            auto new_y = (float)round * 2.0f;
+            div = (player->y + 1.0f) / 2.0f;
+            round = (float) ((int) div) - 0.5f;
+            auto new_y = (float) round * 2.0f;
             bomb.addComponent<Components::PhysicalBody>(new_x, new_y, 0.0f, false);
         }
 
     }
-    std::cout << "finished" << std::endl;
 }
