@@ -35,12 +35,10 @@ void Systems::BombSystem::putPickup(Components::GraphicalBody *wall, World *ref)
 {
 	int randNum = rand()%(4 -1 + 1) + 1;
 
-	std::cout << "Rand = " << randNum << std::endl;
 	if (randNum == 2)
 	{
 		int randType = rand()%(3 -1 + 1) + 1;
 
-		std::cout << "Adding pickup\n";
 		auto pos = wall->node->getPosition();
 		auto bomb = ref->createEntity();
 		ref->addEntity(bomb);
@@ -90,10 +88,9 @@ void Systems::BombSystem::updateBombs(World *ref) {
 
 void putNewBombs(World *ref) {
     auto players = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, BOMBMANAGER});
-    std::cout << std::endl;
     for (auto const &p : players) {
         auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
-        if (bombManager->putBomb && (bombManager->bombs.size() < bombManager->availables)) {
+        if (bombManager->putBomb && (bombManager->bombs.size() < bombManager->availables) == true) {
             auto player = ref->getComponentManager().getComponent<Components::GraphicalBody>(p, GRAPHICALBODY)->node->getPosition();
             auto div = player.X / 2.0f;
             auto round = (int)(truncf(div));
@@ -187,8 +184,7 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
         if (isInRange(bombPhysical->x, bombPhysical->y, new_x, new_y) ) {
 		auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
                     p, GRAPHICALBODY);
-		if (graphical->node->isVisible()) {
-			std::cout << "player killed\n";
+		if (graphical->node->isVisible() == true) {
 			ref->getComponentManager().removeComponent(p, BOMBMANAGER);
 			ref->getComponentManager().removeComponent(p, CONTROLLABLE);
 			graphical->node->setVisible(false);

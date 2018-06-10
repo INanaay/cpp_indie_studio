@@ -16,25 +16,25 @@ void Systems::ControllableSystem::enableAction(World *ref, CONTROL_ACTION action
         case MOVEUP:
             physical->direction = Components::PhysicalBody::Direction::UP;
             velocity->old_value = velocity->value;
-            velocity->value = 10.f;
+            velocity->value = velocity->baseVelocity;
             controllable->_lastAction = MOVEUP;
             break;
         case MOVEDOWN:
             physical->direction = Components::PhysicalBody::Direction::DOWN;
             velocity->old_value = velocity->value;
-            velocity->value = 10.f;
+            velocity->value = velocity->baseVelocity;
             controllable->_lastAction = MOVEDOWN;
             break;
         case MOVERIGHT:
             physical->direction = Components::PhysicalBody::Direction::RIGHT;
             velocity->old_value = velocity->value;
-            velocity->value = 10.f;
+            velocity->value = velocity->baseVelocity;
             controllable->_lastAction = MOVERIGHT;
             break;
         case MOVELEFT:
             physical->direction = Components::PhysicalBody::Direction::LEFT;
             velocity->old_value = velocity->value;
-            velocity->value = 10.f;
+            velocity->value = velocity->baseVelocity;
             controllable->_lastAction = MOVELEFT;
             break;
         case DROP:

@@ -57,7 +57,7 @@ void Systems::MovementSystem::execute(World *ref)
                 } else {
                     if (!wasKeyPressed) {
                         node->setFrameLoop(1, 35);
-                        node->setAnimationSpeed(80);
+                        node->setAnimationSpeed(velocity->baseVelocity * 6);
                     }
                 }
                 graphical->node->setRotation(irr::core::vector3df(270, 0, physical->direction));

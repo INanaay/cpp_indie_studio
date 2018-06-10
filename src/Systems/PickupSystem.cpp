@@ -27,17 +27,20 @@ void Systems::PickupSystem::execute(World *ref)
 
 			if (round(playerPos.X) == round(pickupPos.X) && round(playerPos.Y) == round(pickupPos.Y) && pickupGraphical->node->isVisible())
 			{
-				std::cout << "player picked up pickup\n";
 				pickupGraphical->node->setVisible(false);
 				switch (pickupCmpt->pickupType)
 				{
-					case SPEEDPICKUP :
-						break;
+					case SPEEDPICKUP : {
+                        auto velocity = ref->getComponentManager().getComponent<Components::Velocity>(player, VELOCITY);
+                        if (velocity && velocity->baseVelocity <= 20.f) {
+                            velocity->baseVelocity += 2.f;
+                        }
+                    }
 					case RADIUSPICKUP:
 						break;
 					case BOMBPICKUP:
 						auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(player, BOMBMANAGER);
-						bombManager->availables++;
+						bombManager->availables += 1;
 						break;
 				}
 

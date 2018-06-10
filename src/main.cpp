@@ -61,7 +61,7 @@ int main()
 		engine.setHandler(&handler);
 		map.load3DMap(world, ctx.nbPlayers);
 
-        engine.getDevice()->getLogger()->setLogLevel(irr::ELL_ERROR);
+        engine.getDevice()->getLogger()->setLogLevel(irr::ELL_NONE);
         world.addSystem<Systems::BombSystem>(&engine);
         world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
         world.addSystem<Systems::MovementSystem>(&engine, handler.getKeyDownArray());

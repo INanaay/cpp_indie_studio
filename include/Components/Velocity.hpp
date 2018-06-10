@@ -20,6 +20,7 @@ namespace Components {
     public:
         float value;
         float old_value;
+        float baseVelocity = 10.f;
     };
 }
 
