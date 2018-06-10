@@ -48,7 +48,7 @@ std::vector<std::vector<unsigned char>> Systems::AISystem::getMap(World *ref) {
         div = (physical->y) / 2.0f;
         round = (int) (truncf(div));
         float new_y;
-        new_y = (float) round * 2.0f + (physical->y < 0.f ? -1.0f : 1.0f);
+        new_y = (float)round * 2.0f + (physical->y < 0.f ? -1.0f : 1.0f);
         if ((_map[16 - (new_y / 2 + 8)][new_x / 2 + 8] == '0') || (_map[16 - (new_y / 2 + 8)][new_x / 2 + 8] == '3')) {
             if (ref->getComponentManager().getComponent<Components::WallCollision>(entity, WALLCOLLISION) != nullptr) {
                 _map[16 - (new_y / 2 + 8)][new_x / 2 + 8] = physical->_destroyable ? '1' : '4';
@@ -112,16 +112,20 @@ void Systems::AISystem::execute(World *ref)
                 round = (int) (truncf(div));
                 float new_y;
                 new_y = (float) round * 2.0f + (physical->y < 0.f ? -1.0f : 1.0f);
-                if (_map[16 - (new_y / 2 + 8)][(new_x - 1)/ 2 + 8] == '0') {
+                std::cout << "top " << _map[(new_x) / 2 + 8][16 - ((new_y - 1) / 2 + 8)] << std::endl;
+                std::cout << "bottom " << _map[(new_x) / 2 + 8][16 - ((new_y + 1) / 2 + 8)] << std::endl;
+                std::cout << "left " << _map[(new_x - 1) / 2 + 8][16 - ((new_y) / 2 + 8)] << std::endl;
+                std::cout << "right " << _map[(new_x + 1) / 2 + 8][16 - ((new_y) / 2 + 8)] << std::endl;
+                if (_map[(new_x - 1)/ 2 + 8][16 - (new_y / 2 + 8)] == '0') {
                     std::cout << "Left" << std::endl;
                     aiComponent->action = MOVELEFT;
-                } else if (_map[16 - (new_y / 2 + 8)][(new_x - 1) / 2 + 8] == '0') {
+                } else if (_map[(new_x + 1) / 2 + 8][16 - (new_y / 2 + 8)] == '0') {
                     std::cout << "Right" << std::endl;
                     aiComponent->action = MOVERIGHT;
-                } else if (_map[16 - ((new_y - 1) / 2 + 8)][(new_x) / 2 + 8] == '0') {
+                } else if (_map[(new_x) / 2 + 8][16 - ((new_y - 1) / 2 + 8)] == '0') {
                     std::cout << "Up" << std::endl;
                     aiComponent->action = MOVEUP;
-                } else if (_map[16 - ((new_y + 1) / 2 + 8)][(new_x) / 2 + 8] == '0') {
+                } else if (_map[(new_x) / 2 + 8][16 - ((new_y + 1) / 2 + 8)] == '0') {
                     std::cout << "Down" << std::endl;
                     aiComponent->action = MOVEDOWN;
                 } else {

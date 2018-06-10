@@ -127,7 +127,6 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
     }
     auto entities = ref->getComponentManager().getEntityByComponents(
             {PHYSICALBODY, GRAPHICALBODY, WALLCOLLISION});
-    std::cout << std::endl;
     for (const auto &entity : entities) {
         auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(
                 entity, PHYSICALBODY);
