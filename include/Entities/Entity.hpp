@@ -17,7 +17,7 @@ private:
     World *_world;
 
 public:
-    Entity(World *ref, uint32_t idt) : id(idt), _world(ref) {Logger::logMessage("New entity " + std::to_string(id), SUCCESS);};
+    Entity(World *ref, uint32_t idt) : id(idt), _world(ref) {};
     ~Entity() noexcept = default;
 
     template <class componentType, class... Args>

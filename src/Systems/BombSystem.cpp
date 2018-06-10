@@ -16,11 +16,13 @@ bool isInRange(float x, float y, float x2, float y2)
     if (x == x2 && y == y2) {
         return false;
     } else if (x == x2) {
-        if (fabs(y2 - y) <= 2.0f)
+        if (fabs(y2 - y) <= 2.0f) {
             return true;
+        }
     } else if (y == y2) {
-        if (fabs(x2 - x) <= 2.0f)
+        if (fabs(x2 - x) <= 2.0f) {
             return true;
+        }
     } else {
         return false;
     }
@@ -70,11 +72,11 @@ void putNewBombs(World *ref) {
         auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
         if (bombManager->putBomb) {
             auto player = ref->getComponentManager().getComponent<Components::GraphicalBody>(p, GRAPHICALBODY)->node->getPosition();
-            auto div = (player.X) / 2.0f;
+            auto div = player.X / 2.0f;
             auto round = (int)(truncf(div));
             float new_x;
             new_x = (float)round * 2.0f + (player.X < 0.f ? -1.0f : 1.0f);
-            div = (player.Y) / 2.0f;
+            div = player.Y / 2.0f;
             round = (int)(truncf(div));
             float new_y;
             new_y = (float)round * 2.0f + (player.Y < 0.f ? -1.0f : 1.0f);
@@ -126,10 +128,14 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
     }
     auto entities = ref->getComponentManager().getEntityByComponents(
             {PHYSICALBODY, GRAPHICALBODY, WALLCOLLISION});
+    std::cout << std::endl;
     for (const auto &entity : entities) {
         auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(
                 entity, PHYSICALBODY);
-        if (physical->_destroyable && isInRange(bombPhysical->x, bombPhysical->y, physical->x, physical->y)) {
+        auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
+                entity, GRAPHICALBODY);
+        auto pos = graphical->node->getPosition();
+        if ((physical->_destroyable) && (isInRange(bombPhysical->x, bombPhysical->y, pos.X, pos.Y) == true)) {
             auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
                     entity, GRAPHICALBODY);
             auto wallcollision = ref->getComponentManager().getComponent<Components::WallCollision>(entity,
@@ -156,6 +162,8 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
 
 }
 
+#define CONVERT_TIME 1000000000
+
 void Systems::BombSystem::execute(World *ref) {
     auto bombs = ref->getComponentManager().getEntityByComponents({TIMER, PHYSICALBODY});
     for (auto const &bomb : bombs) {
@@ -164,12 +172,13 @@ void Systems::BombSystem::execute(World *ref) {
         auto timer = ref->getComponentManager().getComponent<Components::Timer>(bomb, TIMER);
         auto bombPhysical = ref->getComponentManager().getComponent<Components::PhysicalBody>(bomb, PHYSICALBODY);
         auto c_time = std::chrono::high_resolution_clock::now();
-        if ((c_time - timer->_start).count() >= (3.f * 1000000000.f) &&
-            (c_time - timer->_start).count() < (3.5f * 1000000000.f)) {
+
+        if ((c_time - timer->_start).count() >= (3.f * CONVERT_TIME) &&
+            (c_time - timer->_start).count() < (3.5f * CONVERT_TIME)) {
             explodeBomb(ref, bomb, bombGraphical, bombPhysical, timer);
         }
-        if (((c_time - timer->_start).count() >= (3.5f * 1000000000.f)) &&
-            (c_time - timer->_start).count() <= (4.5f * 1000000000.f)) {
+        if (((c_time - timer->_start).count() >= (3.5f * CONVERT_TIME)) &&
+            (c_time - timer->_start).count() <= (4.5f * CONVERT_TIME)) {
             if (bombGraphical->node->isVisible())
                 bombGraphical->node->setVisible(false);
         }

@@ -54,7 +54,7 @@ void Systems::ControllableSystem::disableAction(CONTROL_ACTION action, Component
         velocity->value = 0.f;
     if (action == _lastAction && action == MOVELEFT)
         velocity->value = 0.f;
-    if (action == _lastAction && action == DROP)
+    if (action == DROP)
         bombManager->putBomb = false;
 }
 

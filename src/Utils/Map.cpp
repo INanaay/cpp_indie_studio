@@ -178,7 +178,7 @@ void Map::load3DMap(World &world, int nbPlayer)
 			if (x == '2')
 				loadLandscapeModel(world, "../ressources/models/iron.obj", "../ressources/models/terrain.png", xcursor, ycursor, false);
 			if (x == '1')
-				loadLandscapeModel(world, "../ressources/models/glass.obj", "../ressources/models/terrain.png", xcursor, ycursor, true);
+				loadLandscapeModel(world, "../ressources/models/dirt.obj", "../ressources/models/terrain.png", xcursor, ycursor, true);
 			xcursor += 2.f;
 		}
 		ycursor += 2.f;

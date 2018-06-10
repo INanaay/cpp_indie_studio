@@ -14,22 +14,21 @@
 #include "World.hpp"
 #include "Components.hpp"
 #include "MovementSystem.hpp"
-
-std::mutex positionComponentMutex;
+#include "Entity.hpp"
 
 void Systems::MovementSystem::execute(World *ref)
 {
 		static irr::u32 then = _engine->getDevice()->getTimer()->getTime();
-		static bool isKeyPressed = false;
 		auto entities = ref->getComponentManager().getEntityByComponents(
 			{PHYSICALBODY, VELOCITY, GRAPHICALBODY, CONTROLLABLE});
-
 		const irr::u32 now = _engine->getDevice()->getTimer()->getTime();
 		const irr::f32 frameDeltaTime = (irr::f32)(now - then) / 1000.f; // Time in seconds
 		then = now;
 
 		for (const auto &entityID : entities) {
-
+            auto ctrl = ref->getComponentManager().getComponent<Components::Controllable>(
+                    entityID,
+                    CONTROLLABLE);
 			auto velocity = ref->getComponentManager().getComponent<Components::Velocity>(
 				entityID,
 				VELOCITY);
@@ -45,20 +44,20 @@ void Systems::MovementSystem::execute(World *ref)
                 auto node = graphical->node;
 				auto pos = node->getPosition();
 
-                bool wasKeyPressed = isKeyPressed;
-                isKeyPressed = false;
+                bool wasKeyPressed = ctrl->isKeyPressed;
+                ctrl->isKeyPressed = false;
                 for (auto &key : controllable->_keymap) {
                     if (_keyDown[key.first]) {
-                        isKeyPressed = true;
+                        ctrl->isKeyPressed = true;
                         break;
                     }
                 }
-                if (!isKeyPressed) {
+                if (!ctrl->isKeyPressed) {
                     node->setFrameLoop(34, 34);
                 } else {
                     if (!wasKeyPressed) {
                         node->setFrameLoop(1, 35);
-                        node->setAnimationSpeed(120);
+                        node->setAnimationSpeed(80);
                     }
                 }
                 graphical->node->setRotation(irr::core::vector3df(270, 0, physical->direction));
