@@ -1,6 +1,6 @@
 # Blender v2.79 (sub 0) OBJ File: ''
 # www.blender.org
-mtllib mushroom.mtl
+mtllib grass3.mtl
 o Plane.007_Plane.010
 v 0.707108 -1.000000 0.707105
 v 0.707108 1.000000 0.707106

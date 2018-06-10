@@ -1,4 +1,4 @@
-# Blender MTL File: 'None'
+# Blender MTL File: 'floor.blend'
 # Material Count: 10
 
 newmtl lava
@@ -9,8 +9,8 @@ Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
-illum 1
-map_Kd C:\Users\$KJS00~1\AppData\Local\waterlava\lava\1.png
+illum 0
+map_Kd C:\Users\Dave\Desktop\terrain.png
 map_Ka C:\\Users\\Dave\\Desktop\\terrain.png
 map_d C:\\Users\\Dave\\Desktop\\terrain.png
 
@@ -22,12 +22,12 @@ Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
-illum 1
-map_Kd C:\Users\$KJS00~1\AppData\Local\waterlava\lava\1.png
+illum 0
+map_Kd C:\Users\Dave\Desktop\terrain.png
 map_Ka C:\\Users\\Dave\\Desktop\\terrain.png
 map_d C:\\Users\\Dave\\Desktop\\terrain.png
 
-newmtl lava.001_terrain.png.001
+newmtl lava.001_1.png.001
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.000000 0.000000 0.000000
@@ -35,8 +35,8 @@ Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
-illum 1
-map_Kd C:\Users\Dave\Desktop\terrain.png
+illum 0
+map_Kd C:\Users\$KJS00~1\AppData\Local\waterlava\lava\1.png
 map_Ka C:\\Users\\Dave\\Desktop\\terrain.png
 map_d C:\\Users\\Dave\\Desktop\\terrain.png
 
@@ -48,12 +48,12 @@ Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
-illum 1
+illum 0
 map_Kd C:\Users\$KJS00~1\AppData\Local\waterlava\lava\1.png
 map_Ka C:\\Users\\Dave\\Desktop\\terrain.png
 map_d C:\\Users\\Dave\\Desktop\\terrain.png
 
-newmtl lava.002_terrain.png.002
+newmtl lava.002_terrain.png.003
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.000000 0.000000 0.000000
@@ -61,7 +61,7 @@ Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
-illum 1
+illum 0
 map_Kd C:\Users\Dave\Desktop\terrain.png
 map_Ka C:\\Users\\Dave\\Desktop\\terrain.png
 map_d C:\\Users\\Dave\\Desktop\\terrain.png
@@ -74,12 +74,12 @@ Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
-illum 1
-map_Kd C:\Users\$KJS00~1\AppData\Local\waterlava\lava\1.png
+illum 0
+map_Kd C:\Users\Dave\Desktop\terrain.png
 map_Ka C:\\Users\\Dave\\Desktop\\terrain.png
 map_d C:\\Users\\Dave\\Desktop\\terrain.png
 
-newmtl lava.003_terrain.png.003
+newmtl lava.003_1.png.003
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.000000 0.000000 0.000000
@@ -87,8 +87,8 @@ Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
-illum 1
-map_Kd C:\Users\Dave\Desktop\terrain.png
+illum 0
+map_Kd C:\Users\$KJS00~1\AppData\Local\waterlava\lava\1.png
 map_Ka C:\\Users\\Dave\\Desktop\\terrain.png
 map_d C:\\Users\\Dave\\Desktop\\terrain.png
 
@@ -100,7 +100,7 @@ Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
-illum 1
+illum 0
 map_Kd C:\Users\Dave\Desktop\terrain.png
 map_Ka C:\\Users\\Dave\\Desktop\\terrain.png
 map_d C:\\Users\\Dave\\Desktop\\terrain.png
@@ -113,12 +113,12 @@ Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
-illum 1
+illum 0
 map_Kd C:\Users\$KJS00~1\AppData\Local\waterlava\lava\1.png
 map_Ka C:\\Users\\Dave\\Desktop\\terrain.png
 map_d C:\\Users\\Dave\\Desktop\\terrain.png
 
-newmtl lava_terrain.png
+newmtl lava_1.png
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.000000 0.000000 0.000000
@@ -126,7 +126,7 @@ Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
-illum 1
-map_Kd C:\Users\Dave\Desktop\terrain.png
+illum 0
+map_Kd C:\Users\$KJS00~1\AppData\Local\waterlava\lava\1.png
 map_Ka C:\\Users\\Dave\\Desktop\\terrain.png
 map_d C:\\Users\\Dave\\Desktop\\terrain.png

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <random>
+#include <sstream>
 #include "Map.hpp"
 #include "Components.hpp"
 #include "Entity.hpp"
@@ -72,12 +73,14 @@ void Map::fillMapRandomly() noexcept
 
 static int checkSurroundings(typeMap &map, int py, int px) noexcept
 {
+	if (py > 2 || py < PLAYABLE - 2)
+		return 0;
 	for (int y = -1 ; y < 2 ; y++) {
 		for (int x = -1 ; x < 2 ; x++) {
 			if (y == 0 && x == 0)
 				continue ;
 			if (py + y >= 0 && px + x >= 0 &&
-				py + y <= PLAYABLE && px + x <= PLAYABLE) {
+			    py + y <= PLAYABLE && px + x <= PLAYABLE) {
 				if (map[py + y][px + x] == '2')
 					return 1;
 			}
@@ -92,7 +95,7 @@ void Map::addUnbreakableWalls() noexcept
 	int nbWall;
 
 	for (unsigned int y = 1; y <= WALL_LENGTH; y++) {
-		nbWall = myRand(0, PLAYABLE / 4);
+		nbWall = myRand(0, PLAYABLE / 3);
 		for (int x = 0; x < nbWall; x++) {
 			int getRand = myRand(0, PLAYABLE);
 			if (checkSurroundings(_map, y, getRand) == 0)
@@ -163,6 +166,38 @@ void loadLandscapeModel(World &world, std::string model, std::string png, float 
 	entity.addComponent<Components::GraphicalBody>(std::string(model), std::string(png));
 	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f, destroyable);
 	entity.addComponent<Components::WallCollision>();
+}
+
+void Map::addFlowers(World &world) noexcept
+{
+	int nbGrass;
+
+	for (unsigned int y = 1; y <= WALL_LENGTH; y++) {
+		int linecount = 0;
+		for (int x = 0; x < WALL_LENGTH; x++) {
+			if (_map[y][x] == '0')
+				linecount++;
+		}
+		std::cout << linecount << std::endl;
+		nbGrass = myRand(0, linecount);
+		for (int x = 0; x < nbGrass; x++) {
+			int getRand = myRand(0, PLAYABLE);
+			if (_map[y][getRand] != '0')
+				x--;
+			else {
+				char grassType = (char)(myRand(0, 3) + 48);
+				std::ostringstream obj;
+				obj << "../ressources/models/grass" << grassType << ".obj";
+				std::cout << obj.str() << std::endl;
+				std::stringstream png;
+				png << "../ressources/models/terrain.png";
+				auto entity = world.createEntity();
+				world.addEntity(entity);
+				entity.addComponent<Components::GraphicalBody>(obj.str(), png.str());
+				entity.addComponent<Components::PhysicalBody>(-15.f + (getRand * 2), -15.f + (y * 2), 0.0f, true);
+			}
+		}
+	}
 }
 
 void Map::load3DMap(World &world, int nbPlayer)

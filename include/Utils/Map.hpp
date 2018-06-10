@@ -24,6 +24,7 @@ public:
 	void physicalMapToGraphicalEntity() noexcept;
 	void cleanCornersAddPlayers() noexcept;
 	void addOutsideWalls() noexcept;
+	void addFlowers(World &) noexcept;
 
 	typeMap const &getMap() const noexcept { return _map; }
 	void load3DMap(World &, int);
