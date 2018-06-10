@@ -113,22 +113,22 @@ void Systems::AISystem::execute(World *ref)
                 float new_y;
                 new_y = (float) round * 2.0f + (physical->y < 0.f ? -1.0f : 1.0f);
                 if (_map[16 - (new_y / 2 + 8)][(new_x - 1)/ 2 + 8] == '0') {
-                    std::cout << "Left" << std::endl;
+                   // std::cout << "Left" << std::endl;
                     aiComponent->action = MOVELEFT;
                 } else if (_map[16 - (new_y / 2 + 8)][(new_x - 1) / 2 + 8] == '0') {
-                    std::cout << "Right" << std::endl;
+                    //std::cout << "Right" << std::endl;
                     aiComponent->action = MOVERIGHT;
                 } else if (_map[16 - ((new_y - 1) / 2 + 8)][(new_x) / 2 + 8] == '0') {
-                    std::cout << "Up" << std::endl;
+                    //std::cout << "Up" << std::endl;
                     aiComponent->action = MOVEUP;
                 } else if (_map[16 - ((new_y + 1) / 2 + 8)][(new_x) / 2 + 8] == '0') {
-                    std::cout << "Down" << std::endl;
+                    //std::cout << "Down" << std::endl;
                     aiComponent->action = MOVEDOWN;
                 } else {
-                    std::cout << "Drop" << std::endl;
+                    //std::cout << "Drop" << std::endl;
                     aiComponent->action = DROP;
                 }
-                std::cout << "action = " << aiComponent->action << std::endl;
+                //std::cout << "action = " << aiComponent->action << std::endl;
             }
         }
     }
