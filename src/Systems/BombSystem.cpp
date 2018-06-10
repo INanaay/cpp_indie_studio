@@ -33,11 +33,11 @@ bool isInRange(float x, float y, float x2, float y2)
 
 void Systems::BombSystem::putPickup(Components::GraphicalBody *wall, World *ref)
 {
-	int randNum = rand()%(4 -1 + 1) + 1;
+	int randNum = rand()%(100) + 1;
 
-	if (randNum == 2)
+	if (randNum <= 90)
 	{
-		int randType = rand()%(3 -1 + 1) + 1;
+		int randType = rand()%(3) + 1;
 
 		auto pos = wall->node->getPosition();
 		auto bomb = ref->createEntity();
@@ -73,7 +73,6 @@ void Systems::BombSystem::updateBombs(World *ref) {
         auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
         auto &bombs = bombManager->bombs;
         for (const auto &bomb : bombs) {
-            auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(bomb, GRAPHICALBODY);
             auto timer = ref->getComponentManager().getComponent<Components::Timer>(bomb, TIMER);
             if (((c_time - timer->_start).count() >= (3.2f * CONVERT_TIME))) {
                 auto it = std::find(bombs.begin(), bombs.end(), bomb);
@@ -107,6 +106,17 @@ void putNewBombs(World *ref) {
                 if (node->isVisible() && pos.X == new_x && pos.Y == new_y) {
                     canPut = false;
                     break;
+                }
+            }
+            auto bombs = ref->getComponentManager().getEntityByComponents({TIMER, GRAPHICALBODY});
+            for (const auto &bomb : bombs) {
+                auto node = ref->getComponentManager().getComponent<Components::GraphicalBody>(bomb, GRAPHICALBODY)->node;
+                if (node != nullptr) {
+                    auto pos = node->getPosition();
+                    if (node->isVisible() && pos.X == new_x && pos.Y == new_y) {
+                        canPut = false;
+                        break;
+                    }
                 }
             }
             if (canPut) {
@@ -143,7 +153,7 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
         auto otherTimer = ref->getComponentManager().getComponent<Components::Timer>(
                 otherBomb, TIMER);
         if (((otherTimer->_start - timer->_start).count() > 0) && isInRange(bombPhysical->x, bombPhysical->y, physical->x, physical->y)) {
-            otherTimer->_start = timer->_start;
+            otherTimer->_start = timer->_start + std::chrono::milliseconds(50);
         }
     }
     auto entities = ref->getComponentManager().getEntityByComponents(
@@ -180,7 +190,7 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
 	    round = (int)(truncf(div));
 	    float new_y;
 	    new_y = (float)round * 2.0f + (physical->y < 0.f ? -1.0f : 1.0f);
-        if (isInRange(bombPhysical->x, bombPhysical->y, new_x, new_y) ) {
+        if (isInRange(bombPhysical->x, bombPhysical->y, new_x, new_y) == true) {
 		auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
                     p, GRAPHICALBODY);
 		if (graphical->node->isVisible() == true) {
@@ -198,18 +208,19 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
 void Systems::BombSystem::execute(World *ref) {
     auto bombs = ref->getComponentManager().getEntityByComponents({TIMER, PHYSICALBODY});
     for (auto const &bomb : bombs) {
-
         auto bombGraphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(bomb, GRAPHICALBODY);
+        if (bombGraphical->node->isVisible() == false)
+            continue;
         auto timer = ref->getComponentManager().getComponent<Components::Timer>(bomb, TIMER);
         auto bombPhysical = ref->getComponentManager().getComponent<Components::PhysicalBody>(bomb, PHYSICALBODY);
         auto c_time = std::chrono::high_resolution_clock::now();
 
         if ((c_time - timer->_start).count() >= (3.f * CONVERT_TIME) &&
-            (c_time - timer->_start).count() < (3.2f * CONVERT_TIME)) {
+            (c_time - timer->_start).count() < (3.5f * CONVERT_TIME)) {
             explodeBomb(ref, bomb, bombGraphical, bombPhysical, timer);
         }
-        if (((c_time - timer->_start).count() >= (3.2f * CONVERT_TIME)) &&
-            (c_time - timer->_start).count() <= (3.5f * CONVERT_TIME)) {
+        if (((c_time - timer->_start).count() >= (3.5f * CONVERT_TIME)) &&
+            (c_time - timer->_start).count() <= (3.6f * CONVERT_TIME)) {
             if (bombGraphical->node->isVisible())
                 bombGraphical->node->setVisible(false);
         }
