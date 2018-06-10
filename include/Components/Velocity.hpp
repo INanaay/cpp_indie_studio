@@ -7,6 +7,7 @@
 
 #include <cstdint>
 #include "IComponent.hpp"
+#include <iostream>
 
 namespace Components {
     class Velocity : public IComponent {
