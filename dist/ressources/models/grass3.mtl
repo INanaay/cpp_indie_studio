@@ -1,0 +1,14 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+
+newmtl flat.004
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.343373 0.343373 0.343373
+Ks 0.101852 0.101852 0.101852
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\Users\Dave\Desktop\terrain.png
+map_d C:\\Users\\Dave\\Desktop\\terrain.png
