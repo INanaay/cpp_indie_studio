@@ -53,7 +53,6 @@ void Systems::MovementSystem::execute(World *ref)
                         break;
                     }
                 }
-                std::cout << wasKeyPressed << isKeyPressed << std::endl;
                 if (!isKeyPressed) {
                     node->setFrameLoop(34, 34);
                 } else {
@@ -73,11 +72,16 @@ void Systems::MovementSystem::execute(World *ref)
 					pos.Y -= velocity->value * frameDeltaTime;
 
 				node->setPosition(pos);
+                if (pos.X == physical->x && pos.Y == physical->y) {
+                    velocity->old_value = velocity->value;
+                    velocity->value = 0.f;
+                }
 				if (pos.X != physical->x)
 					physical->x = pos.X;
                 if (pos.Y != physical->y)
                     physical->y = pos.Y;
-			}
+
+            }
 		}
 		std::cout << "tamer" << std::endl;
 }

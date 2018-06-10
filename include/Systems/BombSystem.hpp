@@ -6,10 +6,11 @@
 #define INDIESTUDIO_BOMBSYSTEM_HPP
 
 #include <iostream>
+#include <GraphicalBody.hpp>
 #include "ISystem.hpp"
 #include "GraphicalEngine.hpp"
-#include "Bomb.hpp"
 #include "PhysicalBody.hpp"
+#include "Timer.hpp"
 
 class World;
 
@@ -18,8 +19,9 @@ namespace Systems {
 	public:
 		BombSystem(GraphicalEngine *engine) : _engine(engine) {};
 		void execute(World *ref) override;
-	private:
-		void explodeBomb(World *ref, Components::Bomb *&bomb, const uint32_t bomb_id, Components::PhysicalBody *&player);
+        void explodeBomb(World *ref, const uint32_t &bomb, Components::GraphicalBody *&bombGraphical,
+        Components::PhysicalBody *&bombPhysical, Components::Timer *&timer);
+            private:
 		GraphicalEngine *_engine;
 	};
 }

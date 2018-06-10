@@ -15,7 +15,6 @@ enum typeComponent {
 	PLAYERCOLLISION,
     CONTROLLABLE,
 	BOMBMANAGER,
-	BOMB,
 	TIMER
 };
 

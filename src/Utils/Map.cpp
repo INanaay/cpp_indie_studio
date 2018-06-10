@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include <random>
-#include <Bomb.hpp>
 #include "Map.hpp"
 #include "Components.hpp"
 #include "Entity.hpp"

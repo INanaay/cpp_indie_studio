@@ -16,7 +16,6 @@ namespace Components {
         ~AIComponent() override = default;
         void summarize() const override {std::cout << "AI" << std::endl;};
         typeComponent getType() const override { return AI; };
-
     };
 }
 

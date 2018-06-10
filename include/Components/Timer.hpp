@@ -5,6 +5,7 @@
 #ifndef INDIESTUDIO_TIMER_HPP
 #define INDIESTUDIO_TIMER_HPP
 
+#include <chrono>
 #include <vector>
 #include <string>
 #include <iostream>
