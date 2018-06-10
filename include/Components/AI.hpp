@@ -8,14 +8,18 @@
 #include <cstdint>
 #include <iostream>
 #include "IComponent.hpp"
+#include "Components.hpp"
+#include "Controllable.hpp"
 
 namespace Components {
     class AIComponent : public IComponent {
     public:
-        AIComponent() {};
+        AIComponent() : putBomb(false) {};
         ~AIComponent() override = default;
         void summarize() const override {std::cout << "AI" << std::endl;};
         typeComponent getType() const override { return AI; };
+        bool putBomb;
+        CONTROL_ACTION action;
     };
 }
 

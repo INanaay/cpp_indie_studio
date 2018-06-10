@@ -62,18 +62,26 @@ void Systems::ControllableSystem::execute(World *ref)
 {
     auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, CONTROLLABLE, VELOCITY, BOMBMANAGER});
 
-        for (const auto &entityID : entities) {
-            auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(entityID, PHYSICALBODY);
-            auto velocity = ref->getComponentManager().getComponent<Components::Velocity>(entityID, VELOCITY);
-            auto controllable = ref->getComponentManager().getComponent<Components::Controllable>(entityID, CONTROLLABLE);
-            auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(entityID, BOMBMANAGER);
+    for (const auto &entityID : entities) {
+        auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(entityID, PHYSICALBODY);
+        auto velocity = ref->getComponentManager().getComponent<Components::Velocity>(entityID, VELOCITY);
+        auto controllable = ref->getComponentManager().getComponent<Components::Controllable>(entityID, CONTROLLABLE);
+        auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(entityID, BOMBMANAGER);
 
-            for (const auto &key : controllable->_keymap) {
-                if (_keyDown[key.first]) {
-                    enableAction(ref, key.second, physical, velocity, bombManager, entityID);
-                }
-                if (!_keyDown[key.first])
-                    disableAction(key.second, physical, velocity, bombManager);
+        for (const auto &key : controllable->_keymap) {
+            if (_keyDown[key.first]) {
+                enableAction(ref, key.second, physical, velocity, bombManager, entityID);
             }
+            if (!_keyDown[key.first])
+                disableAction(key.second, physical, velocity, bombManager);
         }
+    }
+    auto ais = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, AI, VELOCITY, BOMBMANAGER});
+    for (const auto &ai : ais) {
+        auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(ai, PHYSICALBODY);
+        auto velocity = ref->getComponentManager().getComponent<Components::Velocity>(ai, VELOCITY);
+        auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(ai, BOMBMANAGER);
+        auto aiComponent = ref->getComponentManager().getComponent<Components::AIComponent>(ai, AI);
+        enableAction(ref, DROP, physical, velocity, bombManager, ai);
+    }
 }

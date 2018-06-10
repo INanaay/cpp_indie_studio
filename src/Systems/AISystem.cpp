@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <random>
 #include "World.hpp"
 #include "Components.hpp"
 #include "AISystem.hpp"
@@ -29,18 +30,6 @@ static bool isInRange(float x, float y, float x2, float y2) {
     } else {
         return false;
     }
-}
-
-bool dangerous(World *ref, float x, float y) {
-    auto bombs = ref->getComponentManager().getEntityByComponents({TIMER});
-    for (const auto &bomb : bombs) {
-        auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(bomb, PHYSICALBODY);
-        if (isInRange(physical->x, physical->y, x, y)) {
-            std::cout << "Dangerous" << std::endl;
-            return true;
-        }
-    }
-    return false;
 }
 
 std::vector<std::vector<unsigned char>> Systems::AISystem::getMap(World *ref) {
@@ -73,6 +62,14 @@ std::vector<std::vector<unsigned char>> Systems::AISystem::getMap(World *ref) {
     return _map;
 }
 
+static unsigned long myRand(std::size_t from, std::size_t to)
+{
+    std::mt19937 rng;
+    rng.seed(std::random_device()());
+    std::uniform_int_distribution<std::mt19937::result_type> toRet(from, to);
+    return toRet(rng);
+}
+
 void Systems::AISystem::execute(World *ref)
 {
     auto ai_players = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY, AI});
@@ -89,6 +86,27 @@ void Systems::AISystem::execute(World *ref)
             if (isInRange(bombPos.X, bombPos.Y, pos.X, pos.Y)) {
                 safe = false;
                 break;
+            }
+        }
+        auto aiComponent = ref->getComponentManager().getComponent<Components::AIComponent>(p, AI);
+        if (!safe) {
+            auto div = (physical->x) / 2.0f;
+            auto round = (int) (truncf(div));
+            float new_x;
+            new_x = (float) round * 2.0f + (physical->x < 0.f ? -1.0f : 1.0f);
+            div = (physical->y) / 2.0f;
+            round = (int) (truncf(div));
+            float new_y;
+            new_y = (float) round * 2.0f + (physical->y < 0.f ? -1.0f : 1.0f);
+
+        } else {
+            auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
+            auto x = myRand(1, 100);
+            std::cout << x << std::endl;
+            if (x == 1) {
+                aiComponent->action = DROP;
+            } else {
+                aiComponent->action = MOVELEFT;
             }
         }
     }

@@ -26,6 +26,7 @@ SAppContext startMenu(GraphicalEngine &engine)
 	Menu menu(engine);
 	MenuEventHandler handler(context);
 
+	engine.getDevice()->getLogger()->setLogLevel(irr::ELL_NONE);
 	engine.setHandler(&handler);
 	while (engine.isRunning())
 	{
