@@ -76,27 +76,21 @@ std::vector<std::vector<unsigned char>> Systems::AISystem::getMap(World *ref) {
 
 void Systems::AISystem::execute(World *ref)
 {
-        auto ai_players = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY, AI});
-        auto blocks = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY, WALLCOLLISION});
-        auto top_free = true;
-        auto right_free = true;
-        for (const auto &p : ai_players) {
-            auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(p, PHYSICALBODY);
-            auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(p, GRAPHICALBODY);
-            for (const auto &block : blocks) {
-                auto pos_x= ref->getComponentManager().getComponent<Components::PhysicalBody>(block, PHYSICALBODY)->x;
-                auto pos_y= ref->getComponentManager().getComponent<Components::PhysicalBody>(block, PHYSICALBODY)->y;
-                if (physical->y <= pos_y && physical->y + 2.0 >= pos_y) {
-                    top_free = false;
-                }
-                if (physical->x <= pos_x && physical->x + 2.0 >= pos_x) {
-                    right_free = false;
-                }
+    auto ai_players = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY, AI});
+    auto blocks = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY, WALLCOLLISION});
+    auto map = getMap(ref);
+    for (const auto &p : ai_players) {
+        auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(p, PHYSICALBODY);
+        auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(p, GRAPHICALBODY);
+        auto pos = graphical->node->getPosition();
+        auto bombs = ref->getComponentManager().getEntityByComponents({TIMER});
+        auto safe = true;
+        for (const auto &bomb : bombs) {
+            auto bombPos = ref->getComponentManager().getComponent<Components::GraphicalBody>(bomb, GRAPHICALBODY)->node->getPosition();
+            if (isInRange(bombPos.X, bombPos.Y, pos.X, pos.Y)) {
+                safe = false;
+                break;
             }
-            auto pos = graphical->node->getPosition();
-            pos.X -= 0.5f;
-            pos.Y -= 0.5f;
-            graphical->node->setPosition(pos);
         }
-        auto map = getMap(ref);
+    }
 }
