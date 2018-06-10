@@ -129,10 +129,10 @@ void Systems::AISystem::execute(World *ref)
                     std::cout << "Down" << std::endl;
                     aiComponent->action = MOVEDOWN;
                 } else {
-                    std::cout << "Drop" << std::endl;
+                    //std::cout << "Drop" << std::endl;
                     aiComponent->action = DROP;
                 }
-                std::cout << "action = " << aiComponent->action << std::endl;
+                //std::cout << "action = " << aiComponent->action << std::endl;
             }
         }
     }

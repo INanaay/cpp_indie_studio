@@ -14,7 +14,7 @@
 bool isInRange(float x, float y, float x2, float y2)
 {
     if (x == x2 && y == y2) {
-        return false;
+        return true;
     } else if (x == x2) {
         if (fabs(y2 - y) <= 2.0f) {
             return true;
@@ -151,10 +151,25 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
     for (auto const &p : players) {
         auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(
                 p, PHYSICALBODY);
-        if (isInRange(bombPhysical->x, bombPhysical->y, physical->x, physical->y)) {
-            auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
+	    auto div = physical->x / 2.0f;
+	    auto round = (int)(truncf(div));
+	    float new_x;
+	    new_x = (float)round * 2.0f + (physical->x < 0.f ? -1.0f : 1.0f);
+	    div = physical->y / 2.0f;
+	    round = (int)(truncf(div));
+	    float new_y;
+	    new_y = (float)round * 2.0f + (physical->y < 0.f ? -1.0f : 1.0f);
+        if (isInRange(bombPhysical->x, bombPhysical->y, new_x, new_y) ) {
+		auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
                     p, GRAPHICALBODY);
-            //TODO kill players
+		if (graphical->node->isVisible()) {
+			std::cout << "player killed\n";
+			ref->getComponentManager().removeComponent(p, BOMBMANAGER);
+			ref->getComponentManager().removeComponent(p, CONTROLLABLE);
+			graphical->node->setVisible(false);
+		}
+
+
         }
     }
 
