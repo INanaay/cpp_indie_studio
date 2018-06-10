@@ -59,6 +59,7 @@ int main()
 		engine.setHandler(&handler);
 		map.load3DMap(world, ctx.nbPlayers);
 
+        engine.getDevice()->getLogger()->setLogLevel(irr::ELL_ERROR);
         world.addSystem<Systems::BombSystem>(&engine);
         world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
         world.addSystem<Systems::MovementSystem>(&engine, handler.getKeyDownArray());
@@ -66,6 +67,7 @@ int main()
         world.addSystem<Systems::LoaderSystem>(&engine);
         world.addSystem<Systems::AISystem>(&engine, map.getMap());
         engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 0, -30), irr::core::vector3df(0, 0, 0));
+        engine.getScene()->addLightSceneNode(0, irr::core::vector3df(-15, 0, -30), irr::video::SColorf(1.0f, 0.6f, 0.7f, 1.0f), 800.f);
 
         while (engine.isRunning()) {
 		    engine.getDriver()->beginScene();

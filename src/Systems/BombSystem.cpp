@@ -15,11 +15,13 @@ bool isInRange(float x, float y, float x2, float y2)
     if (x == x2 && y == y2) {
         return false;
     } else if (x == x2) {
-        if (fabs(y2 - y) <= 2.0f)
+        if (fabs(y2 - y) <= 2.0f) {
             return true;
+        }
     } else if (y == y2) {
-        if (fabs(x2 - x) <= 2.0f)
+        if (fabs(x2 - x) <= 2.0f) {
             return true;
+        }
     } else {
         return false;
     }
@@ -87,10 +89,14 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
     }
     auto entities = ref->getComponentManager().getEntityByComponents(
             {PHYSICALBODY, GRAPHICALBODY, WALLCOLLISION});
+    std::cout << std::endl;
     for (const auto &entity : entities) {
         auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(
                 entity, PHYSICALBODY);
-        if (physical->_destroyable && isInRange(bombPhysical->x, bombPhysical->y, physical->x, physical->y)) {
+        auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
+                entity, GRAPHICALBODY);
+        auto pos = graphical->node->getPosition();
+        if ((physical->_destroyable) && (isInRange(bombPhysical->x, bombPhysical->y, pos.X, pos.Y) == true)) {
             auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(
                     entity, GRAPHICALBODY);
             auto wallcollision = ref->getComponentManager().getComponent<Components::WallCollision>(entity,
@@ -114,13 +120,7 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
 
 }
 
-#ifndef __linux__
-    #define CONVERT_TIME 10000000
-#endif
-
-#ifdef __linux__
-    #define CONVERT_TIME 1000000000
-#endif
+#define CONVERT_TIME 1000000000
 
 void Systems::BombSystem::execute(World *ref) {
     auto bombs = ref->getComponentManager().getEntityByComponents({TIMER, PHYSICALBODY});
