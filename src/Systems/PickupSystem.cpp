@@ -24,8 +24,16 @@ void Systems::PickupSystem::execute(World *ref)
 			const auto pickupPos = pickupGraphical->node->getPosition();
 			const auto pickupCmpt = ref->getComponentManager().getComponent<Components::Pickup>(
 				pickup, PICKUP);;
+			auto div = (playerPos.X) / 2.0f;
+			auto round = (int) (truncf(div));
+			float new_x;
+			new_x = (float) round * 2.0f + (playerPos.X < 0.f ? -1.0f : 1.0f);
+			div = (playerPos.Y) / 2.0f;
+			round = (int) (truncf(div));
+			float new_y;
+			new_y = (float)round * 2.0f + (playerPos.Y < 0.f ? -1.0f : 1.0f);
 
-			if (round(playerPos.X) == round(pickupPos.X) && round(playerPos.Y) == round(pickupPos.Y) && pickupGraphical->node->isVisible())
+			if (new_x == pickupPos.X && new_y == pickupPos.Y && pickupGraphical->node->isVisible())
 			{
 				std::cout << "player picked up pickup\n";
 				pickupGraphical->node->setVisible(false);
@@ -37,7 +45,8 @@ void Systems::PickupSystem::execute(World *ref)
 						break;
 					case BOMBPICKUP:
 						auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(player, BOMBMANAGER);
-						bombManager->availables++;
+						std::cout << "More bombs !" << std::endl;
+                        (bombManager->availables)++;
 						break;
 				}
 

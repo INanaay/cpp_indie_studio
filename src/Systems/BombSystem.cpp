@@ -35,8 +35,7 @@ void Systems::BombSystem::putPickup(Components::GraphicalBody *wall, World *ref)
 {
 	int randNum = rand()%(4 -1 + 1) + 1;
 
-	std::cout << "Rand = " << randNum << std::endl;
-	if (randNum == 2)
+	if (randNum <= 2)
 	{
 		int randType = rand()%(3 -1 + 1) + 1;
 
@@ -77,8 +76,7 @@ void Systems::BombSystem::updateBombs(World *ref) {
         for (const auto &bomb : bombs) {
             auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(bomb, GRAPHICALBODY);
             auto timer = ref->getComponentManager().getComponent<Components::Timer>(bomb, TIMER);
-            if (((c_time - timer->_start).count() >= (3.2f * CONVERT_TIME)) &&
-                    ((c_time - timer->_start).count() <= (3.5f * CONVERT_TIME))) {
+            if (((c_time - timer->_start).count() >= (3.2f * CONVERT_TIME))) {
                 auto it = std::find(bombs.begin(), bombs.end(), bomb);
                 if (it != bombs.end()) {
                     bombs.erase(it);
@@ -90,7 +88,6 @@ void Systems::BombSystem::updateBombs(World *ref) {
 
 void putNewBombs(World *ref) {
     auto players = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, BOMBMANAGER});
-    std::cout << std::endl;
     for (auto const &p : players) {
         auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
         if (bombManager->putBomb && (bombManager->bombs.size() < bombManager->availables)) {
