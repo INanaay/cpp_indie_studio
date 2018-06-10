@@ -47,18 +47,18 @@ void Systems::BombSystem::putPickup(Components::GraphicalBody *wall, World *ref)
 		switch (randType) {
 			case 1 :
 				bomb.addComponent<Components::Pickup>(SPEEDPICKUP);
-				bomb.addComponent<Components::GraphicalBody>("../ressources/models/pickup0.obj",
-									     "../ressources/models/terrain.png");
+				bomb.addComponent<Components::GraphicalBody>("ressources/models/pickup0.obj",
+									     "ressources/models/terrain.png");
 				break;
 			case 2:
 				bomb.addComponent<Components::Pickup>(RADIUSPICKUP);
-				bomb.addComponent<Components::GraphicalBody>("../ressources/models/pickup1.obj",
-									     "../ressources/models/terrain.png");
+				bomb.addComponent<Components::GraphicalBody>("ressources/models/pickup1.obj",
+									     "ressources/models/terrain.png");
 				break;
 			case 3:
 				bomb.addComponent<Components::Pickup>(BOMBPICKUP);
-				bomb.addComponent<Components::GraphicalBody>("../ressources/models/pickup2.obj",
-									     "../ressources/models/terrain.png");
+				bomb.addComponent<Components::GraphicalBody>("ressources/models/pickup2.obj",
+									     "ressources/models/terrain.png");
 				break;
 			default : break;
 		}
@@ -124,8 +124,8 @@ void putNewBombs(World *ref) {
                 bombManager->bombs.push_back(bomb.id);
                 ref->addEntity(bomb);
                 bomb.addComponent<Components::Timer>();
-                bomb.addComponent<Components::GraphicalBody>("../ressources/models/tnt.obj",
-                                                             "../ressources/models/terrain.png");
+                bomb.addComponent<Components::GraphicalBody>("ressources/models/tnt.obj",
+                                                             "ressources/models/terrain.png");
                 bomb.addComponent<Components::PhysicalBody>(new_x, new_y, 0.0f, false);
             }
         }
@@ -139,10 +139,10 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
                                       Components::Timer *&timer) {
     if (bombGraphical->node->isVisible())
         bombGraphical->node->setVisible(false);
-    bombGraphical->mesh = _engine->getScene()->getMesh("../ressources/models/explosion.obj");
+    bombGraphical->mesh = _engine->getScene()->getMesh("ressources/models/explosion.obj");
     bombGraphical->node = _engine->getScene()->addAnimatedMeshSceneNode(bombGraphical->mesh);
     bombGraphical->node->setMaterialTexture(0, _engine->getDriver()->getTexture(
-            "../ressources/models/terrain.png"));
+            "ressources/models/terrain.png"));
     bombGraphical->node->setPosition(irr::core::vector3df(bombPhysical->x, bombPhysical->y, 0.0f));
     bombGraphical->node->setRotation(irr::core::vector3df(270, 0, 0));
     auto otherBombs = ref->getComponentManager().getEntityByComponents(

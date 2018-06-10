@@ -187,10 +187,10 @@ void Map::addFlowers(World &world) noexcept
 			else {
 				char grassType = (char)(myRand(0, 3) + 48);
 				std::ostringstream obj;
-				obj << "../ressources/models/grass" << grassType << ".obj";
+				obj << "ressources/models/grass" << grassType << ".obj";
 				std::cout << obj.str() << std::endl;
 				std::stringstream png;
-				png << "../ressources/models/terrain.png";
+				png << "ressources/models/terrain.png";
 				auto entity = world.createEntity();
 				world.addEntity(entity);
 				entity.addComponent<Components::GraphicalBody>(obj.str(), png.str());
@@ -209,17 +209,17 @@ void Map::load3DMap(World &world, int nbPlayer)
 		for (auto x : y) {
 		if (x >= 'a' &&  x <= 'd') {
 			std::stringstream png;
-			png << "../ressources/models/re" << model <<  ".png";
+			png << "ressources/models/re" << model <<  ".png";
 			if (x == 'a' || (x == 'c' && nbPlayer > 1))
-				loadPlayerModel(world, "../ressources/models/rere.b3d", png.str(), xcursor, ycursor, false);
+				loadPlayerModel(world, "ressources/models/rere.b3d", png.str(), xcursor, ycursor, false);
 			else
-				loadPlayerModel(world, "../ressources/models/rere.b3d", png.str(), xcursor, ycursor, true);
+				loadPlayerModel(world, "ressources/models/rere.b3d", png.str(), xcursor, ycursor, true);
 			model++;
 		}
 			if (x == '2')
-				loadLandscapeModel(world, "../ressources/models/iron.obj", "../ressources/models/terrain.png", xcursor, ycursor, false);
+				loadLandscapeModel(world, "ressources/models/iron.obj", "ressources/models/terrain.png", xcursor, ycursor, false);
 			if (x == '1')
-				loadLandscapeModel(world, "../ressources/models/dirt.obj", "../ressources/models/terrain.png", xcursor, ycursor, true);
+				loadLandscapeModel(world, "ressources/models/dirt.obj", "ressources/models/terrain.png", xcursor, ycursor, true);
 			xcursor += 2.f;
 		}
 		ycursor += 2.f;
