@@ -12,5 +12,6 @@
 #include "AISystem.hpp"
 #include "ControllableSystem.hpp"
 #include "CollisionSystem.hpp"
+#include "PickupSystem.hpp"
 
 #endif //INDIESTUDIO_SYSTEMS_HPP

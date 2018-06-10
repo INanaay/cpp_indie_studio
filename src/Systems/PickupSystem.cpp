@@ -35,18 +35,21 @@ void Systems::PickupSystem::execute(World *ref)
 
 			if (new_x == pickupPos.X && new_y == pickupPos.Y && pickupGraphical->node->isVisible())
 			{
-				std::cout << "player picked up pickup\n";
 				pickupGraphical->node->setVisible(false);
 				switch (pickupCmpt->pickupType)
 				{
-					case SPEEDPICKUP :
-						break;
+					case SPEEDPICKUP : {
+                        auto velocity = ref->getComponentManager().getComponent<Components::Velocity>(player, VELOCITY);
+                        if (velocity && velocity->baseVelocity <= 20.f) {
+                            velocity->baseVelocity += 2.f;
+                        }
+                    }
 					case RADIUSPICKUP:
 						break;
 					case BOMBPICKUP:
 						auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(player, BOMBMANAGER);
 						std::cout << "More bombs !" << std::endl;
-                        (bombManager->availables)++;
+						bombManager->availables += 1;
 						break;
 				}
 

@@ -232,7 +232,6 @@ Map::Map()
 	addUnbreakableWalls();
 	addOutsideWalls();
 	cleanCornersAddPlayers();
-	printMap();
 	//physicalMapToGraphicalEntity();
 }
 
