@@ -144,12 +144,10 @@ void loadPlayerModel(World &world, std::string model, std::string png, float pos
 	entity.addComponent<Components::PlayerCollision>();
     entity.addComponent<Components::Velocity>(0.f);
     entity.addComponent<Components::BombManager>();
-    //entity.addComponent<Components::Bomb>("../ressources/models/bomb.obj", "../ressources/models/bomb.mtl", entity.id, 3.0);
+    entity.addComponent<Components::Controllable>(keymaps[player]);
 
-	if (!isIa) {
-		entity.addComponent<Components::Controllable>(keymaps[player]);
+	if (!isIa)
 		player++;
-	}
 	else
 		entity.addComponent<Components::AIComponent>();
 }

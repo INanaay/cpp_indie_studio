@@ -98,15 +98,37 @@ void Systems::AISystem::execute(World *ref)
             round = (int) (truncf(div));
             float new_y;
             new_y = (float) round * 2.0f + (physical->y < 0.f ? -1.0f : 1.0f);
-
         } else {
             auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
             auto x = myRand(1, 100);
-            std::cout << x << std::endl;
-            if (x == 1) {
+            if (x == 2) {
                 aiComponent->action = DROP;
             } else {
-                aiComponent->action = MOVELEFT;
+                auto div = (physical->x) / 2.0f;
+                auto round = (int) (truncf(div));
+                float new_x;
+                new_x = (float) round * 2.0f + (physical->x < 0.f ? -1.0f : 1.0f);
+                div = (physical->y) / 2.0f;
+                round = (int) (truncf(div));
+                float new_y;
+                new_y = (float) round * 2.0f + (physical->y < 0.f ? -1.0f : 1.0f);
+                if (_map[16 - (new_y / 2 + 8)][(new_x - 1)/ 2 + 8] == '0') {
+                    std::cout << "Left" << std::endl;
+                    aiComponent->action = MOVELEFT;
+                } else if (_map[16 - (new_y / 2 + 8)][(new_x - 1) / 2 + 8] == '0') {
+                    std::cout << "Right" << std::endl;
+                    aiComponent->action = MOVERIGHT;
+                } else if (_map[16 - ((new_y - 1) / 2 + 8)][(new_x) / 2 + 8] == '0') {
+                    std::cout << "Up" << std::endl;
+                    aiComponent->action = MOVEUP;
+                } else if (_map[16 - ((new_y + 1) / 2 + 8)][(new_x) / 2 + 8] == '0') {
+                    std::cout << "Down" << std::endl;
+                    aiComponent->action = MOVEDOWN;
+                } else {
+                    std::cout << "Drop" << std::endl;
+                    aiComponent->action = DROP;
+                }
+                std::cout << "action = " << aiComponent->action << std::endl;
             }
         }
     }

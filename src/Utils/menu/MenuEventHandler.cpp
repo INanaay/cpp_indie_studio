@@ -28,7 +28,6 @@ bool MenuEventHandler::OnEvent(const irr::SEvent &event)
 						m_context.device->closeDevice();
 						return true;
 					case GUI_ID_ONE_PLAYER:
-					std::cout << "one player\n";
 						m_context.nbPlayers = 1;
 						m_context.isRunning = false;
 						return true;

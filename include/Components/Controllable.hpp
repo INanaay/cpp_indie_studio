@@ -26,16 +26,16 @@ using keymap = std::vector<std::pair<irr::EKEY_CODE, CONTROL_ACTION>>;
 namespace Components {
     class Controllable : public IComponent {
     public:
-        Controllable(keymap map) : _keymap(map), isKeyPressed(false) {};
+        Controllable(keymap map) : _keymap(map), isKeyPressed(false), _lastAction(NONE) {};
         ~Controllable() override = default;
         void summarize() const override {
             std::cout << "Controllable | Model : " << std::endl;
         };
         typeComponent getType() const override { return CONTROLLABLE; };
-
     public:
         keymap _keymap;
         bool isKeyPressed;
+        CONTROL_ACTION _lastAction;
     };
 }
 
