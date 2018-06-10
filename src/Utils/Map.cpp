@@ -144,12 +144,16 @@ void loadPlayerModel(World &world, std::string model, std::string png, float pos
 	entity.addComponent<Components::PlayerCollision>();
     entity.addComponent<Components::Velocity>(0.f);
     entity.addComponent<Components::BombManager>();
-    entity.addComponent<Components::Controllable>(keymaps[player]);
 
-	if (!isIa)
+	if (!isIa) {
+		entity.addComponent<Components::Controllable>(keymaps[player]);
 		player++;
-	else
+	}
+	else {
+		keymap empty;
+		entity.addComponent<Components::Controllable>(empty);
 		entity.addComponent<Components::AIComponent>();
+	}
 }
 
 void loadLandscapeModel(World &world, std::string model, std::string png, float posx, float posy, bool destroyable)
