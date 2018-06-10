@@ -7,13 +7,71 @@
 #include "Components.hpp"
 #include "AISystem.hpp"
 
-std::vector<std::vector<unsigned char>> getMap(World *ref) {
+void printMap(std::vector<std::vector<unsigned char>> map) {
+    std::cout << std::endl;
+    for (auto y : map) {
+        for (auto x : y) {
+            std::cout << x;
+        }
+        std::cout << std::endl;
+    }
+}
+
+static bool isInRange(float x, float y, float x2, float y2) {
+    std::cout << x << "," << y << " " << x2 << "," << y2 << std::endl;
+    if (x == x2 && y == y2) {
+        return true;
+    } else if (x == x2) {
+        if (fabs(y2 - y) <= 2.0f)
+            return true;
+    } else if (y == y2) {
+        if (fabs(x2 - x) <= 2.0f)
+            return true;
+    } else {
+        return false;
+    }
+}
+
+bool dangerous(World *ref, float x, float y) {
+    auto bombs = ref->getComponentManager().getEntityByComponents({TIMER});
+    for (const auto &bomb : bombs) {
+        auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(bomb, PHYSICALBODY);
+        if (isInRange(physical->x, physical->y, x, y)) {
+            std::cout << "Dangerous" << std::endl;
+            return true;
+        }
+    }
+    return false;
+}
+
+std::vector<std::vector<unsigned char>> Systems::AISystem::getMap(World *ref) {
+    for (int x = 0; x < _map.size(); x++) {
+        for (int y = 0; y < _map[0].size(); y++) {
+            _map[x][y] = '0';
+        }
+    }
     auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY});
     for (const auto &entity : entities) {
         auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(entity, PHYSICALBODY);
-        auto x = (int)physical->x;
-        auto y = (int)physical->x;
+        auto div = (physical->x) / 2.0f;
+        auto round = (int) (truncf(div));
+        float new_x;
+        new_x = (float) round * 2.0f + (physical->x < 0.f ? -1.0f : 1.0f);
+        div = (physical->y) / 2.0f;
+        round = (int) (truncf(div));
+        float new_y;
+        new_y = (float) round * 2.0f + (physical->y < 0.f ? -1.0f : 1.0f);
+        if ((_map[16 - (new_y / 2 + 8)][new_x / 2 + 8] == '0') || (_map[16 - (new_y / 2 + 8)][new_x / 2 + 8] == '3')) {
+            if (ref->getComponentManager().getComponent<Components::WallCollision>(entity, WALLCOLLISION) != nullptr) {
+                _map[16 - (new_y / 2 + 8)][new_x / 2 + 8] = physical->_destroyable ? '1' : '4';
+            } else if (ref->getComponentManager().getComponent<Components::Timer>(entity, TIMER) != nullptr) {
+                _map[16 - (new_y / 2 + 8)][new_x / 2 + 8] = '2';
+            } else if (ref->getComponentManager().getComponent<Components::PlayerCollision>(entity, PLAYERCOLLISION) != nullptr) {
+                _map[16 - (new_y / 2 + 8)][new_x / 2 + 8] = '3';
+            }
+        }
     }
+    return _map;
 }
 
 void Systems::AISystem::execute(World *ref)
@@ -40,4 +98,5 @@ void Systems::AISystem::execute(World *ref)
             pos.Y -= 0.5f;
             graphical->node->setPosition(pos);
         }
+        auto map = getMap(ref);
 }

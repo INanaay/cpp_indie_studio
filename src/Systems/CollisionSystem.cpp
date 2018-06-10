@@ -32,7 +32,7 @@ void Systems::CollisionSystem::execute(World *ref)
 		}
 
 		auto playerEntities = ref->getComponentManager().getEntityByComponents({PLAYERCOLLISION});
-		irr::core::vector3df hitbox(0.5, 0.5, 0.5);
+		irr::core::vector3df hitbox(0.6, 0.6, 0.5);
 
 		for (const auto &entityID : playerEntities)
 		{

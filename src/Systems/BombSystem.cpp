@@ -31,27 +31,32 @@ void putNewBombs(World *ref) {
         auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
         if (bombManager->putBomb) {
             auto player = ref->getComponentManager().getComponent<Components::GraphicalBody>(p, GRAPHICALBODY)->node->getPosition();
-            auto bomb = ref->createEntity();
-            ref->addEntity(bomb);
-            bomb.addComponent<Components::Timer>();
-            bomb.addComponent<Components::GraphicalBody>("../ressources/models/tnt.obj",
-                                                         "../ressources/models/terrain.png");
             auto div = (player.X) / 2.0f;
             auto round = (int)(truncf(div));
             float new_x;
-            if (player.X < 0.f)
-                new_x = (float)round * 2.0f - 1.0f;
-            else
-                new_x = (float)round * 2.0f + 1.0f;
+            new_x = (float)round * 2.0f + (player.X < 0.f ? -1.0f : 1.0f);
             div = (player.Y) / 2.0f;
             round = (int)(truncf(div));
             float new_y;
-            if (player.Y < 0.f)
-                new_y = (float)round * 2.0f - 1.0f;
-            else
-                new_y = (float)round * 2.0f + 1.0f;
-
-            bomb.addComponent<Components::PhysicalBody>(new_x, new_y, 0.0f, false);
+            new_y = (float)round * 2.0f + (player.Y < 0.f ? -1.0f : 1.0f);
+            auto blocks = ref->getComponentManager().getEntityByComponents({WALLCOLLISION});
+            bool canPut = true;
+            for (const auto &block : blocks) {
+                auto node = ref->getComponentManager().getComponent<Components::GraphicalBody>(block, GRAPHICALBODY)->node;
+                auto pos = node->getPosition();
+                if (node->isVisible() && pos.X == new_x && pos.Y == new_y) {
+                    canPut = false;
+                    break;
+                }
+            }
+            if (canPut) {
+                auto bomb = ref->createEntity();
+                ref->addEntity(bomb);
+                bomb.addComponent<Components::Timer>();
+                bomb.addComponent<Components::GraphicalBody>("../ressources/models/tnt.obj",
+                                                             "../ressources/models/terrain.png");
+                bomb.addComponent<Components::PhysicalBody>(new_x, new_y, 0.0f, false);
+            }
         }
 
     }

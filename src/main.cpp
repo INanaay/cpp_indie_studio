@@ -48,7 +48,7 @@ int main()
 #endif
 
 	try {
-        GraphicalEngine engine(1920, 1080);
+        GraphicalEngine engine(960, 540);
 		World world;
 		Map map;
 		ControllableEventHandler handler;
@@ -62,7 +62,7 @@ int main()
         world.addSystem<Systems::CollisionSystem>(&engine);
         world.addSystem<Systems::BombSystem>(&engine);
         world.addSystem<Systems::LoaderSystem>(&engine);
-        world.addSystem<Systems::AISystem>(&engine);
+        world.addSystem<Systems::AISystem>(&engine, map.getMap());
         engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 0, -30), irr::core::vector3df(0, 0, 0));
 
         while (engine.isRunning()) {

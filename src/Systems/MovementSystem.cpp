@@ -83,5 +83,4 @@ void Systems::MovementSystem::execute(World *ref)
 
             }
 		}
-		std::cout << "tamer" << std::endl;
 }
