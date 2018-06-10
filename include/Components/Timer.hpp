@@ -16,7 +16,7 @@
 namespace Components {
     class Timer : public IComponent {
     public:
-        Timer() : _start(std::chrono::system_clock::now()) {};
+        Timer() : _start(std::chrono::high_resolution_clock::now()) {};
         ~Timer() override = default;
         void summarize() const override {
             std::cout << "Timer " << std::endl;

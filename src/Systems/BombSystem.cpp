@@ -121,7 +121,7 @@ void Systems::BombSystem::execute(World *ref) {
         auto bombGraphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(bomb, GRAPHICALBODY);
         auto timer = ref->getComponentManager().getComponent<Components::Timer>(bomb, TIMER);
         auto bombPhysical = ref->getComponentManager().getComponent<Components::PhysicalBody>(bomb, PHYSICALBODY);
-        auto c_time = std::chrono::system_clock::now();
+        auto c_time = std::chrono::high_resolution_clock::now();
         if ((c_time - timer->_start).count() >= (3.f * 1000000000.f) &&
             (c_time - timer->_start).count() < (3.5f * 1000000000.f)) {
             explodeBomb(ref, bomb, bombGraphical, bombPhysical, timer);
