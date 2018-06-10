@@ -14,24 +14,16 @@
 #include "World.hpp"
 #include "Components.hpp"
 #include "MovementSystem.hpp"
+#include "Entity.hpp"
 
 std::mutex positionComponentMutex;
 
 void Systems::MovementSystem::execute(World *ref)
 {
 		static irr::u32 then = _engine->getDevice()->getTimer()->getTime();
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-		bool isKeyPressed = false;
-=======
 		static bool isKeyPressed = false;
->>>>>>> master
 		auto entities = ref->getComponentManager().getEntityByComponents(
 			{PHYSICALBODY, VELOCITY, GRAPHICALBODY, CONTROLLABLE});
-=======
-		auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, VELOCITY, GRAPHICALBODY});
->>>>>>> Stashed changes
-
 		const irr::u32 now = _engine->getDevice()->getTimer()->getTime();
 		const irr::f32 frameDeltaTime = (irr::f32)(now - then) / 1000.f; // Time in seconds
 		then = now;

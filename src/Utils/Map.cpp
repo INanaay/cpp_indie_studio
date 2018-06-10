@@ -159,11 +159,7 @@ void loadLandscapeModel(World &world, std::string model, std::string png, float 
 	auto entity = world.createEntity();
 	world.addEntity(entity);
 	entity.addComponent<Components::GraphicalBody>(std::string(model), std::string(png));
-<<<<<<< HEAD
-	entity.addComponent<Components::PhysicalBody>(posx, posy, 0);
-=======
 	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f, destroyable);
->>>>>>> master
 	entity.addComponent<Components::WallCollision>();
 }
 

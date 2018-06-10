@@ -57,21 +57,7 @@ int main()
 		auto ctx = startMenu(engine);
 		engine.setHandler(&handler);
 		map.load3DMap(world, ctx.nbPlayers);
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-		world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
-		world.addSystem<Systems::MovementSystem>(&engine, handler.getKeyDownArray());
-		world.addSystem<Systems::CollisionSystem>(&engine);
-		world.addSystem<Systems::LoaderSystem>(&engine);
-		engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, -20, -40), irr::core::vector3df(0, 0, 0));
-=======
-        engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, -25, -45), irr::core::vector3df(0, 0, 0));
-        world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
-		world.addSystem<Systems::MovementSystem>(&engine);
-		world.addSystem<Systems::CollisionSystem>(&engine);
-		world.addSystem<Systems::LoaderSystem>(&engine);
->>>>>>> Stashed changes
-=======
+
         world.addSystem<Systems::BombSystem>(&engine);
         world.addSystem<Systems::ControllableSystem>(&engine, handler.getKeyDownArray());
         world.addSystem<Systems::MovementSystem>(&engine, handler.getKeyDownArray());
@@ -79,7 +65,6 @@ int main()
         world.addSystem<Systems::LoaderSystem>(&engine);
         world.addSystem<Systems::AISystem>(&engine, map.getMap());
         engine.getScene()->addCameraSceneNode(0, irr::core::vector3df(0, 0, -30), irr::core::vector3df(0, 0, 0));
->>>>>>> master
 
         while (engine.isRunning()) {
 		    engine.getDriver()->beginScene();

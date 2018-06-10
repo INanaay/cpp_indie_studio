@@ -71,11 +71,7 @@ std::vector<std::vector<unsigned char>> Systems::AISystem::getMap(World *ref) {
             }
         }
     }
-<<<<<<< Updated upstream
     return _map;
-=======
-    return {};
->>>>>>> Stashed changes
 }
 
 void Systems::AISystem::execute(World *ref)

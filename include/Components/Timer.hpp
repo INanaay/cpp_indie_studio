@@ -22,7 +22,7 @@ namespace Components {
             std::cout << "Timer " << std::endl;
         };
         typeComponent getType() const override { return TIMER; };
-        std::chrono::time_point<std::chrono::system_clock> _start;
+        std::chrono::time_point<std::chrono::high_resolution_clock> _start;
     };
 }
 
