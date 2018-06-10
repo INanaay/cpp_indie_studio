@@ -46,17 +46,17 @@ void Systems::BombSystem::putPickup(Components::GraphicalBody *wall, World *ref)
 		switch (randType) {
 			case 1 :
 				bomb.addComponent<Components::Pickup>(SPEEDPICKUP);
-				bomb.addComponent<Components::GraphicalBody>("../ressources/models/mushroom.obj",
+				bomb.addComponent<Components::GraphicalBody>("../ressources/models/pickup0.obj",
 									     "../ressources/models/terrain.png");
 				break;
 			case 2:
 				bomb.addComponent<Components::Pickup>(RADIUSPICKUP);
-				bomb.addComponent<Components::GraphicalBody>("../ressources/models/mushroom.obj",
+				bomb.addComponent<Components::GraphicalBody>("../ressources/models/pickup1.obj",
 									     "../ressources/models/terrain.png");
 				break;
 			case 3:
 				bomb.addComponent<Components::Pickup>(BOMBPICKUP);
-				bomb.addComponent<Components::GraphicalBody>("../ressources/models/mushroom.obj",
+				bomb.addComponent<Components::GraphicalBody>("../ressources/models/pickup2.obj",
 									     "../ressources/models/terrain.png");
 				break;
 			default : break;
