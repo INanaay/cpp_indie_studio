@@ -11,7 +11,7 @@
 
 void Systems::LoaderSystem::execute(World *ref)
 {
-    int size  = ref->getEntityManager().getEntities().size();
+    int size = ref->getEntityManager().getEntities().size();
     if (size != _lastSize) {
         _lastSize = size;
         auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, GRAPHICALBODY});

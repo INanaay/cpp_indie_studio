@@ -16,6 +16,7 @@ const keymap preset1 = {
 	std::make_pair(irr::EKEY_CODE::KEY_RIGHT, MOVERIGHT),
 	std::make_pair(irr::EKEY_CODE::KEY_UP, MOVEUP),
 	std::make_pair(irr::EKEY_CODE::KEY_DOWN, MOVEDOWN),
+	std::make_pair(irr::EKEY_CODE::KEY_SPACE, DROP),
 };
 
 const keymap preset2 = {
@@ -23,6 +24,7 @@ const keymap preset2 = {
 	std::make_pair(irr::EKEY_CODE::KEY_KEY_D, MOVERIGHT),
 	std::make_pair(irr::EKEY_CODE::KEY_KEY_Z, MOVEUP),
 	std::make_pair(irr::EKEY_CODE::KEY_KEY_S, MOVEDOWN),
+	std::make_pair(irr::EKEY_CODE::KEY_TAB, DROP),
 };
 
 const std::vector<keymap> keymaps = {preset1, preset2};
@@ -120,9 +122,9 @@ void Map::cleanCornersAddPlayers() noexcept
 	_map[1][1 + 1] = '0';
 	_map[1 + 1][1] = '0';
 	_map[1][PLAYABLE - 1] = '0';
-	_map[1][PLAYABLE] = '0';
+	_map[1 + 1][PLAYABLE] = '0';
 	_map[PLAYABLE - 1][1] = '0';
-	_map[PLAYABLE][1] = '0';
+	_map[PLAYABLE][1 + 1] = '0';
 	_map[PLAYABLE][PLAYABLE - 1] = '0';
 	_map[PLAYABLE - 1][PLAYABLE] = '0';
 
@@ -138,9 +140,11 @@ void loadPlayerModel(World &world, std::string model, std::string png, float pos
 	auto entity = world.createEntity();
 	world.addEntity(entity);
 	entity.addComponent<Components::GraphicalBody>(std::string(model), std::string(png));
-	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f);
+	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f, false);
 	entity.addComponent<Components::PlayerCollision>();
-	entity.addComponent<Components::Velocity>(0.f);
+    entity.addComponent<Components::Velocity>(0.f);
+    entity.addComponent<Components::BombManager>();
+    //entity.addComponent<Components::Bomb>("../ressources/models/bomb.obj", "../ressources/models/bomb.mtl", entity.id, 3.0);
 
 	if (!isIa) {
 		entity.addComponent<Components::Controllable>(keymaps[player]);
@@ -150,20 +154,24 @@ void loadPlayerModel(World &world, std::string model, std::string png, float pos
 		entity.addComponent<Components::AIComponent>();
 }
 
-void loadLandscapeModel(World &world, std::string model, std::string png, float posx, float posy)
+void loadLandscapeModel(World &world, std::string model, std::string png, float posx, float posy, bool destroyable)
 {
 	auto entity = world.createEntity();
 	world.addEntity(entity);
 	entity.addComponent<Components::GraphicalBody>(std::string(model), std::string(png));
+<<<<<<< HEAD
 	entity.addComponent<Components::PhysicalBody>(posx, posy, 0);
+=======
+	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f, destroyable);
+>>>>>>> master
 	entity.addComponent<Components::WallCollision>();
 }
 
 void Map::load3DMap(World &world, int nbPlayer)
 {
-	float ycursor = -10.0f;
+	float ycursor = -15.0f;
 	for (auto y : _map) {
-		float xcursor = -10.0f;
+		float xcursor = -15.0f;
 		for (auto x : y) {
 		if (x >= 'a' &&  x <= 'd') {
 			if (x == 'a' || (x == 'c' && nbPlayer > 1))
@@ -172,12 +180,12 @@ void Map::load3DMap(World &world, int nbPlayer)
 				loadPlayerModel(world, "../ressources/models/rere.b3d", "../ressources/models/re.png", xcursor, ycursor, true);
 		}
 			if (x == '2')
-				loadLandscapeModel(world, "../ressources/models/wall.obj", "../ressources/models/terrain.png", xcursor, ycursor);
+				loadLandscapeModel(world, "../ressources/models/iron.obj", "../ressources/models/terrain.png", xcursor, ycursor, false);
 			if (x == '1')
-				loadLandscapeModel(world, "../ressources/models/wood.obj", "../ressources/models/wood.png", xcursor, ycursor);
-			xcursor += 1.602f;
+				loadLandscapeModel(world, "../ressources/models/glass.obj", "../ressources/models/terrain.png", xcursor, ycursor, true);
+			xcursor += 2.f;
 		}
-		ycursor += 1.602f;
+		ycursor += 2.f;
 	}
 }
 

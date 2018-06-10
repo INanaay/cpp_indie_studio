@@ -25,3 +25,11 @@ void EntityManager::foreachEntity(std::function<void(uint32_t)> fun) const
         fun(e);
     }
 }
+
+void EntityManager::deleteEntity(uint32_t id)
+{
+    auto it = std::find(_added.begin(), _added.end(), id);
+    if (it != _added.end())
+        _added.erase(it);
+
+}

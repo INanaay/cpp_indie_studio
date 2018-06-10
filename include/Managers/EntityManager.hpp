@@ -18,6 +18,7 @@ public:
     const Entities &getEntities() const {return _added;};
     uint32_t getNextInstance();
     void foreachEntity(std::function<void(uint32_t)> fun) const;
+    void deleteEntity(uint32_t id);
 private:
     Entities _added;
     uint32_t _entityCount = 0;

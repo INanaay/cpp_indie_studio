@@ -12,5 +12,7 @@
 #include "Controllable.hpp"
 #include "WallCollision.hpp"
 #include "PlayerCollision.hpp"
+#include "BombManager.hpp"
+#include "Timer.hpp"
 
 #endif //INDIESTUDIO_COMPONENTS_HPP

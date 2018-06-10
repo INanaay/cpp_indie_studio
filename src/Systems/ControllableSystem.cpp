@@ -7,10 +7,10 @@
 #include <ITexture.h>
 #include "Components.hpp"
 #include "ControllableSystem.hpp"
-#include "Bomb.hpp"
+#include "BombManager.hpp"
 #include "Entity.hpp"
 
-void Systems::ControllableSystem::enableAction(World *ref, CONTROL_ACTION action, Components::PhysicalBody *physical, Components::Velocity *velocity, uint32_t id)
+void Systems::ControllableSystem::enableAction(World *ref, CONTROL_ACTION action, Components::PhysicalBody *physical, Components::Velocity *velocity, Components::BombManager *bombManager, uint32_t id)
 {
     switch (action) {
         case MOVEUP:
@@ -38,17 +38,13 @@ void Systems::ControllableSystem::enableAction(World *ref, CONTROL_ACTION action
             _lastAction = MOVELEFT;
             break;
         case DROP:
-            if (physical->dropBomb()) {
-                std::cout << "bomb away" << std::endl;
-                auto entity = ref->createEntity();
-                ref->addEntity(entity);
-                entity.addComponent<Components::Bomb>("../ressources/models/cobblestone.obj", "../ressources/models/cobblestone.png", id, 3.0);
-            }
+            bombManager->putBomb = true;
+            _lastAction = DROP;
             break;
     }
 }
 
-void Systems::ControllableSystem::disableAction(CONTROL_ACTION action, Components::PhysicalBody *physical, Components::Velocity *velocity)
+void Systems::ControllableSystem::disableAction(CONTROL_ACTION action, Components::PhysicalBody *physical, Components::Velocity *velocity, Components::BombManager *bombManager)
 {
     if (action == _lastAction && action == MOVEUP)
         velocity->value = 0.f;
@@ -58,23 +54,26 @@ void Systems::ControllableSystem::disableAction(CONTROL_ACTION action, Component
         velocity->value = 0.f;
     if (action == _lastAction && action == MOVELEFT)
         velocity->value = 0.f;
+    if (action == _lastAction && action == DROP)
+        bombManager->putBomb = false;
 }
 
 void Systems::ControllableSystem::execute(World *ref)
 {
-        auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, CONTROLLABLE, VELOCITY});
+    auto entities = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, CONTROLLABLE, VELOCITY, BOMBMANAGER});
 
         for (const auto &entityID : entities) {
             auto physical = ref->getComponentManager().getComponent<Components::PhysicalBody>(entityID, PHYSICALBODY);
             auto velocity = ref->getComponentManager().getComponent<Components::Velocity>(entityID, VELOCITY);
             auto controllable = ref->getComponentManager().getComponent<Components::Controllable>(entityID, CONTROLLABLE);
+            auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(entityID, BOMBMANAGER);
 
             for (const auto &key : controllable->_keymap) {
                 if (_keyDown[key.first]) {
-                    enableAction(ref, key.second, physical, velocity, entityID);
+                    enableAction(ref, key.second, physical, velocity, bombManager, entityID);
                 }
                 if (!_keyDown[key.first])
-                    disableAction(key.second, physical, velocity);
+                    disableAction(key.second, physical, velocity, bombManager);
             }
         }
 }
