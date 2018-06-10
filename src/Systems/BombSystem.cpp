@@ -31,11 +31,11 @@ void putNewBombs(World *ref) {
         auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
         if (bombManager->putBomb) {
             auto player = ref->getComponentManager().getComponent<Components::GraphicalBody>(p, GRAPHICALBODY)->node->getPosition();
-            auto div = (player.X) / 2.0f;
+            auto div = player.X / 2.0f;
             auto round = (int)(truncf(div));
             float new_x;
             new_x = (float)round * 2.0f + (player.X < 0.f ? -1.0f : 1.0f);
-            div = (player.Y) / 2.0f;
+            div = player.Y / 2.0f;
             round = (int)(truncf(div));
             float new_y;
             new_y = (float)round * 2.0f + (player.Y < 0.f ? -1.0f : 1.0f);
