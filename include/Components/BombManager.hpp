@@ -15,13 +15,15 @@
 namespace Components {
     class BombManager : public IComponent {
     public:
-        BombManager() : putBomb(false) {};
+        BombManager() : putBomb(false), availables(1) {};
         ~BombManager() override = default;
         void summarize() const override {
             std::cout << "BombSystem " << std::endl;
         };
         typeComponent getType() const override { return BOMBMANAGER; };
         bool putBomb;
+        std::vector<uint32_t> bombs;
+        int availables;
     };
 }
 

@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <algorithm>
 #include "Entity.hpp"
 #include "World.hpp"
 #include "Components.hpp"
@@ -10,6 +11,8 @@
 #include "PhysicalBody.hpp"
 #include <cmath>
 #include <Pickup.hpp>
+
+#define CONVERT_TIME 1000000000
 
 bool isInRange(float x, float y, float x2, float y2)
 {
@@ -65,11 +68,32 @@ void Systems::BombSystem::putPickup(Components::GraphicalBody *wall, World *ref)
 
 }
 
-void putNewBombs(World *ref) {
+void Systems::BombSystem::updateBombs(World *ref) {
+    auto c_time = std::chrono::high_resolution_clock::now();
     auto players = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, BOMBMANAGER});
     for (auto const &p : players) {
         auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
-        if (bombManager->putBomb) {
+        auto &bombs = bombManager->bombs;
+        for (const auto &bomb : bombs) {
+            auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(bomb, GRAPHICALBODY);
+            auto timer = ref->getComponentManager().getComponent<Components::Timer>(bomb, TIMER);
+            if (((c_time - timer->_start).count() >= (3.2f * CONVERT_TIME)) &&
+                    ((c_time - timer->_start).count() <= (3.5f * CONVERT_TIME))) {
+                auto it = std::find(bombs.begin(), bombs.end(), bomb);
+                if (it != bombs.end()) {
+                    bombs.erase(it);
+                }
+            }
+        }
+    }
+}
+
+void putNewBombs(World *ref) {
+    auto players = ref->getComponentManager().getEntityByComponents({PHYSICALBODY, BOMBMANAGER});
+    std::cout << std::endl;
+    for (auto const &p : players) {
+        auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
+        if (bombManager->putBomb && (bombManager->bombs.size() < bombManager->availables)) {
             auto player = ref->getComponentManager().getComponent<Components::GraphicalBody>(p, GRAPHICALBODY)->node->getPosition();
             auto div = player.X / 2.0f;
             auto round = (int)(truncf(div));
@@ -91,6 +115,7 @@ void putNewBombs(World *ref) {
             }
             if (canPut) {
                 auto bomb = ref->createEntity();
+                bombManager->bombs.push_back(bomb.id);
                 ref->addEntity(bomb);
                 bomb.addComponent<Components::Timer>();
                 bomb.addComponent<Components::GraphicalBody>("../ressources/models/tnt.obj",
@@ -175,8 +200,6 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
 
 }
 
-#define CONVERT_TIME 1000000000
-
 void Systems::BombSystem::execute(World *ref) {
     auto bombs = ref->getComponentManager().getEntityByComponents({TIMER, PHYSICALBODY});
     for (auto const &bomb : bombs) {
@@ -187,14 +210,15 @@ void Systems::BombSystem::execute(World *ref) {
         auto c_time = std::chrono::high_resolution_clock::now();
 
         if ((c_time - timer->_start).count() >= (3.f * CONVERT_TIME) &&
-            (c_time - timer->_start).count() < (3.5f * CONVERT_TIME)) {
+            (c_time - timer->_start).count() < (3.2f * CONVERT_TIME)) {
             explodeBomb(ref, bomb, bombGraphical, bombPhysical, timer);
         }
-        if (((c_time - timer->_start).count() >= (3.5f * CONVERT_TIME)) &&
-            (c_time - timer->_start).count() <= (4.5f * CONVERT_TIME)) {
+        if (((c_time - timer->_start).count() >= (3.2f * CONVERT_TIME)) &&
+            (c_time - timer->_start).count() <= (3.5f * CONVERT_TIME)) {
             if (bombGraphical->node->isVisible())
                 bombGraphical->node->setVisible(false);
         }
     }
+    updateBombs(ref);
     putNewBombs(ref);
 }

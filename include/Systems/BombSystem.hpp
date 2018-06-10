@@ -21,9 +21,10 @@ namespace Systems {
 		void execute(World *ref) override;
         void explodeBomb(World *ref, const uint32_t &bomb, Components::GraphicalBody *&bombGraphical,
         Components::PhysicalBody *&bombPhysical, Components::Timer *&timer);
-            private:
+	private:
 		GraphicalEngine *_engine;
 		void putPickup(Components::GraphicalBody *wall, World *ref);
+		void updateBombs(World *ref);
 	};
 }
 

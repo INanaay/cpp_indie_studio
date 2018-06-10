@@ -82,6 +82,7 @@ void Systems::ControllableSystem::execute(World *ref)
         auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(ai, BOMBMANAGER);
         auto aiComponent = ref->getComponentManager().getComponent<Components::AIComponent>(ai, AI);
         auto controllable = ref->getComponentManager().getComponent<Components::Controllable>(ai, CONTROLLABLE);
+        bombManager->putBomb = false;
         enableAction(ref, aiComponent->action, physical, velocity, bombManager, controllable, ai);
     }
 }

@@ -32,11 +32,13 @@ void Systems::PickupSystem::execute(World *ref)
 				switch (pickupCmpt->pickupType)
 				{
 					case SPEEDPICKUP :
-
+						break;
 					case RADIUSPICKUP:
-						break;;
+						break;
 					case BOMBPICKUP:
-						break;;
+						auto bombManager = ref->getComponentManager().getComponent<Components::BombManager>(player, BOMBMANAGER);
+						bombManager->availables++;
+						break;
 				}
 
 
