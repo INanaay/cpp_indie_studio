@@ -21,24 +21,17 @@ namespace Components {
 			RIGHT = 90
 		};
 	public:
-		PhysicalBody(float xs, float ys, float zs) : x(xs), y(ys), z(zs), direction(DOWN) {};
+		PhysicalBody(float xs, float ys, float zs, bool destroyable) : x(xs), y(ys), z(zs), direction(DOWN), _destroyable(destroyable) {};
 		~PhysicalBody() override = default;
 		void summarize() const override
 			{ std::cout << "PhysicalBody | X : " << x << " | Y : " << y << " | Z : " << z << " | Direction : " << direction << std::endl; };
 		typeComponent getType() const override { return PHYSICALBODY; };
-		bool dropBomb() {
-			if (!has_dropped) {
-				has_dropped = true;
-				return (true);
-			}
-			return (false);
-		}
 	public:
 		float x;
 		float y;
 		float z;
 		Direction direction;
-		bool has_dropped = false;
+		bool _destroyable = false;
 	};
 }
 

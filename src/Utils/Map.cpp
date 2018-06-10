@@ -141,7 +141,7 @@ void loadPlayerModel(World &world, std::string model, std::string png, float pos
 	auto entity = world.createEntity();
 	world.addEntity(entity);
 	entity.addComponent<Components::GraphicalBody>(std::string(model), std::string(png));
-	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f);
+	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f, false);
 	entity.addComponent<Components::PlayerCollision>();
     entity.addComponent<Components::Velocity>(0.f);
     entity.addComponent<Components::BombManager>();
@@ -155,12 +155,12 @@ void loadPlayerModel(World &world, std::string model, std::string png, float pos
 		entity.addComponent<Components::AIComponent>();
 }
 
-void loadLandscapeModel(World &world, std::string model, std::string png, float posx, float posy)
+void loadLandscapeModel(World &world, std::string model, std::string png, float posx, float posy, bool destroyable)
 {
 	auto entity = world.createEntity();
 	world.addEntity(entity);
 	entity.addComponent<Components::GraphicalBody>(std::string(model), std::string(png));
-	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f);
+	entity.addComponent<Components::PhysicalBody>(posx, posy, 0.0f, destroyable);
 	entity.addComponent<Components::WallCollision>();
 }
 
@@ -177,9 +177,9 @@ void Map::load3DMap(World &world, int nbPlayer)
 				loadPlayerModel(world, "../ressources/models/rere.b3d", "../ressources/models/re.png", xcursor, ycursor, true);
 		}
 			if (x == '2')
-				loadLandscapeModel(world, "../ressources/models/iron.obj", "../ressources/models/terrain.png", xcursor, ycursor);
+				loadLandscapeModel(world, "../ressources/models/iron.obj", "../ressources/models/terrain.png", xcursor, ycursor, false);
 			if (x == '1')
-				loadLandscapeModel(world, "../ressources/models/glass.obj", "../ressources/models/terrain.png", xcursor, ycursor);
+				loadLandscapeModel(world, "../ressources/models/glass.obj", "../ressources/models/terrain.png", xcursor, ycursor, true);
 			xcursor += 2.f;
 		}
 		ycursor += 2.f;

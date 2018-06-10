@@ -14,7 +14,7 @@ extern std::mutex positionComponentMutex;
 
 void Systems::CollisionSystem::execute(World *ref)
 {
-    std::cout << "coll check" << std::endl;
+        std::cout << "coll check" << std::endl;
 		auto wallEntities = ref->getComponentManager().getEntityByComponents({WALLCOLLISION});
 
 		for (const auto &entityID : wallEntities)

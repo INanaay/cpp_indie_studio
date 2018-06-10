@@ -25,9 +25,7 @@ void Systems::AISystem::execute(World *ref)
                     right_free = false;
                 }
             }
-            if (top_free)
-                physical->y += 0.001f;
-            if (right_free)
-                physical->x += 0.001f;
+            physical->y += 0.1f;
+            physical->x += 0.1f;
         }
 }
