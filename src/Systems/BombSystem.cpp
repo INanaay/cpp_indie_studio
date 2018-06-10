@@ -31,15 +31,14 @@ bool isInRange(float x, float y, float x2, float y2)
 void Systems::BombSystem::putPickup(Components::GraphicalBody *wall, World *ref)
 {
 	int randNum = rand()%(4 -1 + 1) + 1;
-	std::cout << "Rand = " << randNum << std::endl;
 
+	std::cout << "Rand = " << randNum << std::endl;
 	if (randNum == 2)
 	{
 		int randType = rand()%(3 -1 + 1) + 1;
 
+		std::cout << "Adding pickup\n";
 		auto pos = wall->node->getPosition();
-		std::cout << "PUT PICKUP\n";
-		std::cout << "Type of pickup  = " << randType << std::endl;
 		auto bomb = ref->createEntity();
 		ref->addEntity(bomb);
 

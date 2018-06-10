@@ -19,6 +19,7 @@ namespace Systems {
 
 	private:
 		GraphicalEngine *_engine;
+		void addSpeed(Components::PhysicalBody *physicalBody);
 	};
 }
 
