@@ -18,7 +18,6 @@ void printMap(std::vector<std::vector<unsigned char>> map) {
 }
 
 static bool isInRange(float x, float y, float x2, float y2) {
-    std::cout << x << "," << y << " " << x2 << "," << y2 << std::endl;
     if (x == x2 && y == y2) {
         return true;
     } else if (x == x2) {
