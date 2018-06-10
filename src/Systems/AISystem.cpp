@@ -153,27 +153,26 @@ void Systems::AISystem::execute(World *ref)
                     auto phys = ref->getComponentManager().getComponent<Components::PhysicalBody>(block, PHYSICALBODY);
                     if (phys->_destroyable) {
                         stable = true;
-                        if (myRand(1, 100) <= 5) {
-                            aiComponent->action = DROP;
-                        }
+                        aiComponent->action = DROP;
                     }
                 }
             }
+            auto bombManager= ref->getComponentManager().getComponent<Components::BombManager>(p, BOMBMANAGER);
             if (!stable) {
-                if ((getBlock(ref, new_x - 2, new_y) == 0) && (goodCell(ref, new_x - 2, new_y))) {
+                if ((getBlock(ref, new_x - 2, new_y) == 0)) {
                     aiComponent->action = MOVELEFT;
-                } else if ((getBlock(ref, new_x + 2, new_y) == 0) && (goodCell(ref, new_x + 2, new_y))){
+                } else if ((getBlock(ref, new_x + 2, new_y) == 0)){
                     aiComponent->action = MOVERIGHT;
-                } else if ((getBlock(ref, new_x, new_y + 2) == 0) && (goodCell(ref, new_x, new_y + 2))){
+                } else if ((getBlock(ref, new_x, new_y + 2) == 0)){
                     aiComponent->action = MOVEUP;
-                } else if ((getBlock(ref, new_x, new_y - 2) == 0) && (goodCell(ref, new_x, new_y - 2))){
+                } else if ((getBlock(ref, new_x, new_y - 2) == 0)){
                     aiComponent->action = MOVEDOWN;
                 } else {
-                    aiComponent->action = NONE;
+                    aiComponent->action = DROP;
                 }
+            } else {
+                aiComponent->action = DROP;
             }
-
-
         }
     }
 }

@@ -75,8 +75,7 @@ void Systems::BombSystem::updateBombs(World *ref) {
         for (const auto &bomb : bombs) {
             auto graphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(bomb, GRAPHICALBODY);
             auto timer = ref->getComponentManager().getComponent<Components::Timer>(bomb, TIMER);
-            if (((c_time - timer->_start).count() >= (3.2f * CONVERT_TIME)) &&
-                    ((c_time - timer->_start).count() <= (3.5f * CONVERT_TIME))) {
+            if (((c_time - timer->_start).count() >= (3.2f * CONVERT_TIME))) {
                 auto it = std::find(bombs.begin(), bombs.end(), bomb);
                 if (it != bombs.end()) {
                     bombs.erase(it);
