@@ -202,15 +202,19 @@ void Map::addFlowers(World &world) noexcept
 
 void Map::load3DMap(World &world, int nbPlayer)
 {
+	char model = 48;
 	float ycursor = -15.0f;
 	for (auto y : _map) {
 		float xcursor = -15.0f;
 		for (auto x : y) {
 		if (x >= 'a' &&  x <= 'd') {
+			std::stringstream png;
+			png << "../ressources/models/re" << model <<  ".png";
 			if (x == 'a' || (x == 'c' && nbPlayer > 1))
-				loadPlayerModel(world, "../ressources/models/rere.b3d", "../ressources/models/re.png", xcursor, ycursor, false);
+				loadPlayerModel(world, "../ressources/models/rere.b3d", png.str(), xcursor, ycursor, false);
 			else
-				loadPlayerModel(world, "../ressources/models/rere.b3d", "../ressources/models/re.png", xcursor, ycursor, true);
+				loadPlayerModel(world, "../ressources/models/rere.b3d", png.str(), xcursor, ycursor, true);
+			model++;
 		}
 			if (x == '2')
 				loadLandscapeModel(world, "../ressources/models/iron.obj", "../ressources/models/terrain.png", xcursor, ycursor, false);
