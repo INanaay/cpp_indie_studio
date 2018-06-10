@@ -114,6 +114,14 @@ void Systems::BombSystem::explodeBomb(World *ref, const uint32_t &bomb,
 
 }
 
+#ifndef __linux__
+    #define CONVERT_TIME 10000000
+#endif
+
+#ifdef __linux__
+    #define CONVERT_TIME 1000000000
+#endif
+
 void Systems::BombSystem::execute(World *ref) {
     auto bombs = ref->getComponentManager().getEntityByComponents({TIMER, PHYSICALBODY});
     for (auto const &bomb : bombs) {
@@ -121,13 +129,19 @@ void Systems::BombSystem::execute(World *ref) {
         auto bombGraphical = ref->getComponentManager().getComponent<Components::GraphicalBody>(bomb, GRAPHICALBODY);
         auto timer = ref->getComponentManager().getComponent<Components::Timer>(bomb, TIMER);
         auto bombPhysical = ref->getComponentManager().getComponent<Components::PhysicalBody>(bomb, PHYSICALBODY);
+<<<<<<< Updated upstream
         auto c_time = std::chrono::high_resolution_clock::now();
         if ((c_time - timer->_start).count() >= (3.f * 1000000000.f) &&
             (c_time - timer->_start).count() < (3.5f * 1000000000.f)) {
+=======
+        auto c_time = std::chrono::system_clock::now();
+        if ((c_time - timer->_start).count() >= (3.f * CONVERT_TIME) &&
+            (c_time - timer->_start).count() < (3.5f * CONVERT_TIME)) {
+>>>>>>> Stashed changes
             explodeBomb(ref, bomb, bombGraphical, bombPhysical, timer);
         }
-        if (((c_time - timer->_start).count() >= (3.5f * 1000000000.f)) &&
-            (c_time - timer->_start).count() <= (4.5f * 1000000000.f)) {
+        if (((c_time - timer->_start).count() >= (3.5f * CONVERT_TIME)) &&
+            (c_time - timer->_start).count() <= (4.5f * CONVERT_TIME)) {
             if (bombGraphical->node->isVisible())
                 bombGraphical->node->setVisible(false);
         }
