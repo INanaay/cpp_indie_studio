@@ -16,7 +16,8 @@ enum typeComponent {
     CONTROLLABLE,
 	BOMBMANAGER,
 	TIMER,
-	PICKUP
+	PICKUP,
+	PLAYER
 };
 
 /*!

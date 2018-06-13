@@ -11,6 +11,7 @@
 #include "Map.hpp"
 #include "Components.hpp"
 #include "Entity.hpp"
+#include "Player.hpp"
 
 const keymap preset1 = {
 	std::make_pair(irr::EKEY_CODE::KEY_LEFT, MOVELEFT),
@@ -150,6 +151,7 @@ void loadPlayerModel(World &world, std::string model, std::string png, float pos
 
 	if (!isIa) {
 		entity.addComponent<Components::Controllable>(keymaps[player]);
+		entity.addComponent<Components::Player>();
 		player++;
 	}
 	else {
